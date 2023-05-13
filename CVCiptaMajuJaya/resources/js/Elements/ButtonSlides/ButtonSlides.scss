@@ -1,0 +1,9 @@
+@import "../../../assets/colorVariable";
+
+.button-slide {
+  background-color: $primary;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+}

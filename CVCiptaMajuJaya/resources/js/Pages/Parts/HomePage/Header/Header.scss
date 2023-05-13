@@ -1,0 +1,50 @@
+@import "../../../../../assets/colorVariable";
+
+.header-section {
+  height: 100vh;
+  margin-top: -100px;
+
+  .tagLine-wrapper {
+    color: $white;
+    height: 100%;
+    padding-left: 32%;
+    padding-right: 5%;
+    h5 {
+      font-weight: normal;
+      line-height: 125%;
+    }
+    .button-home {
+      background-color: $primary;
+      padding: 0.6rem 2rem;
+      border-radius: 5px;
+      border: none;
+      font-weight: bold;
+    }
+  }
+  .yearsOfExperiences {
+    padding: 2rem 1.5rem;
+  }
+  .happyCustomers {
+    padding: 2rem 2.5rem 2rem 2rem;
+  }
+
+  .yearsOfExperiences,
+  .happyCustomers {
+    margin-left: 5%;
+    border-radius: 15px;
+    background-color: rgba($color: #404852, $alpha: 0.5);
+    color: $secondary;
+    .angka {
+      font-size: 4rem;
+      font-weight: bold;
+    }
+    .plus {
+      font-size: 2rem;
+    }
+    .description {
+      margin-top: -10px;
+      font-weight: 500;
+      font-size: 1.3rem;
+    }
+  }
+}

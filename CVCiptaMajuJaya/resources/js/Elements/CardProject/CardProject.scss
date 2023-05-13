@@ -1,0 +1,63 @@
+@import "../../../assets/colorVariable";
+
+.our-project-section {
+  color: $black;
+  padding-top: 3%;
+  .title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    align-items: center;
+    padding-left: 6%;
+  }
+
+  .projects {
+    padding-top: 3%;
+
+    .img-project {
+      overflow: hidden;
+      width: 80%;
+      img {
+        height: auto;
+        width: auto;
+        object-fit: cover;
+      }
+    }
+    .card-section {
+      padding-left: 5%;
+      padding-right: 5%;
+      .card {
+        border: none;
+        height: 100%;
+        .card-body {
+          padding: 0;
+          .card-title {
+            font-weight: bold;
+          }
+
+          .card-text {
+            padding-top: 3%;
+            padding-bottom: 3%;
+            height: 70%;
+            font-size: 1.1rem;
+            text-align: justify;
+          }
+
+          .card-footer {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+  .lainnya {
+    background-color: $primary;
+    border: none;
+    font-weight: bold;
+    padding: 0.4rem 6rem;
+    border-radius: 5px;
+  }
+}

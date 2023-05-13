@@ -1,0 +1,17 @@
+@import "../../../assets/colorVariable";
+a.brand-text-icon {
+  text-decoration: none;
+  list-style: none;
+  span.brand-icon {
+    margin-left: 0.875rem;
+    align-items: center;
+    font-weight: 600;
+
+    .text-white{
+      color: $white;
+    }
+    .text-black {
+      color: $black;
+    }
+  }
+}

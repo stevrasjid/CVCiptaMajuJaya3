@@ -1,0 +1,39 @@
+@import "../../../../../assets/colorVariable";
+
+.contact-us-section {
+  color: $black;
+  padding-top: 3%;
+  .title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    align-items: center;
+    padding-left: 6%;
+  }
+}
+
+.button-was {
+  padding: 1% 8% 0 6%;
+  a.button-wa {
+    padding: 1rem 2rem 1rem 3rem;
+    list-style: none;
+    text-decoration: none;
+    background-color: $primary;
+    border-radius: 5px;
+    color: $black;
+    font-weight: 500;
+    span {
+      margin-left: 0.4rem;
+      img {
+        margin-top: 10px;
+        width: 100%;
+        height: 100%;
+        max-width: 4.5rem;
+        max-height: 4.5rem;
+      }
+    }
+  }
+}
+
+.contact-details {
+  padding: 5% 10% 0 10%;
+}

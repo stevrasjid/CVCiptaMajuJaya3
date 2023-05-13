@@ -1,0 +1,47 @@
+@import "../../../assets/colorVariable";
+
+footer {
+  margin-top: 8%;
+  border-top: 1.5px solid black;
+  .footer-content {
+    margin-top: 2rem;
+    .address,
+    .email {
+      margin: 0.8rem 0 1rem;
+    }
+    a.button-wa {
+      padding: 1rem 2rem 1rem 1rem;
+      list-style: none;
+      text-decoration: none;
+      background-color: $primary;
+      border-radius: 5px;
+      color: $black;
+      font-weight: 500;
+      span {
+        margin-left: 0.4rem;
+      }
+    }
+
+    .navigation,
+    .services {
+      .list-group {
+        .list-group-item {
+          &.text-bold {
+            font-weight: bold;
+          }
+          border: none;
+          a {
+            color: $black;
+            text-decoration: none;
+            list-style: none;
+          }
+        }
+      }
+    }
+  }
+  .copyright {
+    height: 50px;
+    align-items: center;
+    font-size: 0.85rem;
+  }
+}

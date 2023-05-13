@@ -1,0 +1,38 @@
+@import "../../../assets/colorVariable";
+
+header {
+  position: sticky;
+  z-index: 999;
+  top: 0;
+  background-color: transparent;
+  .navbar {
+    height: 5rem;
+    z-index: 1;
+    .navbar-nav {
+      margin-left: 40px;
+      .nav-item {
+        &.active {
+          a.nav-link {
+            color: $primary;
+            font-weight: bolder;
+            -webkit-text-stroke: 0.1px $orange;
+          }
+        }
+        a.nav-link {
+          color: $white;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  &.header-scroll {
+    background-color: $white;
+    .navbar {
+      .navbar-nav {
+        a.nav-link {
+          color: $black;
+        }
+      }
+    }
+  }
+}

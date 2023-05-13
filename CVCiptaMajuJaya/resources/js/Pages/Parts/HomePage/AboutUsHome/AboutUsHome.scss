@@ -1,0 +1,52 @@
+@import "../../../../../assets/colorVariable";
+
+.about-us-home-section {
+  padding-top: 2%;
+
+  .image-section {
+    height: 60vh;
+    .image-about-us {
+      height: 80%;
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .card {
+      border: none;
+      height: 98%;
+      .card-body {
+        padding: 0 !important;
+
+        h4 {
+          font-weight: bold;
+          padding-bottom: 2%;
+        }
+        .card-text {
+          font-size: 1.1rem;
+          width: 75%;
+        }
+      }
+      .image {
+        padding-top: 3%;
+        img {
+          height: 80%;
+        }
+      }
+      .card-footer {
+        background-color: $white;
+        border: none;
+        padding: 0;
+        .learn-more-button {
+          background-color: $primary;
+          padding: 2% 2rem;
+          border-radius: 5px;
+          border: none;
+          font-weight: bold;
+          text-decoration: none;
+          color: $black;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@import "../../../../../assets/colorVariable";
+
+.testimonial-section {
+  padding-top: 3%;
+  padding-left: 0;
+  padding-right: 0;
+  .title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    align-items: center;
+    padding-left: 7%;
+    margin-bottom: 0;
+  }
+
+  .testimonials {
+    padding: 3% 8% 0 6%;
+    .testimonial-wrapper {
+      .testimonial {
+        background-color: $secondary;
+        border-radius: 10px;
+        padding: 5rem 2.5rem;
+        .description {
+          padding: 4%;
+          font-size: 1rem;
+        }
+        .client-section {
+          font-size: 1rem;
+          .client-name {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
