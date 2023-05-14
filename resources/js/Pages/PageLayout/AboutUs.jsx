@@ -4,7 +4,7 @@ import { Component } from "react";
 import React from "react";
 import Navbar from "@/Elements/Navbar/Navbar";
 import Footer from "@/Elements/Footer/Footer";
-import AboutUs from "@/Parts/AboutUs/AboutUs";
+import AboutUs from "@/Pages/Parts/AboutUs/AboutUs";
 
 export default class Homepage extends Component {
   constructor(props) {

@@ -1,7 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
-import { PageProps } from "@/types";
 import Button from "@/Elements/Button/Button";
-import ButtonSlides from "@/Elements/ButtonSlides/ButtonSlides";
 import "./AboutUs.scss";
 
 export default function AboutUs(props) {

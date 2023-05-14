@@ -1,11 +1,12 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link, Head } from "@inertiajs/react";
-import "../../assets/style.scss";
+import "../../../assets/style.scss";
+
 import { Component } from "react";
 import React from "react";
 import Navbar from "@/Elements/Navbar/Navbar";
 import Footer from "@/Elements/Footer/Footer";
-import OurProjects from "@/Parts/OurProjects/OurProjects";
+import OurProjects from "@/Pages/Parts/OurProjects/OurProjects";
 
 export default class OurProjectLayout extends Component {
   constructor(props) {
