@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProjectsCollection;
+use App\Models\ProjectModel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Traits\uuidFunction as uuid;
@@ -43,7 +45,9 @@ class ProjectController extends Controller
             ],
         ];
 
-        return Inertia::render('OurProjectsLayout', [
+        $projects = new ProjectsCollection(ProjectModel::paginate(1));
+
+        return Inertia::render('PageLayout/OurProjectsLayout', [
             'pathName' => '/projects',
             'projects' => $projects,
         ]);

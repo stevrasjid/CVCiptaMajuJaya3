@@ -54,22 +54,22 @@ const Footer = () => {
                 </Button>
               </li>
               <li className="list-group-item">
-                <Button type="link" href="">
+                <Button type="link" href={route("aboutUs")}>
                   Tentang Kami
                 </Button>
               </li>
               <li className="list-group-item">
-                <Button type="link" href="">
+                <Button type="link" href={route("services")}>
                   Layanan
                 </Button>
               </li>
               <li className="list-group-item">
-                <Button type="link" href="">
+                <Button type="link" href={route("projects")}>
                   Proyek
                 </Button>
               </li>
               <li className="list-group-item">
-                <Button type="link" href="">
+                <Button type="link" href={"/#contactUs"} smooth="true">
                   Hubungi Kami
                 </Button>
               </li>
@@ -113,6 +113,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

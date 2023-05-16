@@ -4,7 +4,7 @@ import { Link, Head } from "@inertiajs/react";
 import "../../../assets/style.scss";
 import { Component } from "react";
 import React from "react";
-import Navbar from "@/Elements/Navbar/Navbar";
+import Sidebar from "@/Elements/Sidebar/Sidebar";
 import Footer from "@/Elements/Footer/Footer";
 import Header from "@/Pages/Parts/HomePage/Header/Header";
 import AboutUsHome from "@/Pages/Parts/HomePage/AboutUsHome/AboutUsHome";
@@ -26,17 +26,8 @@ export default class Homepage extends Component {
   render() {
     return (
       <>
-        <Navbar {...this.props} />
-        <Header refMostPicked={this.refMostPicked} {...this.props} />
-        <AboutUsHome
-          refMostPicked={this.refMostPicked}
-          {...this.props.aboutUsHome}
-        />
-        <OurServices refMostPicked={this.refMostPicked} {...this.props} />
-        <OurProjects refMostPicked={this.refMostPicked} {...this.props} />
-        <Testimonials refMostPicked={this.refMostPicked} {...this.props} />
-        <ContactUs refMostPicked={this.refMostPicked} {...this.props} />
-        <Footer />
+        <Sidebar {...this.props} />
+        <div className="main" style={{ marginLeft: "2%" }}></div>
       </>
     );
   }

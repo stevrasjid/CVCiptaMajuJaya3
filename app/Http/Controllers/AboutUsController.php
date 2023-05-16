@@ -18,7 +18,7 @@ class AboutUsController extends Controller
             'ImgAboutUs',
         ]);
 
-        return Inertia::render('AboutUs', [
+        return Inertia::render('PageLayout/AboutUs', [
             'pathName' => '/aboutUs',
             'aboutUs' => $aboutUs
         ]);

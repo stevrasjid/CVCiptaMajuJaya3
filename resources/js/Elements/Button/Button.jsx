@@ -1,4 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
+// import { Link } from "react-scroll";
 
 import "./Button.scss";
 
@@ -29,6 +30,7 @@ export default function Button(props) {
           href={props.href}
           className={className.join(" ")}
           onClick={onClick}
+          smooth={props.smooth}
         >
           {props.children}
         </Link>

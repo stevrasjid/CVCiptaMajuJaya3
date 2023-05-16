@@ -76,7 +76,7 @@ const Navbar = (props) => {
             </ul>
             <ul className="navbar-nav">
               <li className={`nav-item${getNavLinkClass("/contactUs")}`}>
-                <Button className="nav-link" type="link" href={route("home")}>
+                <Button className="nav-link" type="link" href={"/#contactUs"}>
                   Hubungi Kami
                 </Button>
               </li>
@@ -86,6 +86,6 @@ const Navbar = (props) => {
       </div>
     </header>
   );
-}
+};
 
 export default Navbar;

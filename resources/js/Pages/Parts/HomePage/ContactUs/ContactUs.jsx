@@ -5,7 +5,7 @@ import "./ContactUs.scss";
 
 export default function ContactUs(props) {
   return (
-    <section className="container contact-us-section">
+    <section className="container contact-us-section" id="contactUs">
       <div className="row">
         <h1 className="title">Proyek Kami</h1>
       </div>

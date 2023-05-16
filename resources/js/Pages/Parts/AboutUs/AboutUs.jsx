@@ -13,14 +13,7 @@ export default function AboutUs(props) {
           <div className="card ps-5">
             <div className="card-body">
               <h4 className="card-title text-bold">Tentang Kami</h4>
-              <p className="card-text">
-                <span className="text-bold">CV. Cipta Maju Jaya</span> berdiri
-                sejak 2009. Bergerak dalam bidang pembuatan baru, renovasi, dan
-                jasa desain interior. Proyek yang pernah kami tangani meliputi
-                Pembangunan Karaoke Keluarga & KTV, Restoran, Lounge, Club, dan
-                Rumah Tinggal. Kami mengerjakan proyek renovasi dan pembangunan
-                baru dengan harga yang terjangkau dan kredibilitas yang tinggi
-              </p>
+              <p className="card-text"></p>
             </div>
             <div className="card-footer d-flex d-inline">
               <Button className="button-home" isPrimary type="button">

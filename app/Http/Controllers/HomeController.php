@@ -58,7 +58,7 @@ class HomeController extends Controller
             ],
         ];
 
-        return Inertia::render('Homepage', [
+        return Inertia::render('PageLayout/Homepage', [
             'pathName' => '/',
             'services' => $services,
             'projects' => $projects,

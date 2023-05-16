@@ -10,7 +10,7 @@ class ServiceController extends Controller
     public function index(){
         $services = ServiceModel::all();
 
-        return Inertia::render('OurServicesLayout', [
+        return Inertia::render('PageLayour/OurServicesLayout', [
             'pathName' => '/services',
             'services' => $services
         ]);
