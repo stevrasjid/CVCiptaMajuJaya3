@@ -19,7 +19,7 @@ class AboutUsModel extends Model
        'DescriptionAboutUsFull',
        'Commitment',
        'Vision',
-       'MIssion',
+       'Mission',
        'ImgAboutUsHome',
        'ImgAboutUs',
        'ImgCommitment',

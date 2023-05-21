@@ -29,10 +29,13 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/services', 'ServiceController@index')->name('services');
 Route::get('/projects', 'ProjectController@index')->name('projects');
 Route::get('/aboutUs', 'AboutUsController@index')->name('aboutUs');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::put('/aboutUs', 'AboutUsController@edit')->name('editAboutUs');
+
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

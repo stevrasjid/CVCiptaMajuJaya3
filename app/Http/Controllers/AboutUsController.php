@@ -23,4 +23,16 @@ class AboutUsController extends Controller
             'aboutUs' => $aboutUs
         ]);
     }
+
+    public function edit(Request $request){
+       AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
+            'Vision' => $request->vision,
+            'Mission' => $request->mission,
+            'Commitment' => $request->commitment,
+            'DescriptionAboutUsSmall' => $request->descriptionAboutUsSmall,
+            'DescriptionAboutUsFull' => $request->descriptionAboutUsFull
+       ]);
+
+       return redirect()->back()->with('message', 'Berhasil di edit');
+    }
 }
