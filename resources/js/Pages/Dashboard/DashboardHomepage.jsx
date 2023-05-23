@@ -5,26 +5,26 @@ import "../../../assets/style.scss";
 import { Component } from "react";
 import React from "react";
 import Sidebar from "@/Elements/Sidebar/Sidebar";
-import AboutUs from "@/Pages/Parts/Dashboard/AboutUsDashboard/AboutUsDashboard";
+import Homepage from "@/Pages/Parts/Dashboard/Homepage/HomepageDashboard";
 
-export default class Homepage extends Component {
+export default class DashboardHomePage extends Component {
   constructor(props) {
     super(props);
-    this.refMostPicked = React.createRef();
+    console.log(props);
   }
 
   componentDidMount() {
-    window.title = "CV Cipta Maju jaya | Home ";
+    window.title = "CV Cipta Maju Jaya | Dashboard Homepage";
     window.scrollTo(0, 0);
   }
+
   render() {
-    // console.log(this.props.aboutUs);
     return (
       <>
         <Sidebar {...this.props} />
-       <div className="container">
-            <AboutUs {...this.props}/>
-       </div>
+        <div className="container">
+          <Homepage {...this.props} />
+        </div>
       </>
     );
   }

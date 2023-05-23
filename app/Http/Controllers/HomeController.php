@@ -65,4 +65,15 @@ class HomeController extends Controller
             'testimonies' => $testimonies
         ]);
     }
+
+    public function editHomepage(Request $request) {
+        HomeModel::where('HomeId', $request->homeId)->update([
+            'TagLine' => $request->tagLine,
+            'SmallDescription' => $request->smallDescription,
+            'YearsExperiences' => $request->yearsExperiences,
+            'HappyCustomers' => $request->happyCustomers
+        ]);
+
+        return redirect()->back()->with('message', 'Berhasil di edit');
+    }
 }

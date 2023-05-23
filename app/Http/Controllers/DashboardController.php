@@ -6,74 +6,52 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\AboutUsModel;
+use App\Models\HomeModel;
+use App\Models\ProjectModel;
+use App\Models\ServiceModel;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function indexAboutUs()
     {
-        $aboutUs = AboutUsModel::first([
-            'AboutUsId',
-            'Vision',
-            'Mission',
-            'Commitment',
-            'DescriptionAboutUsSmall',
-            'DescriptionAboutUsFull',
-        ]);
+        $aboutUs = AboutUsModel::first();
 
-        return Inertia::render('Dashboard/Dashboard', [
-            'pathName' => '/dashboard',
+        return Inertia::render('Dashboard/DashboardAboutUs', [
+            'pathName' => '/dashboardAboutUs',
             'aboutUs' => $aboutUs
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+   public function indexDashboard()
+   {
+        $home = HomeModel::first();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        return Inertia::render('Dashboard/DashboardHomepage', [
+            'pathName' => '/dashboard',
+            'home' => $home
+        ]);
+   }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+   public function indexProjects()
+   {
+        $projects = ProjectModel::all();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        return Inertia::render('Dashboard/DashboardProject', [
+            'pathName' => '/dashboardProject',
+            'projects' => $projects
+        ]);
+   }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+   public function indexServices()
+   {
+        $services = ServiceModel::all();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+        return Inertia::render('Dashboard/DashboardService', [
+            'pathName' => '/dashboardService',
+            'services' => $services
+        ]);
+   }
 }
