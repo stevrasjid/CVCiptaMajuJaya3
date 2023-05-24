@@ -29,12 +29,20 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/services', 'ServiceController@index')->name('services');
 Route::get('/projects', 'ProjectController@index')->name('projects');
 Route::get('/aboutUs', 'AboutUsController@index')->name('aboutUs');
-Route::get('/dashboard', 'DashboardController@indexDashboard')->name('dashboard');
-Route::get('/dashboardAboutUs', 'DashboardController@indexAboutUs')->name('dashboardAboutUs');
 
+//dashboardHome
+Route::get('/dashboard', 'DashboardController@indexDashboard')->name('dashboard');
+Route::put('/', 'HomeController@editHomepage')->name('editHomepage');   
+
+//dashboardAboutUs
+Route::get('/dashboardAboutUs', 'DashboardController@indexAboutUs')->name('dashboardAboutUs');
 Route::put('/aboutUs', 'AboutUsController@edit')->name('editAboutUs');
 
-Route::put('/', 'HomeController@editHomepage')->name('editHomepage');   
+//dashboardContactUs
+Route::get('/dashboardContactUs', 'DashboardController@indexContactUs')->name('dashboardContactUs');
+Route::put('/contactUs', 'ContactUsController@edit')->name('editContactUs');
+
+
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

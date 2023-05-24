@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\AboutUsModel;
+use App\Models\ContactUsModel;
 use App\Models\HomeModel;
 use App\Models\ProjectModel;
 use App\Models\ServiceModel;
@@ -53,5 +54,15 @@ class DashboardController extends Controller
             'pathName' => '/dashboardService',
             'services' => $services
         ]);
+   }
+
+   public function indexContactUs()
+   {
+        $contactUs = ContactUsModel::first();
+
+        return Inertia::render('Dashboard/DashboardContactUs', [
+            'pathName' => '/dashboardContactUs',
+            'contactUs' => $contactUs
+        ]); 
    }
 }

@@ -1,5 +1,4 @@
 import { Link, Head } from "@inertiajs/react";
-import Button from "@/Elements/Button/Button";
 import "./AboutUsDashboard.scss";
 import { useState, Component } from "react";
 import { Inertia } from "@inertiajs/inertia";

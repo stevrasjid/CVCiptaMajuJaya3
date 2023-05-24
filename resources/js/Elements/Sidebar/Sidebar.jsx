@@ -27,21 +27,21 @@ const Sidebar = (props) => {
       <Button
         type="link"
         href=""
-        className={`nav-link${getNavLinkClass("/dashboard")}`}
+        className={`nav-link${getNavLinkClass("/dashboardServices")}`}
       >
         Layanan
       </Button>
       <Button
         type="link"
         href=""
-        className={`nav-link${getNavLinkClass("/dashboard")}`}
+        className={`nav-link${getNavLinkClass("/dashboardProjects")}`}
       >
         Proyek
       </Button>
       <Button
         type="link"
-        href=""
-        className={`nav-link${getNavLinkClass("/dashboard")}`}
+        href={route("dashboardContactUs")}
+        className={`nav-link${getNavLinkClass("/dashboardContactUs")}`}
       >
         Hubungi Kami
       </Button>
