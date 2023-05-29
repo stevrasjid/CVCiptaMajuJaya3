@@ -67,6 +67,7 @@ class HomeController extends Controller
     }
 
     public function editHomepage(Request $request) {
+        dd($request);
         HomeModel::where('HomeId', $request->homeId)->update([
             'TagLine' => $request->tagLine,
             'SmallDescription' => $request->smallDescription,

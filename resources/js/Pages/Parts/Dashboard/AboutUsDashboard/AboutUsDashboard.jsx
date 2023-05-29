@@ -3,6 +3,10 @@ import "./AboutUsDashboard.scss";
 import { useState, Component } from "react";
 import { Inertia } from "@inertiajs/inertia";
 
+const capitalizeFirst = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 class AboutUsDashboard extends Component {
   constructor(props) {
     super(props);
@@ -14,25 +18,38 @@ class AboutUsDashboard extends Component {
       commitment: aboutUs.Commitment,
       descriptionAboutUsSmall: aboutUs.DescriptionAboutUsSmall,
       descriptionAboutUsFull: aboutUs.DescriptionAboutUsFull,
+      imgAboutUsHome: aboutUs.ImgAboutUsHome,
+
+      previewImgAboutUsHome: "",
     };
   }
 
   handleInputChange = (event) => {
-    if (event.target.files) {
-    }
     const target = event.target;
     const value = target.value;
     const name = target.name;
-
-    this.setState({
-      [name]: value,
-    });
+    if (event.target.files) {
+      const name2 = "preview" + capitalizeFirst(name);
+      this.setState({
+        [name]: target.files[0],
+        [name2]: URL.createObjectURL(target.files[0]),
+      });
+    } else {
+      this.setState({
+        [name]: value,
+      });
+    }
   };
 
   submit = (event) => {
     event.preventDefault();
-    const data = this.state;
-    Inertia.put(route("editAboutUs"), data);
+    const data = new FormData();
+
+    data.appends("files", this.state);
+
+    Inertia.put(route("editAboutUs"), data, {
+      forceFormData: true,
+    });
   };
 
   render() {
@@ -116,10 +133,19 @@ class AboutUsDashboard extends Component {
             </label>
             <input
               type="file"
-              name="imageAboutUsHome"
+              name="imgAboutUsHome"
               className="form-control"
               onChange={this.handleInputChange}
             />
+            {this.state.previewImgAboutUsHome ? (
+              <div className="img-preview">
+                <img src={this.state.previewImgAboutUsHome} alt="" />
+              </div>
+            ) : (
+              <div className="img-preview">
+                <img src={`images/${this.state.imgAboutUsHome}`} alt="" />
+              </div>
+            )}
           </div>
           <button type="submit" className="btn btn-primary">
             Submit
