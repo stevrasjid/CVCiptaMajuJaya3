@@ -10,7 +10,6 @@ import Homepage from "@/Pages/Parts/Dashboard/Homepage/HomepageDashboard";
 export default class DashboardHomePage extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
 
   componentDidMount() {

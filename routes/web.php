@@ -36,7 +36,7 @@ Route::put('/', 'HomeController@editHomepage')->name('editHomepage');
 
 //dashboardAboutUs
 Route::get('/dashboardAboutUs', 'DashboardController@indexAboutUs')->name('dashboardAboutUs');
-Route::put('/aboutUs', 'AboutUsController@edit')->name('editAboutUs');
+Route::post('/aboutUs', 'AboutUsController@edit')->name('editAboutUs');
 
 //dashboardContactUs
 Route::get('/dashboardContactUs', 'DashboardController@indexContactUs')->name('dashboardContactUs');
