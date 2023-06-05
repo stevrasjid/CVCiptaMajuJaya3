@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AboutUsModel;
 use Inertia\Inertia;
-use File;
+use App\Traits\Helper;
 
 class AboutUsController extends Controller
 {
@@ -27,7 +27,21 @@ class AboutUsController extends Controller
 
     public function edit(Request $request){
 
-       dd($request);
+    $validated = $request->validate([
+        'vision' => 'required',
+        'mission' => 'required',
+        'commitment' => 'required',
+        'descriptionAbousUsSmall' => 'required',
+        'descriptionAbousUsFull' => 'required',
+        'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'
+    ]);
+
+    if($request->hasFile('imgAboutUsHome')){
+        $file = $request->file("imgAboutUsHome");
+        $imageNameAboutUsHome = Helper::SaveImageAboutUs($file, "1");
+    }
+
+
        AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
             'Vision' => $request->vision,
             'Mission' => $request->mission,
@@ -37,5 +51,9 @@ class AboutUsController extends Controller
        ]);
 
        return redirect()->back()->with('message', 'Berhasil di edit');
+    }
+
+    private function updateImage ($file) {
+        
     }
 }
