@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AboutUsModel;
 use Inertia\Inertia;
-use App\Traits\Helper;
 
 class AboutUsController extends Controller
 {
@@ -25,22 +24,25 @@ class AboutUsController extends Controller
         ]);
     }
 
-    public function edit(Request $request){
+    public function edit(Request $request)
+    {
+        // $validated = $request->validate([
+        //     'vision' => 'required',
+        //     'mission' => 'required',
+        //     'commitment' => 'required',
+        //     'descriptionAbousUsSmall' => 'required',
+        //     'descriptionAbousUsFull' => 'required',
+        //     'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'
+        // ]);
 
-    $validated = $request->validate([
-        'vision' => 'required',
-        'mission' => 'required',
-        'commitment' => 'required',
-        'descriptionAbousUsSmall' => 'required',
-        'descriptionAbousUsFull' => 'required',
-        'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'
-    ]);
+        if($request->hasFile('imgAboutUsHome')){
+            $file = $request->file("imgAboutUsHome");
+            $imageNameAboutUsHome = SaveImageAboutUs($file, "1");
 
-    if($request->hasFile('imgAboutUsHome')){
-        $file = $request->file("imgAboutUsHome");
-        $imageNameAboutUsHome = Helper::SaveImageAboutUs($file, "1");
-    }
-
+            AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
+                'ImgAboutUsHome' => $imageNameAboutUsHome
+            ]);
+        }
 
        AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
             'Vision' => $request->vision,
@@ -53,7 +55,7 @@ class AboutUsController extends Controller
        return redirect()->back()->with('message', 'Berhasil di edit');
     }
 
-    private function updateImage ($file) {
+    function updateImage ($file) {
         
     }
 }

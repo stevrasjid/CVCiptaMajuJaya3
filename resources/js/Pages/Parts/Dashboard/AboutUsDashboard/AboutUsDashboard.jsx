@@ -22,8 +22,20 @@ class AboutUsDashboard extends Component {
       commitment: aboutUs.Commitment,
       descriptionAboutUsSmall: aboutUs.DescriptionAboutUsSmall,
       descriptionAboutUsFull: aboutUs.DescriptionAboutUsFull,
+
+      imgAboutUs: undefined,
       imgAboutUsHome: undefined,
-      previewImageAboutUsHome: aboutUs.ImgAboutUsHome,
+      imgCommitment: undefined,
+      imgAboutUsHomeSmall1: undefined,
+      imgAboutUsHomeSmall2: undefined,
+      imgAboutUsHomeSmall3: undefined,
+
+      previewImgAboutUsHome: aboutUs.ImgAboutUsHome,
+      previewImgAboutUs: aboutUs.ImgAbousUs,
+      previewImgCommitment: aboutUs.ImgCommitment,
+      previewImgAboutHomeSmall1: aboutUs.ImgAbousUsHomeSmall1,
+      previewImgAboutHomeSmall2: aboutUs.ImgAboutUsHomeSmall2,
+      previewImgAboutHomeSmall3: aboutUs.ImgAboutUsHomeSmall3,
     };
   }
 
@@ -55,8 +67,20 @@ class AboutUsDashboard extends Component {
       commitment,
       descriptionAboutUsSmall,
       descriptionAboutUsFull,
-      previewImageAboutUsHome,
+
       imgAboutUsHome,
+      imgAboutUs,
+      imgCommitment,
+      imgAboutUsHomeSmall1,
+      imgAboutUsHomeSmall2,
+      imgAboutUsHomeSmall3,
+
+      previewImgAboutUsHome,
+      previewImgAboutUs,
+      previewImgCommitment,
+      previewImgAboutUsHomeSmall1,
+      previewImgAboutUsHomeSmall2,
+      previewImgAboutUsHomeSmall3,
     } = this.state;
 
     return (
@@ -123,17 +147,80 @@ class AboutUsDashboard extends Component {
             />
           </div>
 
-          <label htmlFor="imageAboutUsHome" className="form-label">
-            Gambar Tentang Kami Beranda
-          </label>
-          <InputFile
-            accept="image/*"
-            name="imgAboutUsHome"
-            onChange={this.handleInputChange}
-            value={imgAboutUsHome}
-            previewImage={previewImageAboutUsHome}
-          />
-
+          <div className="row">
+            <div className="col-4">
+              <label htmlFor="imgAboutUsHome" className="form-label">
+                Gambar Tentang Kami Beranda
+              </label>
+              <InputFile
+                accept="image/*"
+                name="imgAboutUsHome"
+                onChange={this.handleInputChange}
+                value={imgAboutUsHome}
+                previewImage={previewImgAboutUs}
+              />
+            </div>
+            <div className="col-4">
+              <label htmlFor="imgAboutUs" className="form-label">
+                Gambar Tentang Kami
+              </label>
+              <InputFile
+                accept="image/*"
+                name="imgAboutUs"
+                onChange={this.handleInputChange}
+                value={imgAboutUs}
+                previewImage={previewImgAboutUsHome}
+              />
+            </div>
+            <div className="col-4">
+              <label htmlFor="imgAboutUs" className="form-label">
+                Gambar Komitmen
+              </label>
+              <InputFile
+                accept="image/*"
+                name="imgCommitment"
+                onChange={this.handleInputChange}
+                value={imgCommitment}
+                previewImage={previewImgCommitment}
+              />
+            </div>
+            <div className="col-4">
+              <label htmlFor="imgAboutUs" className="form-label">
+                Gambar Komitmen Kecil 1
+              </label>
+              <InputFile
+                accept="image/*"
+                name="imgAboutUsHomeSmall1"
+                onChange={this.handleInputChange}
+                value={imgAboutUsHomeSmall1}
+                previewImage={previewImgAboutUsHomeSmall1}
+              />
+            </div>
+            <div className="col-4">
+              <label htmlFor="imgAboutUs" className="form-label">
+                Gambar Komitmen Kecil 2
+              </label>
+              <InputFile
+                accept="image/*"
+                name="imgAboutUsHomeSmall2"
+                onChange={this.handleInputChange}
+                value={imgAboutUsHomeSmall2}
+                previewImage={previewImgAboutUsHomeSmall2}
+              />
+            </div>
+            <div className="col-4">
+              <label htmlFor="imgAboutUs" className="form-label">
+                Gambar Komitmen Kecil 3
+              </label>
+              <InputFile
+                accept="image/*"
+                name="imgAboutUsHomeSmall3"
+                onChange={this.handleInputChange}
+                value={imgAboutUsHomeSmall3}
+                previewImage={previewImgAboutUsHomeSmall3}
+              />
+            </div>
+          </div>
           <button
             type="submit"
             className="btn btn-primary"
