@@ -32,7 +32,7 @@ Route::get('/aboutUs', 'AboutUsController@index')->name('aboutUs');
 
 //dashboardHome
 Route::get('/dashboard', 'DashboardController@indexDashboard')->name('dashboard');
-Route::put('/', 'HomeController@editHomepage')->name('editHomepage');   
+Route::post('/', 'HomeController@editHomepage')->name('editHomepage');   
 
 //dashboardAboutUs
 Route::get('/dashboardAboutUs', 'DashboardController@indexAboutUs')->name('dashboardAboutUs');

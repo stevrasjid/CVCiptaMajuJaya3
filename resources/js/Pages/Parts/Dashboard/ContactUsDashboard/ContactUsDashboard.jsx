@@ -1,13 +1,15 @@
 import { Link, Head } from "@inertiajs/react";
 import "./ContactUsDashboard.scss";
-import { useState, Component } from "react";
+import { Component } from "react";
 import { Inertia } from "@inertiajs/inertia";
+import InputText from "@/Elements/InputText/InputText";
 
 class ContactUsDashboard extends Component {
   constructor(props) {
     super(props);
     var contactUs = this.props.contactUs;
-    console.log(contactUs);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.submit = this.submit.bind(this);
     this.state = {
       contactUsId: contactUs.ContactUsId,
       address: contactUs.Address,
@@ -36,6 +38,8 @@ class ContactUsDashboard extends Component {
   };
 
   render() {
+    const { address, email, phoneNumber1, admin1, phoneNumber2, admin2 } =
+      this.state;
     return (
       <section className="row col-12">
         <form onSubmit={this.submit} encType="multipart/form-data">
@@ -43,87 +47,79 @@ class ContactUsDashboard extends Component {
             <label htmlFor="alamat" className="form-label">
               Alamat
             </label>
-            <input
+            <InputText
               type="text"
               name="address"
-              className="form-control"
-              aria-describedby="address"
               placeholder="Alamat"
               onChange={this.handleInputChange}
-              value={this.state.address}
+              value={address}
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="alamat" className="form-label">
+            <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input
+            <InputText
               type="text"
               name="email"
-              className="form-control"
-              aria-describedby="address"
               placeholder="Email"
               onChange={this.handleInputChange}
-              value={this.state.email}
+              value={email}
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="alamat" className="form-label">
+            <label htmlFor="adminName1" className="form-label">
               Nama Admin 1
             </label>
-            <input
+            <InputText
               type="text"
               name="admin1"
-              className="form-control"
-              aria-describedby="admin1"
-              placeholder="Admin1"
+              placeholder="Nama Admin 1"
               onChange={this.handleInputChange}
-              value={this.state.admin1}
+              value={admin1}
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="alamat" className="form-label">
+            <label htmlFor="phoneNumber1" className="form-label">
               Nomor Telepon Admin 1
             </label>
-            <input
+            <InputText
               type="text"
               name="phoneNumber1"
-              className="form-control"
-              aria-describedby="phoneNumber1"
-              placeholder="Nomor Telepon Admin 1"
+              placeholder="No Telp Admin 1"
               onChange={this.handleInputChange}
-              value={this.state.phoneNumber1}
+              value={phoneNumber1}
             />
           </div>
           <div className="mb-3">
             <label htmlFor="admin2" className="form-label">
               Nama Admin 2
             </label>
-            <input
+            <InputText
               type="text"
               name="admin2"
-              className="form-control"
-              aria-describedby="admin2"
-              placeholder="Admin2"
+              placeholder="No Telp Admin 2"
               onChange={this.handleInputChange}
-              value={this.state.admin2}
+              value={admin2}
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="alamat" className="form-label">
+            <label htmlFor="phoneNumber2" className="form-label">
               Nomor Telepon Admin 2
             </label>
-            <input
+            <InputText
               type="text"
               name="phoneNumber2"
-              className="form-control"
-              aria-describedby="phoneNumber2"
-              placeholder="Nomor Telepon Admin 2"
+              placeholder="No Telp Admin 2"
               onChange={this.handleInputChange}
-              value={this.state.phoneNumber2}
+              value={phoneNumber2}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            onClick={this.submit}
+            className="btn btn-primary"
+          >
             Submit
           </button>
         </form>

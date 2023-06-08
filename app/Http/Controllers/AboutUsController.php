@@ -26,21 +26,72 @@ class AboutUsController extends Controller
 
     public function edit(Request $request)
     {
-        // $validated = $request->validate([
-        //     'vision' => 'required',
-        //     'mission' => 'required',
-        //     'commitment' => 'required',
-        //     'descriptionAbousUsSmall' => 'required',
-        //     'descriptionAbousUsFull' => 'required',
-        //     'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'
-        // ]);
+        $validated = $request->validate([
+            'vision' => 'required',
+            'mission' => 'required',
+            'commitment' => 'required',
+            'descriptionAbousUsSmall' => 'required',
+            'descriptionAbousUsFull' => 'required',
+            'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+            'imgAboutUs' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+            'imgCommitment' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+            'imgAboutUsHomeSmall1' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+            'imgAboutUsHomeSmall2' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+            'imgAboutUsHomeSmall3' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'
+
+        ]);
 
         if($request->hasFile('imgAboutUsHome')){
             $file = $request->file("imgAboutUsHome");
-            $imageNameAboutUsHome = SaveImageAboutUs($file, "1");
+            $imageNameAboutUsHome = $this->updateImageAboutUs($file, "1");
 
             AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
                 'ImgAboutUsHome' => $imageNameAboutUsHome
+            ]);
+        }
+
+        if($request->hasFile('imgAboutUs')){
+            $file = $request->file("imgAboutUs");
+            $imageNameAboutUs = $this->updateImageAboutUs($file, "2");
+
+            AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
+                'ImgAboutUs' => $imageNameAboutUs
+            ]);
+        }
+
+        if($request->hasFile('imgCommitment')){
+            $file = $request->file("imgCommitment");
+            $imageNameCommitment = $this->updateImageAboutUs($file, "3");
+
+            AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
+                'ImgCommitment' => $imageNameCommitment
+            ]);
+        }
+
+        if($request->hasFile('imgAboutUsHomeSmall1')){
+            $file = $request->file("imgAboutUsHomeSmall1");
+            $imageNameAboutUsSmall1 = $this->updateImageAboutUs($file, "4");
+
+            AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
+                'ImgAboutUsHomeSmall1' => $imageNameAboutUsSmall1
+            ]);
+        }
+
+        if($request->hasFile('imgAboutUsHomeSmall2')){
+            $file = $request->file("imgAboutUsHomeSmall2");
+            $imageNameAboutUsSmall2 = $this->updateImageAboutUs($file, "5");
+
+            AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
+                'ImgAboutUsHomeSmall2' => $imageNameAboutUsSmall2
+            ]);
+        }
+
+        if($request->hasFile('imgAboutUsHomeSmall3')){
+            $file = $request->file("imgAboutUsHomeSmall3");
+            $imageNameAboutUsSmall3 = $this->updateImageAboutUs($file, "6");
+
+            AboutUsModel::where('AboutUsId',$request->aboutUsId)->update([
+                'ImgAboutUsHomeSmall3' => $imageNameAboutUsSmall3
             ]);
         }
 
@@ -55,7 +106,37 @@ class AboutUsController extends Controller
        return redirect()->back()->with('message', 'Berhasil di edit');
     }
 
-    function updateImage ($file) {
-        
+    private function updateImageAboutUs ($file, $numberImgName) 
+    {
+        $getImage = AboutUsModel::First();
+        switch($numberImgName){
+            case "1":
+                $name = "ImgAboutUsHome";
+                $imageNameFromDb = $getImage->ImgAboutUsHome;
+                break;
+            case "2":
+                $name = "ImgAboutUs";
+                $imageNameFromDb = $getImage->ImgAboutUs;
+                break;
+            case "3":
+                $name = "ImgCommitment";
+                $imageNameFromDb = $getImage->ImgCommitment;
+                break;
+            case "4":
+                $name = "ImgAboutUsHomeSmall1";
+                $imageNameFromDb = $getImage->ImgAboutUsHomeSmall1;
+                break;
+            case "5":
+                $name = "ImgAboutUsHomeSmall2";
+                $imageNameFromDb = $getImage->ImgAboutUsHomeSmall2;
+                break;
+            case "6":
+                $name = "ImgAboutUsHomeSmall3";
+                $imageNameFromDb = $getImage->ImgAboutUsHomeSmall3;
+                break;
+        }
+        $imageNameAboutUsHome = SaveImage($file, $name, $imageNameFromDb);
+
+        return $imageNameAboutUsHome;
     }
 }

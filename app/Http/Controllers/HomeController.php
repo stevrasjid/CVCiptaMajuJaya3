@@ -67,7 +67,17 @@ class HomeController extends Controller
     }
 
     public function editHomepage(Request $request) {
-        dd($request);
+        if($request->hasFile('imgHeader')){
+            $file = $request->file("imgHeader");
+            $imgNameFromDb = HomeModel::First()->ImgHeader;
+            $imageNameHome = SaveImage($file, "ImgHeader", $imgNameFromDb);
+
+            HomeModel::where('HomeId',$request->homeId)->update([
+                'ImgHeader' => $imageNameHome
+            ]);
+        }
+
+
         HomeModel::where('HomeId', $request->homeId)->update([
             'TagLine' => $request->tagLine,
             'SmallDescription' => $request->smallDescription,

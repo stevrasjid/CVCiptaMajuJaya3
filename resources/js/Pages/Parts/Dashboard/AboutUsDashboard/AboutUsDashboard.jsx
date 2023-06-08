@@ -5,10 +5,6 @@ import { Inertia } from "@inertiajs/inertia";
 import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
 
-const capitalizeFirst = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-
 class AboutUsDashboard extends Component {
   constructor(props) {
     super(props);
@@ -31,11 +27,11 @@ class AboutUsDashboard extends Component {
       imgAboutUsHomeSmall3: undefined,
 
       previewImgAboutUsHome: aboutUs.ImgAboutUsHome,
-      previewImgAboutUs: aboutUs.ImgAbousUs,
+      previewImgAboutUs: aboutUs.ImgAboutUs,
       previewImgCommitment: aboutUs.ImgCommitment,
-      previewImgAboutHomeSmall1: aboutUs.ImgAbousUsHomeSmall1,
-      previewImgAboutHomeSmall2: aboutUs.ImgAboutUsHomeSmall2,
-      previewImgAboutHomeSmall3: aboutUs.ImgAboutUsHomeSmall3,
+      previewImgAboutUsHomeSmall1: aboutUs.ImgAboutUsHomeSmall1,
+      previewImgAboutUsHomeSmall2: aboutUs.ImgAboutUsHomeSmall2,
+      previewImgAboutUsHomeSmall3: aboutUs.ImgAboutUsHomeSmall3,
     };
   }
 
@@ -53,7 +49,6 @@ class AboutUsDashboard extends Component {
   submit = (event) => {
     event.preventDefault();
     const data = this.state;
-    console.log(this.state);
 
     Inertia.post(route("editAboutUs"), data, {
       forceFormData: true,
@@ -157,7 +152,7 @@ class AboutUsDashboard extends Component {
                 name="imgAboutUsHome"
                 onChange={this.handleInputChange}
                 value={imgAboutUsHome}
-                previewImage={previewImgAboutUs}
+                previewImage={previewImgAboutUsHome}
               />
             </div>
             <div className="col-4">
@@ -169,11 +164,11 @@ class AboutUsDashboard extends Component {
                 name="imgAboutUs"
                 onChange={this.handleInputChange}
                 value={imgAboutUs}
-                previewImage={previewImgAboutUsHome}
+                previewImage={previewImgAboutUs}
               />
             </div>
             <div className="col-4">
-              <label htmlFor="imgAboutUs" className="form-label">
+              <label htmlFor="imgCommitment" className="form-label">
                 Gambar Komitmen
               </label>
               <InputFile
