@@ -13,6 +13,7 @@ class ServiceModel extends Model
 
     protected $fillable = [
        'ServiceId',
+       'ServiceCode',
        'ServiceTitle',
        'ServiceDescription',
        'ImgService',

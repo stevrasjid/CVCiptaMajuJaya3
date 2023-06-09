@@ -28,21 +28,25 @@ use Inertia\Inertia;
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/services', 'ServiceController@index')->name('services');
 Route::get('/projects', 'ProjectController@index')->name('projects');
-Route::get('/aboutUs', 'AboutUsController@index')->name('aboutUs');
+Route::get('/about-us', 'AboutUsController@index')->name('aboutUs');
 
 //dashboardHome
 Route::get('/dashboard', 'DashboardController@indexDashboard')->name('dashboard');
 Route::post('/', 'HomeController@editHomepage')->name('editHomepage');   
 
 //dashboardAboutUs
-Route::get('/dashboardAboutUs', 'DashboardController@indexAboutUs')->name('dashboardAboutUs');
-Route::post('/aboutUs', 'AboutUsController@edit')->name('editAboutUs');
+Route::get('/dashboard-about-us', 'DashboardController@indexAboutUs')->name('dashboardAboutUs');
+Route::post('/about-us', 'AboutUsController@edit')->name('editAboutUs');
 
 //dashboardContactUs
-Route::get('/dashboardContactUs', 'DashboardController@indexContactUs')->name('dashboardContactUs');
-Route::put('/contactUs', 'ContactUsController@edit')->name('editContactUs');
+Route::get('/dashboard-contact-us', 'DashboardController@indexContactUs')->name('dashboardContactUs');
+Route::put('/contact-us', 'ContactUsController@edit')->name('editContactUs');
 
-
+//dashboardServiceList
+Route::get('/dashboard-service','DashboardController@indexServices')->name('dashboardServiceList');
+Route::post('/add-new-dashboard-service','ServiceController@AddNewService')->name('addNewServices');
+Route::post('/edit-dashboard-service/{id}','ServiceController@EditService')->name('editService');
+Route::delete('/delete-dashboard-service/{id}','ServiceController@DeleteService')->name('deleteService');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
