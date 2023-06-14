@@ -152,7 +152,7 @@ class AboutUsDashboard extends Component {
                 name="imgAboutUsHome"
                 onChange={this.handleInputChange}
                 value={imgAboutUsHome}
-                previewImage={previewImgAboutUsHome}
+                previewImage={`images/${previewImgAboutUsHome}`}
               />
             </div>
             <div className="col-4">
@@ -164,7 +164,7 @@ class AboutUsDashboard extends Component {
                 name="imgAboutUs"
                 onChange={this.handleInputChange}
                 value={imgAboutUs}
-                previewImage={previewImgAboutUs}
+                previewImage={`images/${previewImgAboutUs}`}
               />
             </div>
             <div className="col-4">
@@ -176,7 +176,7 @@ class AboutUsDashboard extends Component {
                 name="imgCommitment"
                 onChange={this.handleInputChange}
                 value={imgCommitment}
-                previewImage={previewImgCommitment}
+                previewImage={`images/${previewImgCommitment}`}
               />
             </div>
             <div className="col-4">
@@ -188,7 +188,7 @@ class AboutUsDashboard extends Component {
                 name="imgAboutUsHomeSmall1"
                 onChange={this.handleInputChange}
                 value={imgAboutUsHomeSmall1}
-                previewImage={previewImgAboutUsHomeSmall1}
+                previewImage={`images/${previewImgAboutUsHomeSmall1}`}
               />
             </div>
             <div className="col-4">
@@ -200,7 +200,7 @@ class AboutUsDashboard extends Component {
                 name="imgAboutUsHomeSmall2"
                 onChange={this.handleInputChange}
                 value={imgAboutUsHomeSmall2}
-                previewImage={previewImgAboutUsHomeSmall2}
+                previewImage={`images/${previewImgAboutUsHomeSmall2}`}
               />
             </div>
             <div className="col-4">
@@ -212,7 +212,7 @@ class AboutUsDashboard extends Component {
                 name="imgAboutUsHomeSmall3"
                 onChange={this.handleInputChange}
                 value={imgAboutUsHomeSmall3}
-                previewImage={previewImgAboutUsHomeSmall3}
+                previewImage={`images/${previewImgAboutUsHomeSmall3}`}
               />
             </div>
           </div>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\ServiceModel;
 use Inertia\Inertia;
 use App\Traits\uuidFunction;
+use Illuminate\Support\Facades\File;
+
 
 class ServiceController extends Controller
 {
@@ -14,41 +16,49 @@ class ServiceController extends Controller
     public function index(){
         $services = ServiceModel::all();
 
-        return Inertia::render('PageLayour/OurServicesLayout', [
+        return Inertia::render('PageLayout/OurServicesLayout', [
             'pathName' => '/services',
             'services' => $services
         ]);
     }
 
+    public function GetService($id){
+        $service = ServiceModel::Find($id);
+        return Inertia::render('Dashboard/DashboardServices', [
+            'pathName' => 'edit-dashboard-service',
+            'service' => $service
+        ]);
+    }
+
     public function AddNewService(Request $request){
         $request->validate([
-            'ServiceTitle'=> 'required',
-            'ServiceCode'=> 'required',
-            'ServiceDescription'=>'required',
-            'ImgService'=> 'required|image|mimes:jpg,png,jpeg|max:2048'
+            'serviceTitle'=> 'required',
+            'serviceCode'=> 'required',
+            'serviceDescription'=>'required',
+            'imgService'=> 'required|image|mimes:jpg,png,jpeg|max:2048'
         ]);
+        
+        $service = $this->PutDataOnModel($request);
+        $message = $this->VerifyInput($service, $request, true);
 
-        $request->serviceId = uuidFunction::NewGuid();
-        $request->serviceCode = strtoupper($request->serviceCode);
-
-        $message = $this->VerifyInput($request, true);
-        if(empty($message)){
+        if(!empty($message)){
             return redirect()->back()->with('message', $message);
         }
-
-        if($request->hasFile('ImgService')){
-            $file = $request->file("ImgService");
-            $imageName =  SaveImage($file, $request->serviceCode);
-        }
         
+        if($request->hasFile('imgService')){
+            $file = $request->file("imgService");
+            $imageName =  SaveImage($file, $request->serviceCode, "/public/images/services");
+            $service->ImgService = $imageName;
+        }
+
         ServiceModel::create([
-            'ServiceTitle' => $request->serviceTitle,
-            'ServiceCode' => $request->serviceCode,
-            'ServiceDescription' => $request->serviceDescription,
-            'ImgService'=> $imageName
+            'ServiceTitle' => $service->ServiceTitle,
+            'ServiceCode' => $service->ServiceCode,
+            'ServiceDescription' => $service->ServiceDescription,
+            'ImgService'=> $service->ImgService
         ]);
 
-        return redirect()->back()->with('message','Berhasil dibuat');
+        return to_route('dashboardServiceList');
         
     }
 
@@ -82,7 +92,7 @@ class ServiceController extends Controller
             'ServiceDescription' => $request->serviceDescription,
         ]);
 
-        return redirect()->back()->with('message','Berhasil di edit');
+        return to_route('dashboardServiceList');
     }
 
     public function DeleteService($id){
@@ -101,16 +111,26 @@ class ServiceController extends Controller
 
     }
 
-    private function VerifyInput($request, $isNew){
+    private function VerifyInput($service, $request, $isNew){
         $message = '';
-        if(ServiceModel::where('ServiceCode',$request->serviceCode)->where('ServiceId','!=',$request->serviceId)->exists()){
+        if(ServiceModel::where('ServiceCode',$service->ServiceCode)->where('ServiceId','!=',$service->ServiceId)->exists()){
             $message = "Kode Service sudah ada, harap diganti \n";
         }
 
-        if(!($request->hasFile('ImgService')) && $isNew){
+        if(!($request->hasFile('imgService')) && $isNew){
             $message = "Gambar tidak ada yang diupload \n";
         }
 
         return $message;
+    }
+
+    private function PutDataOnModel($request){
+        $service = new ServiceModel();
+        $service->ServiceId = uuidFunction::NewGuid();
+        $service->ServiceTitle = $request->serviceTitle;
+        $service->ServiceDescription = $request->serviceDescription;
+        $service->ServiceCode = strtoupper($request->serviceCode);
+        
+        return $service;
     }
 }

@@ -6,6 +6,8 @@ import "./Button.scss";
 export default function Button(props) {
   const className = [props.className];
   if (props.isPrimary) className.push("btn-shadow");
+  if (props.isYellow) className.push("btn-yellow");
+  if (props.isCreateNew) className.push("btn-create-new");
 
   const onClick = () => {
     if (props.onClick !== undefined) props.onClick();

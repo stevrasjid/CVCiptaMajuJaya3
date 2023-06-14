@@ -50,8 +50,8 @@ class DashboardController extends Controller
    {
         $services = ServiceModel::all();
 
-        return Inertia::render('Dashboard/DashboardService', [
-            'pathName' => '/dashboardService',
+        return Inertia::render('Dashboard/DashboardServices', [
+            'pathName' => '/dashboard-service-list',
             'services' => $services
         ]);
    }

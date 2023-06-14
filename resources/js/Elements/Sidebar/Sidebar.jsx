@@ -20,14 +20,14 @@ const Sidebar = (props) => {
       <Button
         type="link"
         href={route("dashboardAboutUs")}
-        className={`nav-link${getNavLinkClass("/dashboardAboutUs")}`}
+        className={`nav-link${getNavLinkClass("/dashboard-about-us")}`}
       >
         Tentang Kami
       </Button>
       <Button
         type="link"
-        href=""
-        className={`nav-link${getNavLinkClass("/dashboardServices")}`}
+        href={route("dashboardServiceList")}
+        className={`nav-link${getNavLinkClass("/dashboard-service-list")}`}
       >
         Layanan
       </Button>

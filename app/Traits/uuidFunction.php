@@ -29,8 +29,9 @@ trait uuidFunction
     {
         return 'string';
     }
-    protected static function NewGuid()
+    public static function NewGuid()
     {
-        return Uuid::generate()->string;
+        $id = Uuid::generate()->string;
+        return $id;
     }
 }

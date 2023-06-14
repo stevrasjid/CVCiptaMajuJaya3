@@ -4,7 +4,6 @@ import "./InputFile.scss";
 export default function InputFile(props) {
   const { name, value, accept, innerClassname, outerClassname, previewImage } =
     props;
-
   return (
     <>
       <input
@@ -17,10 +16,12 @@ export default function InputFile(props) {
         <div className="img-preview">
           <img src={URL.createObjectURL(value)} alt="" />
         </div>
-      ) : (
+      ) : previewImage ? (
         <div className="img-preview">
-          <img src={`images/${previewImage}`} alt="" />
+          <img src={previewImage} alt="" />
         </div>
+      ) : (
+        <div className="img-preview"></div>
       )}
     </>
   );
