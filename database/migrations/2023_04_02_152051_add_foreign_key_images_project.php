@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('images_project', function($table){
-            $table->foreignUuid('ProjectId')->contrained()->references('ProjectId')->on('project_header')->onDelete('cascade')->nullable(false);
+            $table->foreignUuid('ProjectId')->references('ProjectId')->on('project_header')->onDelete('cascade')->nullable(false);
         });
     }
 

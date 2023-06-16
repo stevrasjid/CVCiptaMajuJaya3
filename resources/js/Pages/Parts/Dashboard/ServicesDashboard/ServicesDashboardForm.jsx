@@ -106,7 +106,7 @@ export default class ServicesDashboardForm extends Component {
               onChange={this.handleInputChange}
               value={imgService}
               previewImage={
-                previewImgService ? `images/services/${previewImgService}` : ""
+                !previewImgService ? "" : `images/services/${previewImgService}`
               }
             />
           </div>

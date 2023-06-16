@@ -4,6 +4,8 @@ import "./InputFile.scss";
 export default function InputFile(props) {
   const { name, value, accept, innerClassname, outerClassname, previewImage } =
     props;
+
+  console.log(previewImage);
   return (
     <>
       <input
