@@ -37,7 +37,7 @@ export default class ServicesDashboardList extends Component {
               <div className="col-3 mt-3" key={i}>
                 <div className="card">
                   <img
-                    src={`images/services/${data.ImgService}`}
+                    src={data.ImgService}
                     className="card-img-top"
                     alt="Gambar Service"
                   />

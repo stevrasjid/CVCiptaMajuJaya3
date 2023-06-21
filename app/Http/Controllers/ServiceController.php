@@ -47,7 +47,9 @@ class ServiceController extends Controller
         
         if($request->hasFile('imgService')){
             $file = $request->file("imgService");
-            $imageName =  SaveImage($file, $request->serviceCode, "/public/images/services");
+            $ipAddress = GetIpAddress();
+            $filePath = $ipAddress."/images/services";
+            $imageName =  SaveImage($file, $request->serviceCode, $filePath);
             $service->ImgService = $imageName;
         }
 
@@ -62,24 +64,25 @@ class ServiceController extends Controller
         
     }
 
-    public function EditService(Request $request, $id){
+    public function EditService(Request $request){
         $request->validate([
-            'ServiceTitle'=> 'required',
-            'ServiceCode'=> 'required',
-            'ServiceDescription'=>'required',
-            'ImgService'=> 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+            'serviceTitle'=> 'required',
+            'serviceCode'=> 'required',
+            'serviceDescription'=>'required',
+            'imgService'=> 'nullable|image|mimes:jpg,png,jpeg'
         ]);
 
-        $request->serviceCode = strtoupper($request->serviceCode);
-        $message = $this->VerifyInput($request, false);
+        $service = $this->PutDataOnModel($request);
+        $message = $this->VerifyInput($service, $request, false);
 
-        if(empty($message)){
+        if(!empty($message)){
             return redirect()->back()->with('message', $message);
         }
-        if($request->hasFile('ImgService')){
-            $file = $request->file("ImgService");
-            $imgServiceFromDb = ServiceModel::where('ServiceId',$request->serviceId);
-            $imageName = SaveImage($file, $request->serviceCode, $imgServiceFromDb);
+        if($request->hasFile('imgService')){
+            $file = $request->file("imgService");
+            $filePath = "/images/services";
+            $imgServiceFromDb = ServiceModel::where('ServiceId',$request->serviceId)->first();
+            $imageName = SaveImage($file, $request->serviceCode, $filePath, $imgServiceFromDb->ImgService);
 
             ServiceModel::where('ServiceId', $request->serviceId)->update([
                 'ImgService' => $imageName
@@ -92,7 +95,7 @@ class ServiceController extends Controller
             'ServiceDescription' => $request->serviceDescription,
         ]);
 
-        return to_route('dashboardServiceList');
+        return redirect()->route('dashboardServiceList');
     }
 
     public function DeleteService($id){
@@ -126,7 +129,7 @@ class ServiceController extends Controller
 
     private function PutDataOnModel($request){
         $service = new ServiceModel();
-        $service->ServiceId = uuidFunction::NewGuid();
+        $service->ServiceId = $request->serviceId == null ? uuidFunction::NewGuid() : $request->serviceId;
         $service->ServiceTitle = $request->serviceTitle;
         $service->ServiceDescription = $request->serviceDescription;
         $service->ServiceCode = strtoupper($request->serviceCode);

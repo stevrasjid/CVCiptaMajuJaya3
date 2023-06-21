@@ -9,17 +9,17 @@ function SaveImage($file, $name, $filepath, $imageNameFromDb = null)
     $extension = '.'.$file->extension();
     $optimizerChain = OptimizerChainFactory::create();
     $optimizerChain->optimize($file);
-    
+
     if(!empty($imageNameFromDb)){
-        $destinationPath = \base_path().$filepath;
-        if(File::exists($destinationPath.'/'.$imageNameFromDb)){
-            File::delete($destinationPath.'/'.$imageNameFromDb);
+        $destinationPath = \base_path().$imageNameFromDb;
+        if(File::exists($destinationPath)){
+            File::delete($destinationPath);
         }
-    }
-   
+    }   
+    $pathSave = \base_path()."/public".$filepath;
     $imageName = $name.$extension;
-    $file->move(\base_path().$filepath, $imageName);
+    $file->move($pathSave, $imageName);
     
-    return $imageName;
+    return $filepath."/".$imageName;
 }
 

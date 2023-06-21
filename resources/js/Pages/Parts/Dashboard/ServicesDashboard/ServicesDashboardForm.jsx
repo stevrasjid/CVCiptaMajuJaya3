@@ -43,9 +43,15 @@ export default class ServicesDashboardForm extends Component {
   submit = (event) => {
     event.preventDefault();
     const data = this.state;
-    Inertia.post(route("addNewServices"), data, {
-      forceFormData: true,
-    });
+    if (data.serviceId) {
+      Inertia.post(route("editService"), data, {
+        forceFormData: true,
+      });
+    } else {
+      Inertia.post(route("addNewServices"), data, {
+        forceFormData: true,
+      });
+    }
   };
 
   render() {
@@ -105,9 +111,7 @@ export default class ServicesDashboardForm extends Component {
               name="imgService"
               onChange={this.handleInputChange}
               value={imgService}
-              previewImage={
-                !previewImgService ? "" : `images/services/${previewImgService}`
-              }
+              previewImage={previewImgService}
             />
           </div>
           <button

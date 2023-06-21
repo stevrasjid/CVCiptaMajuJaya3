@@ -37,7 +37,8 @@
       "Database\\Seeders\\": "database/seeders/"
     },
     "files": [
-      "app/Helpers/updateImage.php"
+      "app/Helpers/UpdateImage.php",
+      "app/Helpers/GetIpAddress.php"
     ]
   },
   "autoload-dev": {

@@ -135,7 +135,8 @@ class AboutUsController extends Controller
                 $imageNameFromDb = $getImage->ImgAboutUsHomeSmall3;
                 break;
         }
-        $imageNameAboutUsHome = SaveImage($file, $name, "/public/images/", $imageNameFromDb);
+        $filePath = "/images";
+        $imageNameAboutUsHome = SaveImage($file, $name, $filePath, $imageNameFromDb);
 
         return $imageNameAboutUsHome;
     }

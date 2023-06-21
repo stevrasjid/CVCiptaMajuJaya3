@@ -46,7 +46,7 @@ Route::put('/contact-us', 'ContactUsController@edit')->name('editContactUs');
 Route::get('/dashboard-service-list','DashboardController@indexServices')->name('dashboardServiceList');
 Route::get('/get-dashboard-service/{id}','ServiceController@GetService')->name('getDashboardService');
 Route::post('/add-new-dashboard-service','ServiceController@AddNewService')->name('addNewServices');
-Route::post('/edit-dashboard-service/{id}','ServiceController@EditService')->name('editService');
+Route::post('/edit-dashboard-service','ServiceController@EditService')->name('editService');
 Route::delete('delete-dashboard-service/{id}', 'ServiceController@DeleteService')->name('deleteService');
 
 Route::get('/add-new-dashboard-service-form', function() {

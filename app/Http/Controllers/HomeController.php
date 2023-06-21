@@ -70,7 +70,8 @@ class HomeController extends Controller
         if($request->hasFile('imgHeader')){
             $file = $request->file("imgHeader");
             $imgNameFromDb = HomeModel::First()->ImgHeader;
-            $imageNameHome = SaveImage($file, "ImgHeader", "/public/images/",$imgNameFromDb);
+            $filePath = "/images";
+            $imageNameHome = SaveImage($file, "ImgHeader", $filePath, $imgNameFromDb);
 
             HomeModel::where('HomeId',$request->homeId)->update([
                 'ImgHeader' => $imageNameHome

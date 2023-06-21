@@ -6,6 +6,7 @@ export default function InputFile(props) {
     props;
 
   console.log(previewImage);
+  console.log(value);
   return (
     <>
       <input
