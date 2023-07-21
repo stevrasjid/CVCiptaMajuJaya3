@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ImagesProjectModel;
 use App\Traits\uuidFunction;
 
 class ProjectModel extends Model
@@ -14,6 +15,7 @@ class ProjectModel extends Model
     protected $fillable = [
        'ProjectId',
        'ProjectName',
+       'ProjectCode',
        'Description',
        'ClientName',
        'ProjectDate',
@@ -22,4 +24,8 @@ class ProjectModel extends Model
     ]; 
 
     public $incrementing = false;
+
+    public function projectImages() {
+        return $this->hasMany(ImagesProjectModel::class);
+    }
 }

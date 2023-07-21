@@ -5,8 +5,6 @@ export default function InputFile(props) {
   const { name, value, accept, innerClassname, outerClassname, previewImage } =
     props;
 
-  console.log(previewImage);
-  console.log(value);
   return (
     <>
       <input

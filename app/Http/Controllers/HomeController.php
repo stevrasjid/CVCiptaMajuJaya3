@@ -66,6 +66,16 @@ class HomeController extends Controller
         ]);
     }
 
+    public function DashboardHomepage()
+   {
+        $home = HomeModel::first();
+
+        return Inertia::render('Dashboard/DashboardHomepage', [
+            'pathName' => '/dashboard',
+            'home' => $home
+        ]);
+   }
+
     public function editHomepage(Request $request) {
         if($request->hasFile('imgHeader')){
             $file = $request->file("imgHeader");

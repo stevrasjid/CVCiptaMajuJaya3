@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProjectModel;
 use App\Traits\uuidFunction;
 
 class ImagesProjectModel extends Model
@@ -16,7 +17,12 @@ class ImagesProjectModel extends Model
        'ImgProject',
        'NumberSort',
        'isFirst',
+       'ProjectId'
     ]; 
 
     public $incrementing = false;   
+
+    public function project(){
+        return $this->belongsTo(ProjectModel::class, 'ProjectId', 'ProjectId');
+    }
 }

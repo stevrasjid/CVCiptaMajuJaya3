@@ -8,9 +8,18 @@ use Inertia\Inertia;
 
 class ContactUsController extends Controller
 {
-    public function edit(Request $request) {    
-        
-
+    public function DashboardContactUs()
+    {
+         $contactUs = ContactUsModel::first();
+ 
+         return Inertia::render('Dashboard/DashboardContactUs', [
+             'pathName' => '/dashboardContactUs',
+             'contactUs' => $contactUs
+         ]); 
+    }
+    
+    public function edit(Request $request) 
+    {    
         ContactUsModel::where('ContactUsId', $request->contactUsId)->update([
             'Address' => $request->address,
             'Email'=> $request->email,

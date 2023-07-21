@@ -8,6 +8,7 @@ export default function OurProjects(props) {
     var convertDate = new Date(date);
     return convertDate.getFullYear();
   }
+  console.log(props);
 
   return (
     <section className="container our-project-section">
@@ -20,7 +21,6 @@ export default function OurProjects(props) {
               name="options-outlined"
               id="success-outlined"
               autoComplete="off"
-              checked
             />
             <label
               className="btn btn-outline-success"

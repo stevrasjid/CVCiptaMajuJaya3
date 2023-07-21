@@ -13,19 +13,25 @@ class CategoryForProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        CategoryForProjectModel::create(
-        [
-            'CategoryCode' => 'TEMPATHIBURAN',
-            'CategoryName' => 'Tempat Hiburan',
-        ],
-        [
-            'CategoryCode' => 'TEMPATTINGGAL',
-            'CategoryName' => 'Tempat Tinggal',
-        ],
-        [
-            'CategoryCode' => 'RESTORAN',
-            'CategoryName' => 'Restoran',
-        ],
-    );
+        $categories = [
+            [
+                'CategoryCode' => 'TEMPATHIBURAN',
+                'CategoryName' => 'Tempat Hiburan'
+            ],
+            [
+                'CategoryCode' => 'TEMPATTINGGAL',
+                'CategoryName' => 'Tempat Tinggal',
+            ],
+            [
+                'CategoryCode' => 'RESTORAN',
+                'CategoryName' => 'Restoran',
+            ],
+        ];
+        
+        foreach($categories as $category)
+        {
+            CategoryForProjectModel::create($category);
+        }
+    
     }
 }

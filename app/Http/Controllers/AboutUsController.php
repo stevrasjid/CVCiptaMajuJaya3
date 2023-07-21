@@ -24,6 +24,16 @@ class AboutUsController extends Controller
         ]);
     }
 
+    public function DashboardAboutUs()
+    {
+        $aboutUs = AboutUsModel::first();
+
+        return Inertia::render('Dashboard/DashboardAboutUs', [
+            'pathName' => '/dashboardAboutUs',
+            'aboutUs' => $aboutUs
+        ]);
+    }
+
     public function edit(Request $request)
     {
         $validated = $request->validate([

@@ -48,7 +48,7 @@ export default class ServicesDashboardForm extends Component {
         forceFormData: true,
       });
     } else {
-      Inertia.post(route("addNewServices"), data, {
+      Inertia.post(route("addNewService"), data, {
         forceFormData: true,
       });
     }

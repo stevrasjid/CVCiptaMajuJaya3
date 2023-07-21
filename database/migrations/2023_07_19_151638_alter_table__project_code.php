@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('images_project', function($table){
-            $table->foreignUuid('ProjectId')->references('ProjectId')->on('project_header')->onDelete('cascade')->onUpdate('cascade')->nullable(false);
+        Schema::table('project_header', function($table){
+            $table->string('ProjectCode')->unique();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('images_project', function($table){
-           $table->dropColumn('ProjectId');
-        });
+        Schema::table('project_header', function($table){
+            $table->dropColumn('ProjectCode');
+         });
     }
 };

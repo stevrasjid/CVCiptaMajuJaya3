@@ -22,6 +22,16 @@ class ServiceController extends Controller
         ]);
     }
 
+    public function DashboardServices()
+    {
+         $services = ServiceModel::all();
+         return Inertia::render('Dashboard/DashboardServices', [
+             'pathName' => '/dashboard-service-list',
+             'services' => $services
+         ]);
+    }
+ 
+
     public function GetService($id){
         $service = ServiceModel::Find($id);
         return Inertia::render('Dashboard/DashboardServices', [

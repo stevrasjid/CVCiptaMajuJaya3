@@ -33,7 +33,7 @@ const Sidebar = (props) => {
       </Button>
       <Button
         type="link"
-        href=""
+        href={route("dashboardProjectList")}
         className={`nav-link${getNavLinkClass("/dashboardProjects")}`}
       >
         Proyek
