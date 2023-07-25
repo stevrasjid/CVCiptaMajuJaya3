@@ -3,6 +3,7 @@ import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
 import DatePicker from "react-datepicker";
 import moment from "moment/moment";
+import InputFileMultiple from "@/Elements/InputFileMultiple/InputFileMultiple";
 
 import "./ProjectsDashboard.scss";
 
@@ -20,30 +21,36 @@ export default class ProjectsDashboardForm extends Component {
         ClientName: "",
         ProjectDate: new Date(moment().format("MM/DD/YYYY")),
         CategoryId: "",
-        CategoryCode: "",
-        ImgProjects: [],
-        PreviewImgProjects: [],
+        CategoryCode: this.props.Categories[0].CategoryCode,
+        ImgProjects: [
+          {
+            ImgFile: "",
+            Nomor: 0,
+            PreviewImage: "",
+          },
+          {
+            ImgFile: "",
+            Nomor: 1,
+            PreviewImage: "",
+          },
+          {
+            ImgFile: "",
+            Nomor: 2,
+            PreviewImage: "",
+          },
+          {
+            ImgFile: "",
+            Nomor: 3,
+            PreviewImage: "",
+          },
+          {
+            ImgFile: "",
+            Nomor: 4,
+            PreviewImage: "",
+          },
+        ],
       },
-      Categories: this.props.Categories,
     };
-
-    var uploadFiles = [];
-    for (var i = 0; i < 5; i++) {
-      uploadFiles.push(
-        <div className="col-4">
-          <label htmlFor="imgProject" className="form-label">
-            Gambar {i + 1}
-          </label>
-          <InputFile
-            accept="image/*"
-            name="imgProjects"
-            onChange={this.handleInputChange}
-            value={this.state.Project.ImgProjects[i]}
-            previewImage={`images/${this.state.Project.PreviewImgProjects[i]}`}
-          />
-        </div>
-      );
-    }
   }
 
   componentDidMount() {
@@ -77,6 +84,24 @@ export default class ProjectsDashboardForm extends Component {
     });
   };
 
+  handleInputChangeImage = (e, nomor) => {
+    const target = e.target;
+    const name = target.name;
+    const file = target.files[0];
+
+    var listImg = this.state.Project.ImgProjects;
+    var img = listImg.filter((img) => img.Nomor == nomor);
+    img[0].ImgFile = file;
+
+    this.setState({
+      ...this.state,
+      Project: {
+        ...this.state.Project,
+        ImgProjects: listImg,
+      },
+    });
+  };
+
   submit = (event) => {
     event.preventDefault();
     const data = this.state;
@@ -99,8 +124,9 @@ export default class ProjectsDashboardForm extends Component {
       ProjectDate,
       CategoryCode,
       ImgProjects,
-      PreviewImgProjects,
     } = this.state.Project;
+
+    const { Categories } = this.props;
     return (
       <section className="row col-12">
         <form encType="multipart/form-data">
@@ -157,7 +183,7 @@ export default class ProjectsDashboardForm extends Component {
           </div>
 
           <div className="d-flex d-inline mb-3">
-            {this.state.Categories.map((data, i) => {
+            {Categories.map((data, i) => {
               return (
                 <div className={`category${i != 0 ? " ps-3" : ""}`} key={i}>
                   <input
@@ -180,7 +206,20 @@ export default class ProjectsDashboardForm extends Component {
               );
             })}
           </div>
-          <div className="row"></div>
+          <div className="row">
+            {ImgProjects.map((data, i) => {
+              return (
+                <div className="col-4 mt-3" key={i}>
+                  <InputFile
+                    name="ImgProjects"
+                    value={data.ImgFile}
+                    PreviewImage={data.PreviewImage}
+                    onChange={(e) => this.handleInputChangeImage(e, i)}
+                  />
+                </div>
+              );
+            })}
+          </div>
           <button
             type="submit"
             onClick={this.submit}
