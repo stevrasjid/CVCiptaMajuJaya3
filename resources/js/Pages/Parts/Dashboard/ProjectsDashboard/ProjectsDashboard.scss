@@ -3,3 +3,22 @@
 .input-tgl {
   margin-left: 1rem;
 }
+
+.header {
+  font-size: 1.2rem;
+}
+
+.img-wrapper {
+  width: 150px;
+  height: 150px;
+  padding-right: 1rem;
+  .card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.project-input {
+  font-size: 1.2rem;
+}

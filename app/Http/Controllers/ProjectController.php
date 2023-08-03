@@ -9,6 +9,7 @@ use App\Models\ImagesProjectModel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Traits\uuidFunction;
+use File;
 use Illuminate\Support\Facades\Redirect; 
 use Carbon\Carbon;
 
@@ -124,7 +125,7 @@ class ProjectController extends Controller
             'CategoryId' => $project->CategoryId,
         ]);
 
-        $images = $this->SaveProject($projectModel, $files); //push image into image list
+        $images = $this->SaveImageProject($projectModel, $files); //push image into image list
         $projectModel->save(); //save parent
         $projectModel->ImgProjects()->saveMany($images); //save child
 
@@ -161,7 +162,7 @@ class ProjectController extends Controller
 
         if($files != null){
             $this->UndoTransaction($project->ProjectId); //hapus gambar 
-            $images = $this->SaveImage($project, $files); //simpan gambar baru 
+            $images = $this->SaveImageProject($project, $files); //simpan gambar baru 
             $projectFromDb->ImgProjects()->saveMany($images); //save into database
         }
 
@@ -176,10 +177,11 @@ class ProjectController extends Controller
             $message = "Data Project tidak ditemukan";
             return redirect()->back()->with('message', $message);
         }
-
+ 
         foreach($project->ImgProjects as $imgProject){
-            if(File::exists(\base_path().$imgProject->ImgProject))
-               File::delete(\base_path().$imgProject->ImgProject);
+            $imagepath = \base_path().'/public'.$imgProject->ImgProject;
+            if(File::exists($imagepath))
+               File::delete($imagepath);
         }
 
         ProjectModel::destroy($project->ProjectId);
@@ -221,7 +223,7 @@ class ProjectController extends Controller
         return $message;
     }
 
-    private function SaveImage($project, $files) 
+    private function SaveImageProject($project, $files) 
     {
         $images = [];
         foreach ($files as $index => $file) {

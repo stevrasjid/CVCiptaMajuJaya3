@@ -11,7 +11,7 @@ function SaveImage($file, $name, $filepath, $imageNameFromDb = null)
     $optimizerChain->optimize($file);
 
     if(!empty($imageNameFromDb)){
-        $destinationPath = \base_path().$imageNameFromDb;
+        $destinationPath = \base_path().'/public'.$imageNameFromDb;
         if(File::exists($destinationPath)){
             File::delete($destinationPath);
         }
