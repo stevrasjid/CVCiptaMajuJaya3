@@ -24,8 +24,9 @@ class ProjectModel extends Model
     ]; 
 
     public $incrementing = false;
+    protected $primaryKey = 'ProjectId';
 
-    public function projectImages() {
-        return $this->hasMany(ImagesProjectModel::class);
+    public function ImgProjects() {
+        return $this->hasMany(ImagesProjectModel::class, 'ProjectId', 'ProjectId');
     }
 }

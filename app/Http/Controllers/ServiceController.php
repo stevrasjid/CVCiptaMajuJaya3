@@ -58,7 +58,7 @@ class ServiceController extends Controller
         if($request->hasFile('imgService')){
             $file = $request->file("imgService");
             $ipAddress = GetIpAddress();
-            $filePath = $ipAddress."/images/services";
+            $filePath = "/images/services";
             $imageName =  SaveImage($file, $request->serviceCode, $filePath);
             $service->ImgService = $imageName;
         }

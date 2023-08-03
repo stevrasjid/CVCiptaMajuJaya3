@@ -110,7 +110,7 @@ class HomepageDashboard extends Component {
               name="imgHeader"
               onChange={this.handleInputChange}
               value={imgHeader}
-              previewImage={`images/${previewImgHeader}`}
+              previewImage={previewImgHeader}
             />
           </div>
           <button

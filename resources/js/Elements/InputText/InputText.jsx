@@ -11,6 +11,7 @@ export default function InputText(props) {
     innerClassname,
     outerClassname,
     useTextArea,
+    disabled,
   } = props;
 
   const [HasError, setHasError] = useState(null);
@@ -45,6 +46,7 @@ export default function InputText(props) {
           placeholder={placeHolder}
           onChange={onChange}
           value={value}
+          disabled={disabled}
         />
       ) : (
         <textarea
@@ -67,4 +69,5 @@ InputText.defaultProps = {
   pattern: "",
   placeholder: "Type Here...",
   errorResponse: "Please match the requested format.",
+  disabled: false,
 };

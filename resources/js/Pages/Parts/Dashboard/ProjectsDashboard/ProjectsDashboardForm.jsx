@@ -3,6 +3,7 @@ import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
 import DatePicker from "react-datepicker";
 import moment from "moment/moment";
+import axios from "axios";
 import InputFileMultiple from "@/Elements/InputFileMultiple/InputFileMultiple";
 
 import "./ProjectsDashboard.scss";
@@ -20,7 +21,7 @@ export default class ProjectsDashboardForm extends Component {
         Description: "",
         ClientName: "",
         ProjectDate: new Date(moment().format("MM/DD/YYYY")),
-        CategoryId: "",
+        CategoryId: this.props.Categories[0].CategoryId,
         CategoryCode: this.props.Categories[0].CategoryCode,
         ImgProjects: [
           {
@@ -54,11 +55,32 @@ export default class ProjectsDashboardForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.project) {
-      const project = this.props.project;
+    if (this.props.Project) {
+      const project = this.props.Project;
+
+      var listImg = this.state.Project.ImgProjects;
+      project.img_projects.forEach(function (img) {
+        var image = listImg.filter((i) => i.Nomor == img.NumberSort);
+        if (!(image === null || image === undefined)) {
+          image[0].PreviewImage = img.ImgProject;
+        }
+      });
+
       this.setState({
         ...this.state,
-        Project: project,
+        Project: {
+          ProjectId: project.ProjectId,
+          ProjectName: project.ProjectName,
+          ProjectCode: project.ProjectCode,
+          Description: project.Description,
+          ClientName: project.ClientName,
+          ProjectDate: new Date(
+            moment(project.ProjectDate).format("MM/DD/YYYY")
+          ),
+          CategoryId: project.CategoryId,
+          CategoryCode: project.CategoryCode,
+          ImgProjects: listImg,
+        },
       });
     }
   }
@@ -104,20 +126,40 @@ export default class ProjectsDashboardForm extends Component {
 
   submit = (event) => {
     event.preventDefault();
-    const data = this.state;
-    if (data.serviceId) {
-      axios.post(route("editProject"), data, {
+    const data = this.state.Project;
+    const formData = new FormData();
+    this.state.Project.ImgProjects.forEach((imgProject) => {
+      formData.append(`${imgProject.Nomor}`, imgProject.ImgFile);
+    });
+
+    const formatDate = moment(data.ProjectDate).format("YYYY-MM-DD");
+
+    formData.append("ProjectId", data.ProjectId);
+    formData.append("ProjectName", data.ProjectName);
+    formData.append("ProjectCode", data.ProjectCode);
+    formData.append("Description", data.Description);
+    formData.append("ClientName", data.ClientName);
+    formData.append("ProjectDate", formatDate);
+    formData.append("CategoryId", data.CategoryId);
+    formData.append("CategoryCode", data.CategoryCode);
+
+    if (data.ProjectId) {
+      axios.post(route("editProject"), formData, {
         forceFormData: true,
+        headers: { "Content-Type": "multipart/form-data" },
       });
     } else {
-      axios.post(route("addNewProject"), data, {
+      axios.post(route("addNewProject"), formData, {
         forceFormData: true,
+        headers: { "Content-Type": "multipart/form-data" },
       });
     }
   };
 
   render() {
     const {
+      ProjectId,
+      ProjectCode,
       ProjectName,
       Description,
       ClientName,
@@ -130,6 +172,19 @@ export default class ProjectsDashboardForm extends Component {
     return (
       <section className="row col-12">
         <form encType="multipart/form-data">
+          <div className="mb-3">
+            <label htmlFor="Kode Project" className="form-label">
+              Kode Project
+            </label>
+            <InputText
+              type="text"
+              name="ProjectCode"
+              placeholder="Kode Project"
+              onChange={this.handleInputChange}
+              value={ProjectCode}
+              disabled={ProjectId ? true : false}
+            />
+          </div>
           <div className="mb-3">
             <label htmlFor="Nama Project" className="form-label">
               Nama Project
@@ -213,7 +268,7 @@ export default class ProjectsDashboardForm extends Component {
                   <InputFile
                     name="ImgProjects"
                     value={data.ImgFile}
-                    PreviewImage={data.PreviewImage}
+                    previewImage={data.PreviewImage}
                     onChange={(e) => this.handleInputChangeImage(e, i)}
                   />
                 </div>

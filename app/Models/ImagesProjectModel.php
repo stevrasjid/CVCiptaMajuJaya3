@@ -10,19 +10,19 @@ use App\Traits\uuidFunction;
 class ImagesProjectModel extends Model
 {
     use HasFactory, uuidFunction;
-    protected $table = 'image_project';
+    protected $table = 'images_project';
 
     protected $fillable = [
        'ImgProjectId',
        'ImgProject',
        'NumberSort',
-       'isFirst',
        'ProjectId'
     ]; 
 
     public $incrementing = false;   
+    protected $primaryKey = 'ImgProjectId';
 
-    public function project(){
-        return $this->belongsTo(ProjectModel::class, 'ProjectId', 'ProjectId');
+    public function Project(){
+        return $this->belongsTo(ProjectModel::class, 'ProjectId');
     }
 }
