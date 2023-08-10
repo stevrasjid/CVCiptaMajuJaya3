@@ -21,7 +21,7 @@ export default class DashboardContactUs extends Component {
     return (
       <>
         <Sidebar {...this.props} />
-        <div className="container">
+        <div className="container pt-4">
           <ContactUs {...this.props} />
         </div>
       </>

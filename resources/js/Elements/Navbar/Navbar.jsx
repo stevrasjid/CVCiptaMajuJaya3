@@ -36,40 +36,28 @@ const Navbar = (props) => {
           <div className="collapse navbar-collapse justify-content-end">
             <ul className="navbar-nav">
               <li className={`nav-item${getNavLinkClass("/")}`}>
-                <Button className="nav-link" type="link" href={route("home")}>
+                <Button className="nav-link" type="link" href="">
                   Beranda
                 </Button>
               </li>
             </ul>
             <ul className="navbar-nav">
               <li className={`nav-item${getNavLinkClass("/aboutUs")}`}>
-                <Button
-                  className="nav-link"
-                  type="link"
-                  href={route("aboutUs")}
-                >
+                <Button className="nav-link" type="link" href="/about-us">
                   Tentang Kami
                 </Button>
               </li>
             </ul>
             <ul className="navbar-nav">
               <li className={`nav-item${getNavLinkClass("/services")}`}>
-                <Button
-                  className="nav-link"
-                  type="link"
-                  href={route("services")}
-                >
+                <Button className="nav-link" type="link" href="/services">
                   Layanan
                 </Button>
               </li>
             </ul>
             <ul className="navbar-nav">
               <li className={`nav-item${getNavLinkClass("/projects")}`}>
-                <Button
-                  className="nav-link"
-                  type="link"
-                  href={route("projects")}
-                >
+                <Button className="nav-link" type="link" href="/projects">
                   Proyek
                 </Button>
               </li>

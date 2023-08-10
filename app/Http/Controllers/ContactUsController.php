@@ -13,7 +13,7 @@ class ContactUsController extends Controller
          $contactUs = ContactUsModel::first();
  
          return Inertia::render('Dashboard/DashboardContactUs', [
-             'pathName' => '/dashboardContactUs',
+             'pathName' => '/dashboard-contact-us',
              'contactUs' => $contactUs
          ]); 
     }

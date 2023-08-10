@@ -15,35 +15,35 @@ const Sidebar = (props) => {
         href={route("dashboard")}
         className={`nav-link${getNavLinkClass("/dashboard")}`}
       >
-        Beranda
+        <p>Beranda</p>
       </Button>
       <Button
         type="link"
         href={route("dashboardAboutUs")}
         className={`nav-link${getNavLinkClass("/dashboard-about-us")}`}
       >
-        Tentang Kami
+        <p>Tentang Kami</p>
       </Button>
       <Button
         type="link"
         href={route("dashboardServiceList")}
         className={`nav-link${getNavLinkClass("/dashboard-service-list")}`}
       >
-        Layanan
+        <p>Layanan</p>
       </Button>
       <Button
         type="link"
         href={route("dashboardProjectList")}
-        className={`nav-link${getNavLinkClass("/dashboardProjects")}`}
+        className={`nav-link${getNavLinkClass("/dashboard-project-list")}`}
       >
-        Proyek
+        <p>Proyek</p>
       </Button>
       <Button
         type="link"
         href={route("dashboardContactUs")}
-        className={`nav-link${getNavLinkClass("/dashboardContactUs")}`}
+        className={`nav-link${getNavLinkClass("/dashboard-contact-us")}`}
       >
-        Hubungi Kami
+        <p>Hubungi Kami</p>
       </Button>
     </div>
   );

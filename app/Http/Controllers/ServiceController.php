@@ -24,7 +24,7 @@ class ServiceController extends Controller
 
     public function DashboardServices()
     {
-         $services = ServiceModel::all();
+         $services = ServiceModel::orderby('created_at', 'desc')->get();
          return Inertia::render('Dashboard/DashboardServices', [
              'pathName' => '/dashboard-service-list',
              'services' => $services

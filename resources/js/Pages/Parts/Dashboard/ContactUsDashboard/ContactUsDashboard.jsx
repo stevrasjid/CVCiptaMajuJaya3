@@ -42,6 +42,7 @@ class ContactUsDashboard extends Component {
       this.state;
     return (
       <section className="row col-12">
+        <h3 className="pb-3">Hubungi Kami</h3>
         <form onSubmit={this.submit} encType="multipart/form-data">
           <div className="mb-3">
             <label htmlFor="alamat" className="form-label">

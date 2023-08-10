@@ -29,7 +29,7 @@ class AboutUsController extends Controller
         $aboutUs = AboutUsModel::first();
 
         return Inertia::render('Dashboard/DashboardAboutUs', [
-            'pathName' => '/dashboardAboutUs',
+            'pathName' => '/dashboard-about-us',
             'aboutUs' => $aboutUs
         ]);
     }

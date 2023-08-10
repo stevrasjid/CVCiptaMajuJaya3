@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "@/Elements/Button/Button";
 import axios from "axios";
+import "./ProjectsDashboard.scss";
 
 export default class ProjectsDashboardList extends Component {
   constructor(props) {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "@/Elements/Button/Button";
-import { Inertia } from "@inertiajs/inertia";
+import axios from "axios";
+import "./ServicesDasboard.scss";
 
 export default class ServicesDashboardList extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class ServicesDashboardList extends Component {
 
   deleteService = (e, ServiceId) => {
     console.log(ServiceId);
-    Inertia.delete(route("deleteService", ServiceId));
+    axios.delete(route("deleteService", ServiceId));
   };
 
   render() {
@@ -31,37 +32,57 @@ export default class ServicesDashboardList extends Component {
             </Button>
           </div>
         </div>
-        <div className="row col-12 mt-4">
-          {services.map((data, i) => {
-            return (
-              <div className="col-3 mt-3" key={i}>
-                <div className="card">
-                  <img
-                    src={data.ImgService}
-                    className="card-img-top"
-                    alt="Gambar Service"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{data.ServiceTitle}</h5>
-                    <Button
-                      type="link"
-                      className="btn btn-primary"
-                      href={route("getDashboardService", data.ServiceId)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      type="button"
-                      className="btn btn-danger ms-2"
-                      onClick={(e) => this.deleteService(e, data.ServiceId)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+
+        <div className="row mt-4">
+          <table className="table table-striped">
+            <thead>
+              <tr className="text-bold header">
+                <th>Gambar</th>
+                <th>Kode Layanan</th>
+                <th>Nama Layanan</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {services.map((data, i) => {
+                return (
+                  <>
+                    <tr key={i}>
+                      <td className="img-wrapper align-middle">
+                        <img
+                          src={data.ImgService}
+                          className="card-img-top"
+                          alt="Gambar Service"
+                        />
+                      </td>
+                      <td className="service-input align-middle">
+                        {data.ServiceCode}
+                      </td>
+                      <td className="service-input align-middle">
+                        {data.ServiceTitle}
+                      </td>
+                      <td className="align-middle">
+                        <Button
+                          type="link"
+                          className="btn btn-primary"
+                          href={route("getDashboardService", data.ServiceId)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          type="button"
+                          className="btn btn-danger ms-2"
+                          onClick={(e) => this.deleteService(e, data.ServiceId)}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </section>
     );

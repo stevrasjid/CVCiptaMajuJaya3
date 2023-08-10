@@ -21,7 +21,7 @@ export default class DashboardHomePage extends Component {
     return (
       <>
         <Sidebar {...this.props} />
-        <div className="container">
+        <div className="container pt-4">
           <Homepage {...this.props} />
         </div>
       </>

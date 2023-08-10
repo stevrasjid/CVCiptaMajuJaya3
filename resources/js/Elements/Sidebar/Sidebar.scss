@@ -9,6 +9,12 @@
   background-color: $primary;
   overflow-x: hidden;
   padding-top: 3%;
+  padding-left: 0.5rem;
+  .nav-link {
+    &.active {
+      font-weight: bold;
+    }
+  }
 
   a {
     padding: 2%;

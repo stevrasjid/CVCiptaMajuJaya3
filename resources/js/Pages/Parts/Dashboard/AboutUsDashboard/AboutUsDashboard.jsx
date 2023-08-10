@@ -80,6 +80,7 @@ class AboutUsDashboard extends Component {
 
     return (
       <section className="row col-12">
+        <h3 className="pb-3">Tentang Kami</h3>
         <form onSubmit={this.submit} encType="multipart/form-data">
           <div className="mb-3">
             <label htmlFor="vision" className="form-label">

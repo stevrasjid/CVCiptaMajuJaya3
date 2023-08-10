@@ -4,11 +4,10 @@ import InputFile from "@/Elements/InputFile/InputFile";
 import DatePicker from "react-datepicker";
 import moment from "moment/moment";
 import axios from "axios";
-import InputFileMultiple from "@/Elements/InputFileMultiple/InputFileMultiple";
-
 import "./ProjectsDashboard.scss";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { Inertia } from "@inertiajs/inertia";
 
 export default class ProjectsDashboardForm extends Component {
   constructor(props) {
@@ -127,32 +126,46 @@ export default class ProjectsDashboardForm extends Component {
   submit = (event) => {
     event.preventDefault();
     const data = this.state.Project;
-    const formData = new FormData();
-    this.state.Project.ImgProjects.forEach((imgProject) => {
-      formData.append(`${imgProject.Nomor}`, imgProject.ImgFile);
-    });
+    // const formData = new FormData();
+    // this.state.Project.ImgProjects.forEach((imgProject) => {
+    //   formData.append(`${imgProject.Nomor}`, imgProject.ImgFile);
+    // });
 
     const formatDate = moment(data.ProjectDate).format("YYYY-MM-DD");
 
-    formData.append("ProjectId", data.ProjectId);
-    formData.append("ProjectName", data.ProjectName);
-    formData.append("ProjectCode", data.ProjectCode);
-    formData.append("Description", data.Description);
-    formData.append("ClientName", data.ClientName);
-    formData.append("ProjectDate", formatDate);
-    formData.append("CategoryId", data.CategoryId);
-    formData.append("CategoryCode", data.CategoryCode);
+    // formData.append("ProjectId", data.ProjectId);
+    // formData.append("ProjectName", data.ProjectName);
+    // formData.append("ProjectCode", data.ProjectCode);
+    // formData.append("Description", data.Description);
+    // formData.append("ClientName", data.ClientName);
+    // formData.append("ProjectDate", formatDate);
+    // formData.append("CategoryId", data.CategoryId);
+    // formData.append("CategoryCode", data.CategoryCode);
+
+    // if (data.ProjectId) {
+    //   axios.post(route("editProject"), formData, {
+    //     forceFormData: true,
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   });
+    // } else {
+    //   axios.post(route("addNewProject"), formData, {
+    //     forceFormData: true,
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   });
+    // }
 
     if (data.ProjectId) {
-      axios.post(route("editProject"), formData, {
-        forceFormData: true,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-    } else {
-      axios.post(route("addNewProject"), formData, {
-        forceFormData: true,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      Inertia.post(
+        route("editProject"),
+        data,
+        {
+          forceFormData: true,
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+        {
+          onSuccess: () => {},
+        }
+      );
     }
   };
 

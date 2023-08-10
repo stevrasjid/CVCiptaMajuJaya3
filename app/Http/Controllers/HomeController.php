@@ -14,6 +14,7 @@ use App\Models\TestimonyModels;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use App\Traits\uuidFunction as uuid;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -77,6 +78,13 @@ class HomeController extends Controller
    }
 
     public function editHomepage(Request $request) {
+       $validated = $request->validate([
+            'tagLine' => 'required',
+            'smallDescription' => 'required',
+            'yearsExperiences' => 'required',
+            'happyCustomers' => 'required',
+        ]);
+
         if($request->hasFile('imgHeader')){
             $file = $request->file("imgHeader");
             $imgNameFromDb = HomeModel::First()->ImgHeader;
@@ -88,6 +96,9 @@ class HomeController extends Controller
             ]);
         }
 
+        // return redirect()->back()->withErrors([
+        //     'message' => 'error'
+        // ]);
 
         HomeModel::where('HomeId', $request->homeId)->update([
             'TagLine' => $request->tagLine,
@@ -96,6 +107,6 @@ class HomeController extends Controller
             'HappyCustomers' => $request->happyCustomers
         ]);
 
-        return redirect()->back()->with('message', 'Berhasil di edit');
+        return redirect()->back()->with('success', 'Post created successfully');
     }
 }
