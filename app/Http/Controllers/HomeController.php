@@ -119,6 +119,6 @@ class HomeController extends Controller
             'HappyCustomers' => $request->happyCustomers
         ]);
 
-        return redirect()->back()->withInput(['success' => 'Post created successfully']);
+        return redirect()->back();
     }
 }

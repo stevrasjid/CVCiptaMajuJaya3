@@ -1,8 +1,9 @@
 import { Link, Head } from "@inertiajs/react";
 import "./ContactUsDashboard.scss";
 import { Component } from "react";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 import InputText from "@/Elements/InputText/InputText";
+import Swal from "sweetalert2";
 
 class ContactUsDashboard extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class ContactUsDashboard extends Component {
       admin1: contactUs.Admin1,
       phoneNumber2: contactUs.PhoneNumber2,
       admin2: contactUs.Admin2,
+      isLoading: false,
     };
   }
 
@@ -33,8 +35,24 @@ class ContactUsDashboard extends Component {
 
   submit = (event) => {
     event.preventDefault();
+    this.setState({
+      ...this.state,
+      isLoading: true,
+    });
     const data = this.state;
-    Inertia.put(route("editContactUs"), data);
+    router.put(route("editContactUs"), data, {
+      onSuccess: () => {
+        Swal.fire("Sukses", "Berhasil Di Edit", "Success");
+        router.visit(route("dashboardContactUs"));
+      },
+      onError: (response) => {
+        Swal.fire("Error", response.message, "error");
+        this.setState({
+          ...this.state,
+          isLoading: false,
+        });
+      },
+    });
   };
 
   render() {

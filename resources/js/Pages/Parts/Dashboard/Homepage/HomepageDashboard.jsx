@@ -1,7 +1,6 @@
 import { Link, Head } from "@inertiajs/react";
 import "./HomepageDashboard.scss";
 import { Component } from "react";
-import axios from "axios";
 import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
 import Swal from "sweetalert2";

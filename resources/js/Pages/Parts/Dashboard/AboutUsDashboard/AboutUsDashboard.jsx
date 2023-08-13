@@ -1,9 +1,10 @@
 import { Link, Head, useForm, usePage, router } from "@inertiajs/react";
 import "./AboutUsDashboard.scss";
 import { Component } from "react";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
+import Swal from "sweetalert2";
 
 class AboutUsDashboard extends Component {
   constructor(props) {
@@ -32,6 +33,8 @@ class AboutUsDashboard extends Component {
       previewImgAboutUsHomeSmall1: aboutUs.ImgAboutUsHomeSmall1,
       previewImgAboutUsHomeSmall2: aboutUs.ImgAboutUsHomeSmall2,
       previewImgAboutUsHomeSmall3: aboutUs.ImgAboutUsHomeSmall3,
+
+      isLoading: false,
     };
   }
 
@@ -48,10 +51,28 @@ class AboutUsDashboard extends Component {
 
   submit = (event) => {
     event.preventDefault();
+    this.setState({
+      ...this.state,
+      isLoading: true,
+    });
     const data = this.state;
 
-    Inertia.post(route("editAboutUs"), data, {
+    router.post(route("editAboutUs"), data, {
       forceFormData: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onSuccess: () => {
+        Swal.fire("Sukses", "Berhasil diubah", "success");
+        router.visit("dashboardAboutUs");
+      },
+      onError: (response) => {
+        Swal.fire("Error", response.message, "error");
+        this.setState({
+          ...this.state,
+          isLoading: false,
+        });
+      },
     });
   };
 

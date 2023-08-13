@@ -36,20 +36,62 @@ class AboutUsController extends Controller
 
     public function edit(Request $request)
     {
-        $validated = $request->validate([
+        $message = '';
+        $validator = Validator::make($request->all(), [
             'vision' => 'required',
             'mission' => 'required',
             'commitment' => 'required',
-            'descriptionAbousUsSmall' => 'required',
-            'descriptionAbousUsFull' => 'required',
+            'descriptionAboutUsSmall' => 'required',
+            'descriptionAboutUsFull' => 'required',
             'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
             'imgAboutUs' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
             'imgCommitment' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
             'imgAboutUsHomeSmall1' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
             'imgAboutUsHomeSmall2' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
             'imgAboutUsHomeSmall3' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'
-
+        ], [
+            'vision.required' => 'Visi masih kosong, harap diisi',
+            'mission.required' => 'Misi masih kosong, harap diisi',
+            'commitment.required' => 'Komitmen masih kosong, harap diisi',
+            'descriptionAboutUsSmall.required' => 'Deskripsi Tentang Kami di beranda masih kosong, harap diisi',
+            'descriptionAboutUsFull.required' => 'Deskripsi Tentang Kami masih kosong, harap diisi',
+            'imgAboutUsHome.mimes' => 'Format gambar Tentang Kami di beranda hanya bisa jpg, png, jpeg, harap diperbaiki',
+            'imgAboutUsHome.max' => 'Ukuran gambar Tentang Kami di beranda melebihi ukuran maksimal (2mb), harap diperbaiki',
+            'imgAboutUs.mimes' => 'Format gambar Tentang Kami hanya bisa jpg, png, jpeg, harap diperbaiki',
+            'imgAboutUs.max' => 'Ukuran gambar Tentang Kami melebihi ukuran maksimal (2mb), harap diperbaiki',
+            'imgCommitment.mimes' => 'Format gambar Komitment hanya bisa jpg, png, jpeg, harap diperbaiki',
+            'imgCommitment.max' => 'Ukuran gambar Komitment di beranda melebihi ukuran maksimal (2mb), harap diperbaiki',
+            'imgAboutUsHomeSmall1.mimes' => 'Format gambar Tentang Kami kecil di beranda 1 hanya bisa jpg, png, jpeg, harap diperbaiki',
+            'imgAboutUsHomeSmall1.max' => 'Ukuran gambar Tentang kami kecil 1 di beranda melebihi ukuran maksimal (2mb), harap diperbaiki',
+            'imgAboutUsHomeSmall2.mimes' => 'Format gambar Tentang Kami kecil di beranda 2 hanya bisa jpg, png, jpeg, harap diperbaiki',
+            'imgAboutUsHomeSmall2.max' => 'Ukuran gambar Tentang kami kecil 2 di beranda melebihi ukuran maksimal (2mb), harap diperbaiki',
+            'imgAboutUsHomeSmall3.mimes' => 'Format gambar Tentang Kami kecil di beranda 3 hanya bisa jpg, png, jpeg, harap diperbaiki',
+            'imgAboutUsHomeSmall3.max' => 'Ukuran gambar Tentang kami kecil 3 di beranda melebihi ukuran maksimal (2mb), harap diperbaiki',
         ]);
+
+        if($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach($errors as $error){
+                $message = $message.$error."<br>";
+            }
+            return redirect()->back()->withErrors([
+                'message' => $message
+            ]);
+        }
+
+        // $validated = $request->validate([
+        //     'vision' => 'required',
+        //     'mission' => 'required',
+        //     'commitment' => 'required',
+        //     'descriptionAbousUsSmall' => 'required',
+        //     'descriptionAbousUsFull' => 'required',
+        //     'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+        //     'imgAboutUs' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+        //     'imgCommitment' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+        //     'imgAboutUsHomeSmall1' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+        //     'imgAboutUsHomeSmall2' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
+        //     'imgAboutUsHomeSmall3' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'  
+        // ]);
 
         if($request->hasFile('imgAboutUsHome')){
             $file = $request->file("imgAboutUsHome");
@@ -113,7 +155,7 @@ class AboutUsController extends Controller
             'DescriptionAboutUsFull' => $request->descriptionAboutUsFull
        ]);
 
-       return redirect()->back()->with('message', 'Berhasil di edit');
+       return redirect()->back();
     }
 
     private function updateImageAboutUs ($file, $numberImgName) 
