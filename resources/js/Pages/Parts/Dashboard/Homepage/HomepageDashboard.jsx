@@ -22,6 +22,13 @@ class HomepageDashboard extends Component {
       imgHeader: undefined,
       previewImgHeader: homePage.ImgHeader,
       isLoading: false,
+
+      errorResponses: {
+        tagLine: "",
+        smallDescription: "",
+        yearsExperiences: "",
+        happyCustomers: "",
+      },
     };
   }
 
@@ -51,8 +58,8 @@ class HomepageDashboard extends Component {
       router.post(route("editHomepage"), data, {
         headers,
         forceFormData: true,
-        onSuccess: (response) => {
-          Swal.fire("Sukses", response, "success");
+        onSuccess: () => {
+          Swal.fire("Sukses", "Berhasil Di Edit", "success");
           router.visit(route("dashboard"));
         },
         onError: (response) => {

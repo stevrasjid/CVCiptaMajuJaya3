@@ -14,7 +14,7 @@ use App\Models\TestimonyModels;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use App\Traits\uuidFunction as uuid;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -78,12 +78,28 @@ class HomeController extends Controller
    }
 
     public function editHomepage(Request $request) {
-       $validated = $request->validate([
+        $message = '';
+        $validator = Validator::make($request->all(), [
             'tagLine' => 'required',
             'smallDescription' => 'required',
             'yearsExperiences' => 'required',
             'happyCustomers' => 'required',
+        ], [
+            'tagLine.required' => 'Tag Line masih kosong, harap diisi',
+            'smallDescription.required' => 'Deskripsi masih kosong, harap diisi',
+            'yearsExperiences.required' => 'Tahun pengalaman masih kosong, harap diisi',
+            'happyCustomers.required' => 'Pelanggan Senang masih kosong, harap diisi',
         ]);
+
+        if($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach($errors as $error){
+                $message = $message.$error."<br>";
+            }
+            return redirect()->back()->withErrors([
+                'message' => $message
+            ]);
+        }
 
         if($request->hasFile('imgHeader')){
             $file = $request->file("imgHeader");
@@ -96,10 +112,6 @@ class HomeController extends Controller
             ]);
         }
 
-        // return redirect()->back()->withErrors([
-        //     'message' => 'error'
-        // ]);
-
         HomeModel::where('HomeId', $request->homeId)->update([
             'TagLine' => $request->tagLine,
             'SmallDescription' => $request->smallDescription,
@@ -107,6 +119,6 @@ class HomeController extends Controller
             'HappyCustomers' => $request->happyCustomers
         ]);
 
-        return redirect()->back()->with('success', 'Post created successfully');
+        return redirect()->back()->withInput(['success' => 'Post created successfully']);
     }
 }
