@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AboutUsModel;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class AboutUsController extends Controller
 {
@@ -78,20 +79,6 @@ class AboutUsController extends Controller
                 'message' => $message
             ]);
         }
-
-        // $validated = $request->validate([
-        //     'vision' => 'required',
-        //     'mission' => 'required',
-        //     'commitment' => 'required',
-        //     'descriptionAbousUsSmall' => 'required',
-        //     'descriptionAbousUsFull' => 'required',
-        //     'imgAboutUsHome' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
-        //     'imgAboutUs' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
-        //     'imgCommitment' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
-        //     'imgAboutUsHomeSmall1' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
-        //     'imgAboutUsHomeSmall2' => 'image|mimes:jpg,png,jpeg|max:2048|nullable',
-        //     'imgAboutUsHomeSmall3' => 'image|mimes:jpg,png,jpeg|max:2048|nullable'  
-        // ]);
 
         if($request->hasFile('imgAboutUsHome')){
             $file = $request->file("imgAboutUsHome");

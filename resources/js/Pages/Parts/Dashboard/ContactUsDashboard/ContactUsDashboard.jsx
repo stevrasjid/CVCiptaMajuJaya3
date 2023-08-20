@@ -42,7 +42,7 @@ class ContactUsDashboard extends Component {
     const data = this.state;
     router.put(route("editContactUs"), data, {
       onSuccess: () => {
-        Swal.fire("Sukses", "Berhasil Di Edit", "Success");
+        Swal.fire("Sukses", "Berhasil Di Edit", "success");
         router.visit(route("dashboardContactUs"));
       },
       onError: (response) => {

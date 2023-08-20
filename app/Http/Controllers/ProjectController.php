@@ -12,6 +12,7 @@ use App\Traits\uuidFunction;
 use File;
 use Illuminate\Support\Facades\Redirect; 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -96,24 +97,15 @@ class ProjectController extends Controller
 
     //add new Project
     public function AddNewProject(Request $request){
-        $validateData = $request->validate([
-            'ProjectId' => 'nullable',
-            'ProjectCode' => 'required|string',
-            'ProjectName' => 'required|string',
-            'Description' => 'required|string',
-            'ClientName' => 'required|string',
-            'ProjectDate' => 'date',
-            'CategoryCode' => 'required',
-            'CategoryId' => 'required'
-        ]);
-        $files = $request->allFiles();
-        $project = $this->PutDataOnModel((object)$validateData); 
-        $message = $this->CheckInputData($project, $files, true);
-        
+        $request->ProjectId =  uuidFunction::NewGuid();
+        $message = $this->CheckInputData($request, true);
         if(!empty($message)){
-            return redirect()->back()->with('message', $message);
+           return redirect()->back()->withErrors([
+            'message' => $message
+           ]);
         }
-
+        $project = $this->PutDataOnModel($request); 
+        
         $projectModel = new ProjectModel([
             'ProjectId' => $project->ProjectId,
             'ProjectCode' => $project->ProjectCode,
@@ -125,31 +117,28 @@ class ProjectController extends Controller
             'CategoryId' => $project->CategoryId,
         ]);
 
-        $images = $this->SaveImageProject($projectModel, $files); //push image into image list
+        $images = null;
+        if($request->file("ImgProjects") != null){
+            $files = $request->file("ImgProjects");
+            $images = $this->SaveImageProject($projectModel, $files); //push image into image list
+        }
+        
         $projectModel->save(); //save parent
-        $projectModel->ImgProjects()->saveMany($images); //save child
+        if($images != null){
+            $projectModel->ImgProjects()->saveMany($images); //save child
+        }
 
-        return response()->json(['message' => 'Project created successfully']);
+        return redirect()->back();
     }
 
     public function EditProject (Request $request){
-        $validateData = $request->validate([
-            'ProjectId' => 'required',
-            'ProjectCode' => 'required|string',
-            'ProjectName' => 'required|string',
-            'Description' => 'required|string',
-            'ClientName' => 'required|string',
-            'ProjectDate' => 'date',
-            'CategoryCode' => 'required',
-            'CategoryId' => 'required',
-        ]);
-
-        $files = $request->allFiles();
-        $project = $this->PutDataOnModel((object)$validateData); 
-        $message = $this->CheckInputData($project, $files, false);
+        $message = $this->CheckInputData($request, false);
         if(!empty($message)){
-            return redirect()->back()->with('message', $message);
+           return redirect()->back()->withErrors([
+            'message' => $message
+           ]);
         }
+        $project = $this->PutDataOnModel($request); 
 
         $projectFromDb = ProjectModel::find($project->ProjectId);
         $projectFromDb->ProjectName = $project->ProjectName;
@@ -160,14 +149,35 @@ class ProjectController extends Controller
         $projectFromDb->CategoryId = $project->CategoryId;
         $projectFromDb->CategoryCode = $project->CategoryCode;
 
-        if($files != null){
-            $this->UndoTransaction($project->ProjectId); //hapus gambar 
+        $images = null;
+        if($request->file("ImgProjects") != null){
+            $files = $request->file("ImgProjects");
+            $this->UndoTransaction($project->ProjectId, $files); //hapus gambar
             $images = $this->SaveImageProject($project, $files); //simpan gambar baru 
-            $projectFromDb->ImgProjects()->saveMany($images); //save into database
         }
-
+        
         $projectFromDb->save();
-        return response()->json(['message' => 'Project edit successfully']);
+        if($images != null) {
+            $projectFromDb->ImgProjects()->saveMany($images); //save child
+        }
+        return redirect()->back();
+        // $files = $request->allFiles();
+        // $project = $this->PutDataOnModel((object)$validateData); 
+        // $message = $this->CheckInputData($project, $files, false);
+        // if(!empty($message)){
+        //     return redirect()->back()->with('message', $message);
+        // }
+
+       
+
+        // if($files != null){
+        //     $this->UndoTransaction($project->ProjectId); //hapus gambar 
+        //     $images = $this->SaveImageProject($project, $files); //simpan gambar baru 
+        //     $projectFromDb->ImgProjects()->saveMany($images); //save into database
+        // }
+
+        // $projectFromDb->save();
+        // return response()->json(['message' => 'Project edit successfully']);
     }
 
     public function DeleteProject($id)
@@ -185,39 +195,58 @@ class ProjectController extends Controller
         }
 
         ProjectModel::destroy($project->ProjectId);
-        return response()->json(['message' => 'Project delete successfully']);
+        return redirect()->back();
     }
 
-    private function PutDataOnModel($validateData){
+    private function PutDataOnModel($request){
         $project = new ProjectModel();
-        $project->ProjectId = $validateData->ProjectId == null ? uuidFunction::NewGuid() : $validateData->ProjectId;
-        $project->ProjectCode = strtoupper($validateData->ProjectCode);
-        $project->ProjectName = $validateData->ProjectName;
-        $project->Description = $validateData->Description;
-        $project->ClientName = $validateData->ClientName;
-        $project->ProjectDate = Carbon::createFromFormat('Y-m-d',$validateData->ProjectDate)->format('Y-m-d');
-        $project->CategoryCode = $validateData->CategoryCode;
-        $project->CategoryId = $validateData->CategoryId;
+        $project->ProjectId = $request->ProjectId;
+        $project->ProjectCode = strtoupper($request->ProjectCode);
+        $project->ProjectName = $request->ProjectName;
+        $project->Description = $request->Description;
+        $project->ClientName = $request->ClientName;
+        $project->ProjectDate = $request->ProjectDate;
+        $project->CategoryCode = $request->CategoryCode;
+        $project->CategoryId = $request->CategoryId;
 
         return $project;
     }
 
-    private function CheckInputData($project, $files, $isNew){
+    private function CheckInputData($request, $isNew){
         $message = '';
-        if(ProjectModel::where('ProjectCode',$project->ProjectCode)->where("ProjectId", "!=", $project->ProjectId)->exists()){
-            $message .= "Kode Project sudah ada, harap diganti\n";
+        $validator = Validator::make($request->all(), [
+            'ProjectId' => 'nullable',
+            'ProjectCode' => 'required|string',
+            'ProjectName' => 'required|string',
+            'Description' => 'required|string',
+            'ClientName' => 'required|string',
+            'ProjectDate' => 'date',
+            'CategoryCode' => 'required',
+            'CategoryId' => 'required'
+        ],[
+            'ProjectCode.required' => "Kode Project masih kosong, harap diisi",
+            'ProjectName.required' => "Nama Project masih kosong, harap diisi",
+            'Description.required' => "Deskripsi Project masih kosong, harap diisi",
+            'ClientName.required' => 'Nama Klien masih kosong, harap diisi',
+            'CategoryCode.required' => 'Kode Kategori belom dipilih, harap dipilih'
+        ]);
+        
+        if($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach($errors as $error){
+                $message .= $error."<br>";
+            }
         }
 
-        if($project->ProjectName == null){
-            $message .= "Nama Project kosong\n";
+        if($request->file('ImgProjects') == null && $isNew)
+        {
+            $message .= "Project harus punya min. 1 gambar <br>";
         }
 
-        if($project->ClientName == null){
-            $message .= "Nama Klien kosong\n";
-        }
-
-        if(count($files) === 0 && $isNew){
-            $message .= "Gambar Belum ada yang diupload\n";
+        if($request->ProjectCode != null){
+            if(ProjectModel::where('ProjectCode',$request->ProjectCode)->where("ProjectId", "!=", $request->ProjectId)->exists()){
+                $message .= "Kode Project sudah ada, harap diganti\n";
+            }
         }
 
         return $message;
@@ -228,7 +257,7 @@ class ProjectController extends Controller
         $images = [];
         foreach ($files as $index => $file) {
             $filePath = "/images/projects";
-            $imageName =  SaveImage($file, $project->ProjectCode.'_'.$index, $filePath);
+            $imageName =  SaveImage($file['ImgFile'], $project->ProjectCode.'_'.$index, $filePath);
             $images[] = new ImagesProjectModel([
                 'ImgProjectId' => uuidFunction::NewGuid(),
                 'ImgProject' => $imageName,
@@ -239,12 +268,17 @@ class ProjectController extends Controller
        return $images;
     }
 
-    private function UndoTransaction($id) : void {
-        $images = ImagesProjectModel::where('ProjectId',$id)->get();
-
-        if($images->isNotEmpty()) {
-            $idsToRemove = $images->pluck('ImgProjectId')->toArray();
-            ImagesProjectModel::whereIn('ImgProjectId', $idsToRemove)->delete();
+    private function UndoTransaction($id, $files) : void {
+        $idsToRemove = [];
+        foreach($files as $index => $file){
+            $image = ImagesProjectModel::where('ProjectId',$id)->where('NumberSort', $index)->first();
+            if($image != null){
+                array_push($idsToRemove, $image->ImgProjectId);
+            }
+        }
+        
+        if(count($idsToRemove) > 0) {
+            ImagesProjectModel::where('ImgProjectId', $idsToRemove)->delete();
         }
     }
 }

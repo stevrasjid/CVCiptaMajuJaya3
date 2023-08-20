@@ -3,11 +3,11 @@ import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
 import DatePicker from "react-datepicker";
 import moment from "moment/moment";
-import axios from "axios";
 import "./ProjectsDashboard.scss";
+import { router } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { Inertia } from "@inertiajs/inertia";
 
 export default class ProjectsDashboardForm extends Component {
   constructor(props) {
@@ -50,6 +50,8 @@ export default class ProjectsDashboardForm extends Component {
           },
         ],
       },
+
+      isLoading: false,
     };
   }
 
@@ -93,7 +95,7 @@ export default class ProjectsDashboardForm extends Component {
       value = target.files ? target.files[0] : target.value;
     } else {
       name = variabelName;
-      value = new Date(moment(date).format("MM/DD/YYYY"));
+      value = moment(date).format("YYYY-MM-DD");
     }
 
     this.setState({
@@ -125,47 +127,47 @@ export default class ProjectsDashboardForm extends Component {
 
   submit = (event) => {
     event.preventDefault();
+    this.setState({
+      ...this.state,
+      isLoading: true,
+    });
     const data = this.state.Project;
-    // const formData = new FormData();
-    // this.state.Project.ImgProjects.forEach((imgProject) => {
-    //   formData.append(`${imgProject.Nomor}`, imgProject.ImgFile);
-    // });
-
-    const formatDate = moment(data.ProjectDate).format("YYYY-MM-DD");
-
-    // formData.append("ProjectId", data.ProjectId);
-    // formData.append("ProjectName", data.ProjectName);
-    // formData.append("ProjectCode", data.ProjectCode);
-    // formData.append("Description", data.Description);
-    // formData.append("ClientName", data.ClientName);
-    // formData.append("ProjectDate", formatDate);
-    // formData.append("CategoryId", data.CategoryId);
-    // formData.append("CategoryCode", data.CategoryCode);
-
-    // if (data.ProjectId) {
-    //   axios.post(route("editProject"), formData, {
-    //     forceFormData: true,
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   });
-    // } else {
-    //   axios.post(route("addNewProject"), formData, {
-    //     forceFormData: true,
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   });
-    // }
-
     if (data.ProjectId) {
-      Inertia.post(
-        route("editProject"),
-        data,
-        {
-          forceFormData: true,
-          headers: { "Content-Type": "multipart/form-data" },
+      router.post(route("editProject"), data, {
+        forceFormData: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          onSuccess: () => {},
-        }
-      );
+        onSuccess: () => {
+          Swal.fire("Sukses", "Sukses Mengedit Project", "success");
+          router.visit(route("dashboardProjectList"));
+        },
+        onError: (response) => {
+          Swal.fire("Error", response.message, "error");
+          this.setState({
+            ...this.state,
+            isLoading: false,
+          });
+        },
+      });
+    } else {
+      router.post(route("addNewProject"), data, {
+        forceFormData: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onSuccess: () => {
+          Swal.fire("Sukses", "Sukses Menambah Project", "success");
+          router.visit(route("dashboardProjectList"));
+        },
+        onError: (response) => {
+          Swal.fire("Error", response.message, "error");
+          this.setState({
+            ...this.state,
+            isLoading: false,
+          });
+        },
+      });
     }
   };
 
@@ -183,120 +185,126 @@ export default class ProjectsDashboardForm extends Component {
 
     const { Categories } = this.props;
     return (
-      <section className="row col-12">
-        <form encType="multipart/form-data">
-          <div className="mb-3">
-            <label htmlFor="Kode Project" className="form-label">
-              Kode Project
-            </label>
-            <InputText
-              type="text"
-              name="ProjectCode"
-              placeholder="Kode Project"
-              onChange={this.handleInputChange}
-              value={ProjectCode}
-              disabled={ProjectId ? true : false}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="Nama Project" className="form-label">
-              Nama Project
-            </label>
-            <InputText
-              type="text"
-              name="ProjectName"
-              placeholder="Nama Project"
-              onChange={this.handleInputChange}
-              value={ProjectName}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="Deskripsi Project" className="form-label">
-              Deskripsi Project
-            </label>
-            <InputText
-              type="text"
-              name="Description"
-              placeholder="Deskripsi"
-              onChange={this.handleInputChange}
-              value={Description}
-              useTextArea
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="Nama Klien" className="form-label">
-              Nama Klien
-            </label>
-            <InputText
-              type="text"
-              name="ClientName"
-              placeholder="Nama Klien"
-              onChange={this.handleInputChange}
-              value={ClientName}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="Nama Klien" className="form-label">
-              Tanggal
-            </label>
-            <DatePicker
-              name="ProjectDate"
-              className="input-tgl"
-              onChange={(date) =>
-                this.handleInputChange(null, date, "ProjectDate")
-              }
-              value={ProjectDate}
-              selected={ProjectDate}
-            />
-          </div>
+      <>
+        {this.state.isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <section className="row col-12">
+            <form encType="multipart/form-data">
+              <div className="mb-3">
+                <label htmlFor="Kode Project" className="form-label">
+                  Kode Project
+                </label>
+                <InputText
+                  type="text"
+                  name="ProjectCode"
+                  placeholder="Kode Project"
+                  onChange={this.handleInputChange}
+                  value={ProjectCode}
+                  disabled={ProjectId ? true : false}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="Nama Project" className="form-label">
+                  Nama Project
+                </label>
+                <InputText
+                  type="text"
+                  name="ProjectName"
+                  placeholder="Nama Project"
+                  onChange={this.handleInputChange}
+                  value={ProjectName}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="Deskripsi Project" className="form-label">
+                  Deskripsi Project
+                </label>
+                <InputText
+                  type="text"
+                  name="Description"
+                  placeholder="Deskripsi"
+                  onChange={this.handleInputChange}
+                  value={Description}
+                  useTextArea
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="Nama Klien" className="form-label">
+                  Nama Klien
+                </label>
+                <InputText
+                  type="text"
+                  name="ClientName"
+                  placeholder="Nama Klien"
+                  onChange={this.handleInputChange}
+                  value={ClientName}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="Nama Klien" className="form-label">
+                  Tanggal
+                </label>
+                <DatePicker
+                  name="ProjectDate"
+                  className="input-tgl"
+                  onChange={(date) =>
+                    this.handleInputChange(null, date, "ProjectDate")
+                  }
+                  value={ProjectDate}
+                  selected={ProjectDate}
+                />
+              </div>
 
-          <div className="d-flex d-inline mb-3">
-            {Categories.map((data, i) => {
-              return (
-                <div className={`category${i != 0 ? " ps-3" : ""}`} key={i}>
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="CategoryCode"
-                    id={`CategoryCode_${i}`}
-                    autoComplete="off"
-                    value={data.CategoryCode}
-                    onChange={(e) => this.handleInputChange(e)}
-                    checked={data.CategoryCode === CategoryCode}
-                  />
-                  <label
-                    className="btn btn-outline-success"
-                    htmlFor={`CategoryCode_${i}`}
-                  >
-                    {data.CategoryName}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-          <div className="row">
-            {ImgProjects.map((data, i) => {
-              return (
-                <div className="col-4 mt-3" key={i}>
-                  <InputFile
-                    name="ImgProjects"
-                    value={data.ImgFile}
-                    previewImage={data.PreviewImage}
-                    onChange={(e) => this.handleInputChangeImage(e, i)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <button
-            type="submit"
-            onClick={this.submit}
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-        </form>
-      </section>
+              <div className="d-flex d-inline mb-3">
+                {Categories.map((data, i) => {
+                  return (
+                    <div className={`category${i != 0 ? " ps-3" : ""}`} key={i}>
+                      <input
+                        type="radio"
+                        className="btn-check"
+                        name="CategoryCode"
+                        id={`CategoryCode_${i}`}
+                        autoComplete="off"
+                        value={data.CategoryCode}
+                        onChange={(e) => this.handleInputChange(e)}
+                        checked={data.CategoryCode === CategoryCode}
+                      />
+                      <label
+                        className="btn btn-outline-success"
+                        htmlFor={`CategoryCode_${i}`}
+                      >
+                        {data.CategoryName}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="row">
+                {ImgProjects.map((data, i) => {
+                  return (
+                    <div className="col-4 mt-3" key={i}>
+                      <InputFile
+                        name="ImgProjects"
+                        value={data.ImgFile}
+                        previewImage={data.PreviewImage}
+                        onChange={(e) => this.handleInputChangeImage(e, i)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                type="submit"
+                onClick={this.submit}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </form>
+          </section>
+        )}
+      </>
     );
   }
 }

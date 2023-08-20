@@ -1,4 +1,3 @@
-import { Link, Head, useForm, usePage, router } from "@inertiajs/react";
 import "./AboutUsDashboard.scss";
 import { Component } from "react";
 import { router } from "@inertiajs/react";
@@ -64,7 +63,7 @@ class AboutUsDashboard extends Component {
       },
       onSuccess: () => {
         Swal.fire("Sukses", "Berhasil diubah", "success");
-        router.visit("dashboardAboutUs");
+        router.visit(route("dashboardAboutUs"));
       },
       onError: (response) => {
         Swal.fire("Error", response.message, "error");

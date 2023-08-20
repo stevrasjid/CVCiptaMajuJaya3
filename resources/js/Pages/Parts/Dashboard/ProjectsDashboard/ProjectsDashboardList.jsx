@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Button from "@/Elements/Button/Button";
-import axios from "axios";
+import { router } from "@inertiajs/react";
 import "./ProjectsDashboard.scss";
+import Swal from "sweetalert2";
 
 export default class ProjectsDashboardList extends Component {
   constructor(props) {
@@ -9,8 +10,26 @@ export default class ProjectsDashboardList extends Component {
     this.deleteProject = this.deleteProject.bind(this);
   }
 
-  deleteProject = (e, ProjectId) => {
-    axios.delete(route("deleteProject", ProjectId));
+  deleteProject = (e, ProjectId, ProjectCode) => {
+    // axios.delete(route("deleteProject", ProjectId));
+    Swal.fire({
+      title: "Menghapus Project",
+      text: "Apakah anda yakin menghapus Project " + ProjectCode,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.delete(route("deleteProject", ProjectId, ProjectCode), {
+          onSuccess: () => {
+            Swal.fire("Sukses", "Sukses Menghapus Project", "success");
+            router.visit(route("dashboardProjectList"));
+          },
+        });
+      }
+    });
   };
 
   render() {
@@ -47,11 +66,19 @@ export default class ProjectsDashboardList extends Component {
                   <>
                     <tr key={i}>
                       <td className="img-wrapper align-middle">
-                        <img
-                          src={data.img_projects[0].ImgProject}
-                          className="card-img-top"
-                          alt="Gambar Project"
-                        />
+                        {data.img_projects.length > 0 ? (
+                          <img
+                            src={data.img_projects[0].ImgProject}
+                            className="card-img-top"
+                            alt="Gambar Project"
+                          />
+                        ) : (
+                          <img
+                            src=""
+                            className="card-img-top"
+                            alt="Gambar Project"
+                          />
+                        )}
                       </td>
                       <td className="project-input align-middle">
                         {data.ProjectCode}
@@ -70,7 +97,13 @@ export default class ProjectsDashboardList extends Component {
                         <Button
                           type="button"
                           className="btn btn-danger ms-2"
-                          onClick={(e) => this.deleteProject(e, data.ProjectId)}
+                          onClick={(e) =>
+                            this.deleteProject(
+                              e,
+                              data.ProjectId,
+                              data.ProjectCode
+                            )
+                          }
                         >
                           Delete
                         </Button>
