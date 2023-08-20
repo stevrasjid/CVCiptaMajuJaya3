@@ -161,23 +161,7 @@ class ProjectController extends Controller
             $projectFromDb->ImgProjects()->saveMany($images); //save child
         }
         return redirect()->back();
-        // $files = $request->allFiles();
-        // $project = $this->PutDataOnModel((object)$validateData); 
-        // $message = $this->CheckInputData($project, $files, false);
-        // if(!empty($message)){
-        //     return redirect()->back()->with('message', $message);
-        // }
-
        
-
-        // if($files != null){
-        //     $this->UndoTransaction($project->ProjectId); //hapus gambar 
-        //     $images = $this->SaveImageProject($project, $files); //simpan gambar baru 
-        //     $projectFromDb->ImgProjects()->saveMany($images); //save into database
-        // }
-
-        // $projectFromDb->save();
-        // return response()->json(['message' => 'Project edit successfully']);
     }
 
     public function DeleteProject($id)
@@ -185,7 +169,9 @@ class ProjectController extends Controller
         $project = ProjectModel::with('ImgProjects')->find($id);
         if(empty($project)){
             $message = "Data Project tidak ditemukan";
-            return redirect()->back()->with('message', $message);
+            return redirect()->back()->withErrors([
+                'message' => $message
+            ]);
         }
  
         foreach($project->ImgProjects as $imgProject){

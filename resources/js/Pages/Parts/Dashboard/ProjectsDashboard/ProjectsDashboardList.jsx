@@ -22,7 +22,7 @@ export default class ProjectsDashboardList extends Component {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        router.delete(route("deleteProject", ProjectId, ProjectCode), {
+        router.delete(route("deleteProject", ProjectId), {
           onSuccess: () => {
             Swal.fire("Sukses", "Sukses Menghapus Project", "success");
             router.visit(route("dashboardProjectList"));

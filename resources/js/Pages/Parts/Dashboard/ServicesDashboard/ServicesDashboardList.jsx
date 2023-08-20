@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "@/Elements/Button/Button";
-import axios from "axios";
+import { router } from "@inertiajs/react";
+import Swal from "sweetalert2";
 import "./ServicesDasboard.scss";
 
 export default class ServicesDashboardList extends Component {
@@ -9,9 +10,30 @@ export default class ServicesDashboardList extends Component {
     this.deleteService = this.deleteService.bind(this);
   }
 
-  deleteService = (e, ServiceId) => {
-    console.log(ServiceId);
-    axios.delete(route("deleteService", ServiceId));
+  deleteService = (e, ServiceId, ServiceCode) => {
+    // console.log(ServiceId);
+    // axios.delete(route("deleteService", ServiceId));
+    Swal.fire({
+      title: "Menghapus Layanan",
+      text: "Apakah anda yakin menghapus Layanan " + ServiceCode,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.delete(route("deleteService", ServiceId), {
+          onSuccess: () => {
+            Swal.fire("Sukses", "Sukses Menghapus Layanan", "success");
+            router.visit(route("dashboardServiceList"));
+          },
+          onError: (response) => {
+            Swal.fire("Gagal", response.message, "error");
+          },
+        });
+      }
+    });
   };
 
   render() {

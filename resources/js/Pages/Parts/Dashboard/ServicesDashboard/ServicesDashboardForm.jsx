@@ -1,18 +1,19 @@
 import React, { Component } from "react";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
+import Swal from "sweetalert2";
 
 export default class ServicesDashboardForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      serviceId: "",
-      serviceCode: "",
-      serviceTitle: "",
-      serviceDescription: "",
-      imgService: "",
-      previewImgService: "",
+      ServiceId: "",
+      ServiceCode: "",
+      ServiceTitle: "",
+      ServiceDescription: "",
+      ImgService: "",
+      PreviewImgService: "",
     };
   }
 
@@ -20,11 +21,11 @@ export default class ServicesDashboardForm extends Component {
     if (this.props.service) {
       const service = this.props.service;
       this.setState({
-        serviceId: service.ServiceId,
-        serviceCode: service.ServiceCode,
-        serviceTitle: service.ServiceTitle,
-        serviceDescription: service.ServiceDescription,
-        previewImgService: service.ImgService,
+        ServiceId: service.ServiceId,
+        ServiceCode: service.ServiceCode,
+        ServiceTitle: service.ServiceTitle,
+        ServiceDescription: service.ServiceDescription,
+        PreviewImgService: service.ImgService,
       });
     }
   }
@@ -43,24 +44,42 @@ export default class ServicesDashboardForm extends Component {
   submit = (event) => {
     event.preventDefault();
     const data = this.state;
-    if (data.serviceId) {
-      Inertia.post(route("editService"), data, {
+    if (data.ServiceId) {
+      router.post(route("editService"), data, {
         forceFormData: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onSuccess: () => {
+          Swal.fire("Sukses", "Sukses Mengubah Layanan", "success");
+          router.visit(route("dashboardServiceList"));
+        },
+        onError: (response) => {
+          Swal.fire("Gagal", response.message, "error");
+        },
       });
     } else {
-      Inertia.post(route("addNewService"), data, {
+      router.post(route("addNewService"), data, {
         forceFormData: true,
+        onSuccess: () => {
+          Swal.fire("Sukses", "Sukses Menambah Layanan", "success");
+          router.visit(route("dashboardServiceList"));
+        },
+        onError: (response) => {
+          Swal.fire("Gagal", response.message, "error");
+        },
       });
     }
   };
 
   render() {
     const {
-      serviceCode,
-      serviceTitle,
-      serviceDescription,
-      imgService,
-      previewImgService,
+      ServiceId,
+      ServiceCode,
+      ServiceTitle,
+      ServiceDescription,
+      ImgService,
+      PreviewImgService,
     } = this.state;
     return (
       <section className="row col-12">
@@ -71,10 +90,11 @@ export default class ServicesDashboardForm extends Component {
             </label>
             <InputText
               type="text"
-              name="serviceCode"
+              name="ServiceCode"
               placeholder="Kode Layanan"
               onChange={this.handleInputChange}
-              value={serviceCode}
+              value={ServiceCode}
+              disabled={ServiceId ? true : false}
             />
           </div>
           <div className="mb-3">
@@ -83,10 +103,10 @@ export default class ServicesDashboardForm extends Component {
             </label>
             <InputText
               type="text"
-              name="serviceTitle"
+              name="ServiceTitle"
               placeholder="Nama Layanan"
               onChange={this.handleInputChange}
-              value={serviceTitle}
+              value={ServiceTitle}
             />
           </div>
           <div className="mb-3">
@@ -95,10 +115,10 @@ export default class ServicesDashboardForm extends Component {
             </label>
             <InputText
               type="text"
-              name="serviceDescription"
+              name="ServiceDescription"
               placeholder="Deskripsi Layanan"
               onChange={this.handleInputChange}
-              value={serviceDescription}
+              value={ServiceDescription}
             />
           </div>
 
@@ -108,10 +128,10 @@ export default class ServicesDashboardForm extends Component {
             </label>
             <InputFile
               accept="image/*"
-              name="imgService"
+              name="ImgService"
               onChange={this.handleInputChange}
-              value={imgService}
-              previewImage={previewImgService}
+              value={ImgService}
+              previewImage={PreviewImgService}
             />
           </div>
           <button

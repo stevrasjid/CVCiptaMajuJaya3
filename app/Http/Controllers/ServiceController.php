@@ -7,6 +7,8 @@ use App\Models\ServiceModel;
 use Inertia\Inertia;
 use App\Traits\uuidFunction;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class ServiceController extends Controller
@@ -41,25 +43,22 @@ class ServiceController extends Controller
     }
 
     public function AddNewService(Request $request){
-        $request->validate([
-            'serviceTitle'=> 'required',
-            'serviceCode'=> 'required',
-            'serviceDescription'=>'required',
-            'imgService'=> 'required|image|mimes:jpg,png,jpeg|max:2048'
-        ]);
-        
-        $service = $this->PutDataOnModel($request);
-        $message = $this->VerifyInput($service, $request, true);
+        $request->ServiceId = uuidFunction::NewGuid();
+        $message = $this->CheckInputData($request, true);
 
         if(!empty($message)){
-            return redirect()->back()->with('message', $message);
+            return redirect()->back()->withErrors([
+                'message' => $message
+            ]);
         }
         
-        if($request->hasFile('imgService')){
-            $file = $request->file("imgService");
-            $ipAddress = GetIpAddress();
+
+        $service = $this->PutDataOnModel($request);
+
+        if($request->hasFile('ImgService')){
+            $file = $request->file("ImgService");
             $filePath = "/images/services";
-            $imageName =  SaveImage($file, $request->serviceCode, $filePath);
+            $imageName =  SaveImage($file, $service->ServiceCode, $filePath);
             $service->ImgService = $imageName;
         }
 
@@ -70,49 +69,46 @@ class ServiceController extends Controller
             'ImgService'=> $service->ImgService
         ]);
 
-        return to_route('dashboardServiceList');
+        return redirect()->back();
         
     }
 
     public function EditService(Request $request){
-        $request->validate([
-            'serviceTitle'=> 'required',
-            'serviceCode'=> 'required',
-            'serviceDescription'=>'required',
-            'imgService'=> 'nullable|image|mimes:jpg,png,jpeg'
-        ]);
+        $message = $this->CheckInputData($request, false);
+        if(!empty($message)){
+            return redirect()->back()->with([
+                'message' => $message
+            ]);
+        }
 
         $service = $this->PutDataOnModel($request);
-        $message = $this->VerifyInput($service, $request, false);
-
-        if(!empty($message)){
-            return redirect()->back()->with('message', $message);
-        }
-        if($request->hasFile('imgService')){
-            $file = $request->file("imgService");
+        if($request->hasFile('ImgService')){
+            $file = $request->file("ImgService");
             $filePath = "/images/services";
-            $imgServiceFromDb = ServiceModel::where('ServiceId',$request->serviceId)->first();
-            $imageName = SaveImage($file, $request->serviceCode, $filePath, $imgServiceFromDb->ImgService);
+            $imgServiceFromDb = ServiceModel::where('ServiceId',$service->ServiceId)->first();
+            $imageName = SaveImage($file, $service->ServiceCode, $filePath, $imgServiceFromDb->ImgService);
 
-            ServiceModel::where('ServiceId', $request->serviceId)->update([
+            ServiceModel::where('ServiceId', $service->ServiceId)->update([
                 'ImgService' => $imageName
             ]);
         }
 
-        ServiceModel::where('ServiceId', $request->serviceId)->update([
-            'ServiceTitle' => $request->serviceTitle,
-            'ServiceCode' => $request->serviceCode,
-            'ServiceDescription' => $request->serviceDescription,
+        ServiceModel::where('ServiceId', $service->ServiceId)->update([
+            'ServiceTitle' => $service->ServiceTitle,
+            'ServiceCode' => $service->ServiceCode,
+            'ServiceDescription' => $service->ServiceDescription,
         ]);
 
-        return redirect()->route('dashboardServiceList');
+        return redirect()->back();
     }
 
     public function DeleteService($id){
         $service = ServiceModel::First('ServiceId',$id);
         if(empty($service)){
-            $message = "Data service tidak ditemukan";
-            return redirect()->back()->with('message', $message);
+            $message = "Data Layanan tidak ditemukan";
+            return redirect()->back()->withErrors([
+                'message' => $message
+            ]);
         }
         $destinationPath = \base_path()."/public/images";
         if(File::exists($destinationPath.'/'.$service->ImgService)){
@@ -120,18 +116,38 @@ class ServiceController extends Controller
         }
 
         ServiceModel::destroy($id);
-        return redirect()->back()->with('message', 'Data Berhasil Di Hapus');
-
+        return redirect()->back();
     }
 
-    private function VerifyInput($service, $request, $isNew){
+    private function CheckInputData($request, $isNew){
         $message = '';
-        if(ServiceModel::where('ServiceCode',$service->ServiceCode)->where('ServiceId','!=',$service->ServiceId)->exists()){
-            $message = "Kode Service sudah ada, harap diganti \n";
+        $validator = Validator::make($request->all(), [
+            'ServiceId' => 'nullable',
+            'ServiceCode' => 'required|string',
+            'ServiceTitle' => 'required|string',
+            'ServiceDescription' => 'required|string',
+        ],[
+            'ServiceCode.required' => "Kode Layanan masih kosong, harap diisi",
+            'ServiceTitle.required' => "Nama Layanan masih kosong, harap diisi",
+            'ServiceDescription.required' => "Deskripsi Layanan masih kosong, harap diisi",
+        ]);
+        
+        if($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach($errors as $error){
+                $message .= $error."<br>";
+            }
         }
 
-        if(!($request->hasFile('imgService')) && $isNew){
-            $message = "Gambar tidak ada yang diupload \n";
+        if($request->file('ImgService') == null && $isNew)
+        {
+            $message .= "Project harus punya gambar <br>";
+        }
+
+        if($request->ServiceCode != null){
+            if(ServiceModel::where('ServiceCode',$request->ServiceCode)->where("ServiceId", "!=", $request->ServiceId)->exists()){
+                $message .= "Kode Layanan sudah ada, harap diganti <br>";
+            }
         }
 
         return $message;
@@ -139,10 +155,10 @@ class ServiceController extends Controller
 
     private function PutDataOnModel($request){
         $service = new ServiceModel();
-        $service->ServiceId = $request->serviceId == null ? uuidFunction::NewGuid() : $request->serviceId;
-        $service->ServiceTitle = $request->serviceTitle;
-        $service->ServiceDescription = $request->serviceDescription;
-        $service->ServiceCode = strtoupper($request->serviceCode);
+        $service->ServiceId = $request->ServiceId;
+        $service->ServiceTitle = $request->ServiceTitle;
+        $service->ServiceDescription = $request->ServiceDescription;
+        $service->ServiceCode = strtoupper($request->ServiceCode);
         
         return $service;
     }
