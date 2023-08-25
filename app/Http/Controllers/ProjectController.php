@@ -72,14 +72,36 @@ class ProjectController extends Controller
     }
 
     //untuk list project
-    public function DashboardProjects(){
+    public function DashboardProjects(Request $request){
+         $searchText = $request->searchText;
+         $pageSize = $request->pageSize;
+         $pageNumber = $request->pageNumber;
+
+         if(empty($pageSize)){
+            $pageSize = 10;
+         }
+         if(empty($pageNumber)){
+            $pageNumber = 1;
+         }
          $projects = ProjectModel::with(['ImgProjects' => function($query) {
             $query->where('NumberSort', '0');
-         }])->get();
- 
+         }]);
+
+         if(!empty($searchText))
+         {
+            $projects = $projects::where('ProjectName','LIKE','%'.$searchText.'%')
+            ->orWhere('ProjectCode','LIKE','%'.$searchText.'%')->getQuery();
+         }
+       
+         $projectPagination = $projects->paginate($pageSize);
+         $totalCount = ceil(count($projects->get()) / $pageSize);
          return Inertia::render('Dashboard/DashboardProjects', [
              'pathName' => '/dashboard-project-list',
-             'projects' => $projects
+             'projects' => $projectPagination,
+             'searchText' => $searchText,
+             'pageSize' => $pageSize,
+             'totalCount' => $totalCount,
+             'pageNumber' => $pageNumber
          ]);
     }
  

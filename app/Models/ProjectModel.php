@@ -27,6 +27,6 @@ class ProjectModel extends Model
     protected $primaryKey = 'ProjectId';
 
     public function ImgProjects() {
-        return $this->hasMany(ImagesProjectModel::class, 'ProjectId', 'ProjectId');
+        return $this->hasMany(ImagesProjectModel::class, 'ProjectId', 'ProjectId')->orderBy('NumberSort');
     }
 }

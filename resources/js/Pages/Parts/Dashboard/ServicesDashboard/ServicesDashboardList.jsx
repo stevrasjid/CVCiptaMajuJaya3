@@ -11,8 +11,6 @@ export default class ServicesDashboardList extends Component {
   }
 
   deleteService = (e, ServiceId, ServiceCode) => {
-    // console.log(ServiceId);
-    // axios.delete(route("deleteService", ServiceId));
     Swal.fire({
       title: "Menghapus Layanan",
       text: "Apakah anda yakin menghapus Layanan " + ServiceCode,

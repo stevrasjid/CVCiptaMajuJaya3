@@ -45,7 +45,7 @@ Route::get('/add-new-dashboard-service-form', function() {
 //=========================
     
 //dashboardProject
-Route::get('/dashboard-project-list','ProjectController@DashboardProjects')->name('dashboardProjectList');
+Route::get('/dashboard-project-list/{parameter?}','ProjectController@DashboardProjects')->name('dashboardProjectList');
 Route::get('/get-dashboard-project/{id}','ProjectController@GetProject')->name('getDashboardProject');
 Route::post('/add-new-dashboard-project','ProjectController@AddNewProject')->name('addNewProject');
 Route::post('/edit-dashboard-project', 'ProjectController@EditProject')->name('editProject');

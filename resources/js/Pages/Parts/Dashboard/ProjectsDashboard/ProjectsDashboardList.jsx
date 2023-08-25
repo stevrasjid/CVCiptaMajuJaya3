@@ -1,17 +1,33 @@
 import React, { Component } from "react";
-import Button from "@/Elements/Button/Button";
 import { router } from "@inertiajs/react";
 import "./ProjectsDashboard.scss";
 import Swal from "sweetalert2";
+
+import Button from "@/Elements/Button/Button";
+import Pagination from "@/Elements/Pagination/Pagination";
 
 export default class ProjectsDashboardList extends Component {
   constructor(props) {
     super(props);
     this.deleteProject = this.deleteProject.bind(this);
+    this.changePageSize = this.changePageSize.bind(this);
+    this.changePageNumber = this.changePageNumber.bind(this);
+
+    this.state = {
+      pageSize: this.props.pageSize,
+      searchText: this.props.searchText,
+      pageNumber: this.props.pageNumber,
+      totalCount: this.props.totalCount,
+      optionSize: [
+        { value: 5, name: "5" },
+        { value: 10, name: "10" },
+        { value: 20, name: "20" },
+        { value: 50, name: "50" },
+      ],
+    };
   }
 
   deleteProject = (e, ProjectId, ProjectCode) => {
-    // axios.delete(route("deleteProject", ProjectId));
     Swal.fire({
       title: "Menghapus Project",
       text: "Apakah anda yakin menghapus Project " + ProjectCode,
@@ -32,8 +48,46 @@ export default class ProjectsDashboardList extends Component {
     });
   };
 
+  changePageSize = (e) => {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({
+      ...this.state,
+      [name]: value,
+    });
+    const pageSize = this.state.pageSize;
+    const searchText = this.state.searchText;
+    const pageNumber = this.state.pageNumber;
+    router.visit(
+      route("dashboardProjectList", {
+        pageSize: pageSize,
+        searchText: searchText,
+        pageNumber: pageNumber,
+      })
+    );
+  };
+
+  changePageNumber = (index) => {
+    this.setState({
+      ...this.state,
+      pageNumber: index,
+    });
+    const pageSize = this.state.pageSize;
+    const searchText = this.state.searchText;
+    const pageNumber = this.state.pageNumber;
+    router.visit(
+      route("dashboardProjectList", {
+        pageSize: pageSize,
+        searchText: searchText,
+        pageNumber: pageNumber,
+      })
+    );
+  };
+
   render() {
     const { projects } = this.props;
+    const { pageNumber, optionSize, pageSize, totalCount } = this.state;
     return (
       <section className="container service-dashboard-list">
         <div className="row pt-4">
@@ -50,6 +104,19 @@ export default class ProjectsDashboardList extends Component {
             </Button>
           </div>
         </div>
+        <div className="row col-3">
+          <select
+            value={pageSize}
+            onChange={this.changePageSize}
+            name="pageNumber"
+          >
+            {optionSize.map((data, index) => (
+              <option value={data.value} key={index}>
+                {data.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="row mt-4">
           <table className="table table-striped">
             <thead>
@@ -61,7 +128,7 @@ export default class ProjectsDashboardList extends Component {
               </tr>
             </thead>
             <tbody>
-              {projects.map((data, i) => {
+              {projects.data.map((data, i) => {
                 return (
                   <>
                     <tr key={i}>
@@ -114,6 +181,13 @@ export default class ProjectsDashboardList extends Component {
               })}
             </tbody>
           </table>
+          <div className="row justify-content-center">
+            <Pagination
+              totalCount={totalCount}
+              pageNumber={pageNumber}
+              onChange={this.changePageNumber}
+            />
+          </div>
         </div>
       </section>
     );

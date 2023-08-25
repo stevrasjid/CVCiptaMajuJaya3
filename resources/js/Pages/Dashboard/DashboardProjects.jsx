@@ -20,7 +20,12 @@ export default class DashboardProjects extends Component {
         <Sidebar {...this.props} />
         <div className="container pt-4">
           {this.props.pathName === "/dashboard-project-list" ? (
-            <ProjectDashboardList projects={this.props.projects} />
+            <ProjectDashboardList
+              projects={this.props.projects}
+              searchText={this.props.searchText}
+              pageNumber={this.props.pageNumber}
+              totalCount={this.props.totalCount}
+            />
           ) : (
             <ProjectDashboardForm {...this.props} />
           )}
