@@ -22,3 +22,21 @@
 .project-input {
   font-size: 1.2rem;
 }
+
+.table {
+  td.page-size-style {
+    padding: 0 1rem 1.2rem 0;
+    .dropdown-custom {
+      .dropdown-toggle {
+        width: 100%;
+        text-align: left;
+        &::after {
+          margin-left: 75%;
+        }
+      }
+    }
+  }
+  td.search-text-style {
+    padding-bottom: 1.2rem;
+  }
+}

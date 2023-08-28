@@ -25,6 +25,7 @@ export default class DashboardProjects extends Component {
               searchText={this.props.searchText}
               pageNumber={this.props.pageNumber}
               totalCount={this.props.totalCount}
+              pageSize={this.props.pageSize}
             />
           ) : (
             <ProjectDashboardForm {...this.props} />

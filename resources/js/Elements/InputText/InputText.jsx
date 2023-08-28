@@ -12,6 +12,7 @@ export default function InputText(props) {
     outerClassname,
     useTextArea,
     disabled,
+    isSearchText,
   } = props;
 
   const [HasError, setHasError] = useState(null);
@@ -35,9 +36,39 @@ export default function InputText(props) {
     }
   };
 
-  return (
-    <div className={["mb-3", outerClassname].join(" ")}>
-      {!useTextArea ? (
+  if (isSearchText) {
+    return (
+      <div>
+        <input
+          type={type}
+          name={name}
+          pattern={pattern}
+          className={["form-control", innerClassname].join(" ")}
+          placeholder={placeHolder}
+          onChange={onChange}
+          value={value}
+        />
+        {HasError && <span className="error-helper">{HasError}</span>}
+      </div>
+    );
+  } else if (useTextArea) {
+    return (
+      <div className={["mb-3", outerClassname].join(" ")}>
+        <textarea
+          name={name}
+          pattern={pattern}
+          className={["form-control", innerClassname].join(" ")}
+          placeholder={placeHolder}
+          onChange={onChange}
+          value={value}
+          disabled={disabled}
+        />
+        {HasError && <span className="error-helper">{HasError}</span>}
+      </div>
+    );
+  } else {
+    return (
+      <div className={["mb-3", outerClassname].join(" ")}>
         <input
           type={type}
           name={name}
@@ -48,20 +79,10 @@ export default function InputText(props) {
           value={value}
           disabled={disabled}
         />
-      ) : (
-        <textarea
-          name={name}
-          pattern={pattern}
-          className={["form-control", innerClassname].join(" ")}
-          placeholder={placeHolder}
-          onChange={onChange}
-          value={value}
-        />
-      )}
-
-      {HasError && <span className="error-helper">{HasError}</span>}
-    </div>
-  );
+        {HasError && <span className="error-helper">{HasError}</span>}
+      </div>
+    );
+  }
 }
 
 InputText.defaultProps = {

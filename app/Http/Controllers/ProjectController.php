@@ -78,7 +78,7 @@ class ProjectController extends Controller
          $pageNumber = $request->pageNumber;
 
          if(empty($pageSize)){
-            $pageSize = 10;
+            $pageSize = 5;
          }
          if(empty($pageNumber)){
             $pageNumber = 1;
@@ -89,12 +89,14 @@ class ProjectController extends Controller
 
          if(!empty($searchText))
          {
-            $projects = $projects::where('ProjectName','LIKE','%'.$searchText.'%')
-            ->orWhere('ProjectCode','LIKE','%'.$searchText.'%')->getQuery();
+            $textToSearch = strtoupper($searchText);
+            $projects = $projects->where('ProjectName','LIKE','%'.$textToSearch.'%')
+            ->orWhere('ProjectCode','LIKE','%'.$textToSearch.'%');
          }
-       
-         $projectPagination = $projects->paginate($pageSize);
-         $totalCount = ceil(count($projects->get()) / $pageSize);
+
+         $totalProjects = count($projects->get());
+         $projectPagination = $projects->skip(($pageNumber-1)*$pageSize)->take($pageSize)->get();
+         $totalCount = ceil( $totalProjects / $pageSize);
          return Inertia::render('Dashboard/DashboardProjects', [
              'pathName' => '/dashboard-project-list',
              'projects' => $projectPagination,
