@@ -67,7 +67,7 @@ export default function Pagination(props) {
             className={`page-item ${pageNumber == 1 ? "disabled" : ""}`}
             onClick={(e) => handlePageChange(e, pageNumber - 1)}
           >
-            <a className="page-link" href="#" tabindex="-1">
+            <a className="page-link" href="#">
               Previous
             </a>
           </li>
@@ -80,6 +80,7 @@ export default function Pagination(props) {
             <a
               className="page-link"
               onClick={(e) => handlePageChange(e, pageNumber + 1)}
+              href="#"
             >
               Next
             </a>

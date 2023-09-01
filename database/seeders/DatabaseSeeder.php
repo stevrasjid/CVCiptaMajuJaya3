@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             AboutUsSeeder::class,
             CategoryForProjectSeeder::class,
             ServiceSeeder::class,
-            TestimonySeeder::class
+            TestimonySeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

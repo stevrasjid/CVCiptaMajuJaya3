@@ -6,13 +6,12 @@ export default function Header(props) {
   return (
     <section className="container-fluid header-section">
       <div
-        className="row col-12 "
+        className="row"
         style={{
           backgroundImage: `url("/images/imageHeader.png")`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           height: "100%",
-          width: "100vw",
         }}
       >
         <div className="col-6 row" style={{ height: "100%" }}>

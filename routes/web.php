@@ -32,7 +32,7 @@ Route::get('/dashboard-contact-us', 'ContactUsController@DashboardContactUs')->n
 Route::put('/contact-us', 'ContactUsController@edit')->name('editContactUs');
 
 //dashboardServiceList
-Route::get('/dashboard-service-list','ServiceController@DashboardServices')->name('dashboardServiceList');
+Route::get('/dashboard-service-list/{parameter?}','ServiceController@DashboardServices')->name('dashboardServiceList');
 Route::get('/get-dashboard-service/{id}','ServiceController@GetService')->name('getDashboardService');
 Route::post('/add-new-dashboard-service','ServiceController@AddNewService')->name('addNewService');
 Route::post('/edit-dashboard-service','ServiceController@EditService')->name('editService');

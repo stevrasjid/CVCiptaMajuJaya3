@@ -76,7 +76,7 @@ class ProjectController extends Controller
          $searchText = $request->searchText;
          $pageSize = $request->pageSize;
          $pageNumber = $request->pageNumber;
-
+        
          if(empty($pageSize)){
             $pageSize = 5;
          }

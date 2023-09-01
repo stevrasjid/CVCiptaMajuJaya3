@@ -13,6 +13,8 @@ export default function InputText(props) {
     useTextArea,
     disabled,
     isSearchText,
+    isFocused,
+    required,
   } = props;
 
   const [HasError, setHasError] = useState(null);
@@ -78,6 +80,7 @@ export default function InputText(props) {
           onChange={onChange}
           value={value}
           disabled={disabled}
+          isFocused={isFocused}
         />
         {HasError && <span className="error-helper">{HasError}</span>}
       </div>
@@ -91,4 +94,6 @@ InputText.defaultProps = {
   placeholder: "Type Here...",
   errorResponse: "Please match the requested format.",
   disabled: false,
+  isFocused: false,
+  required: false,
 };

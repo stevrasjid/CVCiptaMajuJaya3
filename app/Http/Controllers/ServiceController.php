@@ -24,13 +24,38 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function DashboardServices()
+    public function DashboardServices(Request $request)
     {
-         $services = ServiceModel::orderby('created_at', 'desc')->get();
-         return Inertia::render('Dashboard/DashboardServices', [
-             'pathName' => '/dashboard-service-list',
-             'services' => $services
-         ]);
+        $searchText = $request->searchText;
+        $pageSize = $request->pageSize;
+        $pageNumber = $request->pageNumber;
+
+        if(empty($pageSize)){
+           $pageSize = 5;
+        }
+        if(empty($pageNumber)){
+           $pageNumber = 1;
+        }
+         
+        $services = ServiceModel::getQuery();
+
+        if(!empty($searchText)){
+            $textToSearch = strtoupper($searchText);
+            $services = $services->where('ServiceCode', 'LIKE', '%'.$textToSearch.'%')
+            ->orWhere('ServiceTitle', 'LIKE', '%'.$textToSearch.'%');
+        }
+        $totalService = count($services->get());
+        $servicesPagination = $services->skip(($pageNumber-1)*$pageSize)->take($pageSize)->get();
+
+        $totalCount = ceil( $totalService / $pageSize);
+        return Inertia::render('Dashboard/DashboardServices', [
+            'pathName' => '/dashboard-service-list',
+            'services' => $servicesPagination,
+            'searchText' => $searchText,
+            'pageSize' => $pageSize,
+            'totalCount' => $totalCount,
+            'pageNumber' => $pageNumber
+        ]);
     }
  
 

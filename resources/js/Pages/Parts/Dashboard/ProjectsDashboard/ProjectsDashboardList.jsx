@@ -19,16 +19,22 @@ export default class ProjectsDashboardList extends Component {
 
     this.state = {
       pageSize: this.props.pageSize,
-      searchText: this.props.searchText === null ? "" : this.props.searchText,
+      searchText: !(
+        this.props.searchText === null || this.props.searchText === ""
+      )
+        ? this.props.searchText
+        : null,
       pageNumber: parseInt(this.props.pageNumber),
       totalCount: this.props.totalCount,
-      optionSize: [
-        { value: 5, name: "5" },
-        { value: 10, name: "10" },
-        { value: 20, name: "20" },
-        { value: 50, name: "50" },
-      ],
     };
+
+    this.optionSize = [
+      { value: 5, name: "5" },
+      { value: 10, name: "10" },
+      { value: 20, name: "20" },
+      { value: 50, name: "50" },
+    ];
+
     this.timeout = 0;
   }
 
@@ -111,8 +117,8 @@ export default class ProjectsDashboardList extends Component {
 
   render() {
     const { projects } = this.props;
-    const { pageNumber, optionSize, pageSize, totalCount, searchText } =
-      this.state;
+    const { pageNumber, pageSize, totalCount, searchText } = this.state;
+    const optionSize = this.optionSize;
     return (
       <section className="container service-dashboard-list">
         <div className="row pt-4">
