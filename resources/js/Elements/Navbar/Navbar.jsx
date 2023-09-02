@@ -3,6 +3,8 @@ import BrandIcon from "../BrandIcon/BrandIcon";
 import Button from "@/Elements/Button/Button";
 import "./Navbar.scss";
 import { useState } from "react";
+import { router } from "@inertiajs/react";
+import Swal from "sweetalert2";
 
 const Navbar = (props) => {
   const getNavLinkClass = (path) => {
@@ -23,6 +25,22 @@ const Navbar = (props) => {
   };
 
   window.addEventListener("scroll", changeBackground);
+
+  const logOut = (e) => {
+    Swal.fire({
+      title: "LogOut",
+      text: "Apakah anda yakin ingin keluar?",
+      icon: "Warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Keluar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.post(route("logout"));
+      }
+    });
+  };
 
   return (
     <header
@@ -69,6 +87,28 @@ const Navbar = (props) => {
                 </Button>
               </li>
             </ul>
+            {props.auth.user && (
+              <>
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <Button className="nav-link" type="link" href="/dashboard">
+                      Dashboard
+                    </Button>
+                  </li>
+                </ul>
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <Button
+                      className="nav-link"
+                      type="link"
+                      onClick={(e) => logOut(e)}
+                    >
+                      Log Out
+                    </Button>
+                  </li>
+                </ul>
+              </>
+            )}
           </div>
         </nav>
       </div>

@@ -1,11 +1,27 @@
-import { Link, Head } from "@inertiajs/react";
 import Button from "@/Elements/Button/Button";
 import "./Sidebar.scss";
-import { useState } from "react";
+import Swal from "sweetalert2";
+import { router } from "@inertiajs/react";
 
 const Sidebar = (props) => {
   const getNavLinkClass = (path) => {
     return props.pathName === path ? " active" : "";
+  };
+
+  const logOut = (e) => {
+    Swal.fire({
+      title: "LogOut",
+      text: "Apakah anda yakin ingin keluar?",
+      icon: "Warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Keluar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.post(route("logout"));
+      }
+    });
   };
 
   return (
@@ -44,6 +60,12 @@ const Sidebar = (props) => {
         className={`nav-link${getNavLinkClass("/dashboard-contact-us")}`}
       >
         <p>Hubungi Kami</p>
+      </Button>
+      <Button type="link" href={route("home")} className="nav-link">
+        <p>Tampilan Utama</p>
+      </Button>
+      <Button type="link" onClick={(e) => logOut(e)} className="nav-link">
+        <p>Log Out</p>
       </Button>
     </div>
   );

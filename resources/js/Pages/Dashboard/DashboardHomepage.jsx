@@ -6,6 +6,7 @@ import { Component } from "react";
 import React from "react";
 import Sidebar from "@/Elements/Sidebar/Sidebar";
 import Homepage from "@/Pages/Parts/Dashboard/Homepage/HomepageDashboard";
+import { router } from "@inertiajs/react";
 
 export default class DashboardHomePage extends Component {
   constructor(props) {
