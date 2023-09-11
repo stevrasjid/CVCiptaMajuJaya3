@@ -4,8 +4,7 @@ import Button from "@/Elements/Button/Button";
 import ButtonSlides from "@/Elements/ButtonSlides/ButtonSlides";
 import "./OurServicesHome.scss";
 
-
-export default function OurServicesHome(props) {
+export default function OurServicesHome({ services }) {
   return (
     <>
       <section className="container our-services">
@@ -21,13 +20,13 @@ export default function OurServicesHome(props) {
           className="d-flex flex-row services col-12"
           style={{ height: "100%" }}
         >
-          {props.services.map((data, i) => {
+          {services.map((data, i) => {
             return (
               <li
                 key={i}
                 className="flex-items p-0 col-3"
                 style={{
-                  backgroundImage: `url("images/services/${data.ImgService}")`,
+                  backgroundImage: `url(${data.ImgService})`,
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   height: "100%",

@@ -20,8 +20,8 @@ export default class ProjectsDashboardForm extends Component {
         Description: "",
         ClientName: "",
         ProjectDate: new Date(moment().format("MM/DD/YYYY")),
-        CategoryId: this.props.Categories[0].CategoryId,
-        CategoryCode: this.props.Categories[0].CategoryCode,
+        CategoryId: this.props.categories[0].CategoryId,
+        CategoryCode: this.props.categories[0].CategoryCode,
         ImgProjects: [
           {
             ImgFile: "",
@@ -56,10 +56,10 @@ export default class ProjectsDashboardForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.Project) {
-      const project = this.props.Project;
+    if (this.props.project) {
+      const project = this.props.project;
 
-      var listImg = this.state.Project.ImgProjects;
+      var listImg = this.state.project.ImgProjects;
       project.img_projects.forEach(function (img) {
         var image = listImg.filter((i) => i.Nomor == img.NumberSort);
         if (!(image === null || image === undefined)) {
@@ -109,10 +109,9 @@ export default class ProjectsDashboardForm extends Component {
 
   handleInputChangeImage = (e, nomor) => {
     const target = e.target;
-    const name = target.name;
     const file = target.files[0];
 
-    var listImg = this.state.Project.ImgProjects;
+    var listImg = this.state.project.ImgProjects;
     var img = listImg.filter((img) => img.Nomor == nomor);
     img[0].ImgFile = file;
 
@@ -131,7 +130,7 @@ export default class ProjectsDashboardForm extends Component {
       ...this.state,
       isLoading: true,
     });
-    const data = this.state.Project;
+    const data = this.state.project;
     if (data.ProjectId) {
       router.post(route("editProject"), data, {
         forceFormData: true,
@@ -183,7 +182,7 @@ export default class ProjectsDashboardForm extends Component {
       ImgProjects,
     } = this.state.Project;
 
-    const { Categories } = this.props;
+    const { categories } = this.props;
     return (
       <>
         {this.state.isLoading ? (
@@ -257,7 +256,7 @@ export default class ProjectsDashboardForm extends Component {
               </div>
 
               <div className="d-flex d-inline mb-3">
-                {Categories.map((data, i) => {
+                {categories.map((data, i) => {
                   return (
                     <div className={`category${i != 0 ? " ps-3" : ""}`} key={i}>
                       <input

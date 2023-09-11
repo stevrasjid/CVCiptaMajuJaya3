@@ -1,14 +1,41 @@
-import { Link, Head } from "@inertiajs/react";
-import Button from "@/Elements/Button/Button";
+import React, { useState } from "react";
 import ButtonSlides from "@/Elements/ButtonSlides/ButtonSlides";
+import { router } from "@inertiajs/react";
+import Pagination from "@/Elements/Pagination/Pagination";
 import "./OurProjects.scss";
 
-export default function OurProjects(props) {
+export default function OurProjects({
+  ourProjects,
+  categories,
+  category,
+  totalCount,
+  pageNumber,
+}) {
   function getYear(date) {
     var convertDate = new Date(date);
     return convertDate.getFullYear();
   }
-  console.log(props);
+
+  const [categoryFilter, setCategoryFilter] = useState(category);
+  const [pageNumberFilter, setPageNumberFilter] = useState(pageNumber);
+
+  const checkProjectBasedOnCategory = (e) => {
+    router.visit(
+      route("projects", {
+        pageNumber: pageNumberFilter,
+        categoryCode: e.target.value,
+      })
+    );
+  };
+
+  const changePageNumber = (e, index) => {
+    router.visit(
+      route("projects", {
+        pageNumber: index,
+        categoryCode: categoryFilter,
+      })
+    );
+  };
 
   return (
     <section className="container our-project-section">
@@ -18,77 +45,51 @@ export default function OurProjects(props) {
             <input
               type="radio"
               className="btn-check"
-              name="options-outlined"
-              id="success-outlined"
+              name="CategoryCode"
+              id="CategoryCode_0"
               autoComplete="off"
+              value="ALL"
+              onChange={(e) => checkProjectBasedOnCategory(e)}
+              checked={category === "ALL"}
             />
-            <label
-              className="btn btn-outline-success"
-              htmlFor="success-outlined"
-            >
+            <label className="btn btn-outline-success" htmlFor="CategoryCode_0">
               All
             </label>
           </div>
-          <div className="category ms-3">
-            <input
-              type="radio"
-              className="btn-check"
-              name="options-outlined"
-              id="success-outlined"
-              autoComplete="off"
-            />
-            <label
-              className="btn btn-outline-success"
-              htmlFor="success-outlined"
-            >
-              Tempat Hiburan
-            </label>
-          </div>
-          <div className="category ms-3">
-            <input
-              type="radio"
-              className="btn-check"
-              name="options-outlined"
-              id="success-outlined"
-              autoComplete="off"
-            />
-            <label
-              className="btn btn-outline-success"
-              htmlFor="success-outlined"
-            >
-              Tempat Tinggal
-            </label>
-          </div>
-          <div className="category ms-3">
-            <input
-              type="radio"
-              className="btn-check"
-              name="options-outlined"
-              id="success-outlined"
-              autoComplete="off"
-            />
-            <label
-              className="btn btn-outline-success"
-              htmlFor="success-outlined"
-            >
-              Restoran
-            </label>
-          </div>
+          {categories.map((data, i) => {
+            return (
+              <div className={`category ps-2`} key={i + 1}>
+                <input
+                  type="radio"
+                  className="btn-check"
+                  name="CategoryCode"
+                  id={`CategoryCode_${i + 1}`}
+                  autoComplete="off"
+                  value={data.CategoryCode}
+                  onChange={(e) => checkProjectBasedOnCategory(e)}
+                  checked={data.CategoryCode === category}
+                />
+                <label
+                  className="btn btn-outline-success"
+                  htmlFor={`CategoryCode_${i + 1}`}
+                >
+                  {data.CategoryName}
+                </label>
+              </div>
+            );
+          })}
         </div>
       </div>
-      {props.projects.map((data, i) => {
+      {ourProjects.map((data, i) => {
         return (
           <div className="row projects col-12" key={i}>
             <div className="col-6">
               <div className="row justify-content-center">
                 <div className="d-flex img-project">
-                  {data.ImageProjects.map((image, j) => {
+                  {data.img_projects.map((image, j) => {
                     return (
                       <div className="flex-item" key={j}>
-                        <img
-                          src={`/images/imgProject/${image.ImgProject}`}
-                          alt=""
-                        />
+                        <img src={image.ImgProject} alt="" />
                       </div>
                     );
                   })}
@@ -120,6 +121,13 @@ export default function OurProjects(props) {
           </div>
         );
       })}
+      <div className="row justify-content-center">
+        <Pagination
+          totalCount={totalCount}
+          pageNumber={pageNumber}
+          onClick={(e, index) => changePageNumber(e, index)}
+        />
+      </div>
     </section>
   );
 }

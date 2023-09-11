@@ -2,18 +2,15 @@ import { Link, Head } from "@inertiajs/react";
 import Button from "@/Elements/Button/Button";
 import "./OurServices.scss";
 
-export default function OurServices(props) {
+export default function OurServices({ services }) {
   return (
     <section className="container our-services-section">
-      {props.services.map((data, i) => {
+      {services.map((data, i) => {
         if (i % 2 == 0) {
           return (
             <div className="row align-items-center image-section col-12 pt-5">
               <div className="col-6 text-center image-about-us">
-                <img
-                  src={`/images/services/${data.ImgService}`}
-                  alt="Gambar About Us Home"
-                />
+                <img src={data.ImgService} alt="Gambar About Us Home" />
               </div>
               <div className="col-6 justify-content-center">
                 <div className="card ps-5">

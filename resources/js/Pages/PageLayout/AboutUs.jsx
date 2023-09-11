@@ -5,6 +5,7 @@ import React from "react";
 import Navbar from "@/Elements/Navbar/Navbar";
 import Footer from "@/Elements/Footer/Footer";
 import AboutUs from "@/Pages/Parts/AboutUs/AboutUs";
+import "../../../assets/style.scss";
 
 export default class Homepage extends Component {
   constructor(props) {
@@ -17,12 +18,15 @@ export default class Homepage extends Component {
     window.scrollTo(0, 0);
   }
 
-  render(){
+  render() {
     return (
       <>
         <Navbar {...this.props} />
-        <AboutUs refMostPicked={this.refMostPicked} {...this.props} />
-        <Footer />
+        <AboutUs
+          refMostPicked={this.refMostPicked}
+          aboutUs={this.props.aboutUs}
+        />
+        <Footer {...this.props} />
       </>
     );
   }

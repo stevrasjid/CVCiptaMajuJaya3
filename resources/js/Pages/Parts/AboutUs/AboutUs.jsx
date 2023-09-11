@@ -2,12 +2,12 @@ import { Link, Head } from "@inertiajs/react";
 import Button from "@/Elements/Button/Button";
 import "./AboutUs.scss";
 
-export default function AboutUs(props) {
+export default function AboutUs({ aboutUs }) {
   return (
     <section className="container about-us-section">
       <div className="row about-us">
         <div className="col-6 text-center">
-          <img src="/images/logoAboutUs.png" alt="Gambar About Us" />
+          <img src={aboutUs.ImgAboutUs} alt="Gambar About Us" />
         </div>
         <div className="col-6 justify-content-center description">
           <div className="card ps-5">
@@ -28,19 +28,13 @@ export default function AboutUs(props) {
           <div className="card ps-5">
             <div className="card-body">
               <h4 className="card-title text-bold">Komitmen & Keunggulan</h4>
-              <p className="card-text">
-                Selalu berusaha memberikan yang terbaik kepada seluruh konsumen
-                baik dalam ketepatan waktu dengan target yang telah ditetapkan
-                dengan memberikan hasil dan kualitas yang terbaik juga akan
-                terus mengikuti perkembangan zaman agar dapat memberikan ide
-                yang unik serta konsep yang baru kepada konsumen.
-              </p>
+              <p className="card-text">{aboutUs.Commitment}</p>
             </div>
           </div>
         </div>
         <div className="col-6 text-center">
           <img
-            src="/images/komitmenDanKeunggulanAboutUs.png"
+            src={aboutUs.ImgCommitment}
             alt="Gambar Komitmen dan Keunggulan"
           />
         </div>
@@ -56,14 +50,9 @@ export default function AboutUs(props) {
           <div className="card ps-5">
             <div className="card-body">
               <p className="card-text">
-                Visi : Menjadi perusahaan kontraktor, jasa design, dan interior
-                yang unggul dan terpercaya dalam membantu dan mewujudkan
-                keinginan serta kepuasan konsumen. <br />
+                Visi : {aboutUs.Vision} <br />
                 <br />
-                Misi : Selalu menjadi yang pertama dan terdepan untuk membantu
-                konsumen serta memberikan ide unik dan konsep yang baru serta
-                menyelesaikan pekerjaan dengan cepat dan ketepatan waktu tanpa
-                mengurangi hasil dan kualitas.
+                Misi : {aboutUs.Mission}
               </p>
             </div>
           </div>

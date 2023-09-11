@@ -23,8 +23,11 @@ export default class OurServicesLayout extends Component {
     return (
       <>
         <Navbar {...this.props} />
-        <Services refMostPicked={this.refMostPicked} {...this.props} />
-        <Footer />
+        <Services
+          refMostPicked={this.refMostPicked}
+          services={this.props.services}
+        />
+        <Footer {...this.props} />
       </>
     );
   }

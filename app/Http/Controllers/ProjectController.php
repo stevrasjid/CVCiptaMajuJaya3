@@ -6,6 +6,7 @@ use App\Http\Resources\ProjectsCollection;
 use App\Models\ProjectModel;
 use App\Models\CategoryForProjectModel;
 use App\Models\ImagesProjectModel;
+use App\Models\ContactUsModel;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Traits\uuidFunction;
@@ -19,55 +20,51 @@ class ProjectController extends Controller
     use uuidFunction;
 
     //ini untuk bagian main website
-    public function index() {
-        $projects = [
-            [
-                'ProjectId' => $this->NewGuid(),
-                'ProjectName' => 'Zentrum & Venus Cabang Bogor',
-                'Description' => 'Lorem ipsum dolor sit amet consectetur. Malesuada ultrices pulvinar leo elit dictum amet ut aenean. Parturient netus eget varius commodo posuere pellentesque neque. Nunc sit fringilla faucibus sit tempor sit et tellus in. Pretium adipiscing id non tortor accumsan odio. Ultricies vel elit ullamcorper velit ante. Lorem ipsum dolor sit amet consectetur. Malesuada ultrices pulvinar leo elit dictum amet ut aenean. Parturient netus eget varius commodo posuere pellentesque neque. Nunc sit fringilla faucibus sit tempor sit et tellus in. Pretium adipiscing id non tortor accumsan odio. Ultricies vel elit ullamcorper velit ante. Lorem ipsum dolor sit amet consectetur.',
-                'ClientName' => 'Mr. Jason',
-                "ProjectDate" => '12/12/2022',
-                "ImageProjects" => [
-                    [
-                        'ImgProject' => 'projectImg.png'
-                    ],
-                    [
-                        'ImgProject' => 'projectImg.png'
-                    ]
-                ]
-            ],
-            [
-                'ProjectId' => $this->NewGuid(),
-                'ProjectName' => 'Zentrum & Venus Cabang Bogor',
-                'Description' => 'Lorem ipsum dolor sit amet consectetur. Malesuada ultrices pulvinar leo elit dictum amet ut aenean. Parturient netus eget varius commodo posuere pellentesque neque. Nunc sit fringilla faucibus sit tempor sit et tellus in. Pretium adipiscing id non tortor accumsan odio. Ultricies vel elit ullamcorper velit ante. Lorem ipsum dolor sit amet consectetur. Malesuada ultrices pulvinar leo elit dictum amet ut aenean. Parturient netus eget varius commodo posuere pellentesque neque. Nunc sit fringilla faucibus sit tempor sit et tellus in. Pretium adipiscing id non tortor accumsan odio. Ultricies vel elit ullamcorper velit ante. Lorem ipsum dolor sit amet consectetur.',
-                'ClientName' => 'Mr. Jason',
-                "ProjectDate" => '12/12/2022',
-                "ImageProjects" => [
-                    [
-                        'ImgProject' => 'projectImg.png'
-                    ],
-                    [
-                        'ImgProject' => 'projectImg.png'
-                    ]
-                ]
-            ],
-        ];
+    public function index(Request $request) {
+        $category = $request->categoryCode;
+        $pageNumber = $request->pageNumber;
+        if(empty($category)){
+            $category = "ALL";
+        }
+        if(empty($pageNumber)){
+            $pageNumber = 1;
+        }
+        $pageSize = 5; 
 
-        // $projects = new ProjectsCollection(ProjectModel::paginate(1));
+        $projects = ProjectModel::with(['ImgProjects' => function($query) {
+            $query->orderBy('NumberSort');
+         }]);
 
-        return Inertia::render('PageLayout/OurProjectsLayout', [
+         if($category != "ALL"){
+            $projects = $projects->where('CategoryCode',$category);
+         }
+
+         $totalProjects = count($projects->get());
+         $projectPagination = $projects->skip(($pageNumber-1)*$pageSize)->take($pageSize)->orderby("ProjectDate", 'DESC')->get();
+         $totalCount = ceil($totalProjects / $pageSize);
+
+         $categories = CategoryForProjectModel::all();
+         //untuk footer
+         $contactUs = ContactUsModel::first();
+
+         return Inertia::render('PageLayout/OurProjectsLayout', [
             'pathName' => '/projects',
-            'projects' => $projects,
-        ]);
+            'projects' => $projectPagination,
+            'totalCount'=> $totalCount,
+            'contactUs'=>$contactUs,
+            'categories' => $categories,
+            'category' => $category,
+            'pageNumber' => $pageNumber
+         ]);
     }
 
     //buat form baru
     public function AddNewProjectForm() {
         $categories = CategoryForProjectModel::all();
 
-        return Inertia::render('Dashboard/DashboardProjects', [
-            'pathName' => 'add-new-dashboard-project-form',
-            'Categories' => $categories
+        return Inertia::render('Dashboard/Dashboard', [
+            'pathName' => '/add-new-dashboard-project-form',
+            'categories' => $categories
         ]);
     }
 
@@ -112,10 +109,10 @@ class ProjectController extends Controller
             $query->orderBy('NumberSort');
         }])->find($id);
         $categories = CategoryForProjectModel::all();
-        return Inertia::render('Dashboard/DashboardProjects', [
+        return Inertia::render('Dashboard/Dashboard', [
             'pathName' => 'edit-dashboard-project-form',
-            'Project' => $project,
-            'Categories' => $categories
+            'project' => $project,
+            'categories' => $categories
         ]);
     }
 

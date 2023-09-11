@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ServiceModel;
+use App\Models\ContactUsModel;
 use Inertia\Inertia;
 use App\Traits\uuidFunction;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-
-
 
 class ServiceController extends Controller
 {
@@ -17,10 +16,13 @@ class ServiceController extends Controller
 
     public function index(){
         $services = ServiceModel::all();
+         //untuk footer
+        $contactUs = ContactUsModel::first();
 
         return Inertia::render('PageLayout/OurServicesLayout', [
             'pathName' => '/services',
-            'services' => $services
+            'services' => $services,
+            'contactUs' => $contactUs
         ]);
     }
 
@@ -48,7 +50,7 @@ class ServiceController extends Controller
         $servicesPagination = $services->skip(($pageNumber-1)*$pageSize)->take($pageSize)->get();
 
         $totalCount = ceil( $totalService / $pageSize);
-        return Inertia::render('Dashboard/DashboardServices', [
+        return Inertia::render('Dashboard/Dashboard', [
             'pathName' => '/dashboard-service-list',
             'services' => $servicesPagination,
             'searchText' => $searchText,
@@ -61,8 +63,8 @@ class ServiceController extends Controller
 
     public function GetService($id){
         $service = ServiceModel::Find($id);
-        return Inertia::render('Dashboard/DashboardServices', [
-            'pathName' => 'edit-dashboard-service',
+        return Inertia::render('Dashboard/Dashboard', [
+            'pathName' => '/edit-dashboard-service',
             'service' => $service
         ]);
     }

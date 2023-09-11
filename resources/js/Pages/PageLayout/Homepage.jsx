@@ -27,16 +27,28 @@ export default class Homepage extends Component {
     return (
       <>
         <Navbar {...this.props} />
-        <Header refMostPicked={this.refMostPicked} {...this.props} />
+        <Header refMostPicked={this.refMostPicked} home={this.props.home} />
         <AboutUsHome
           refMostPicked={this.refMostPicked}
-          {...this.props.aboutUsHome}
+          aboutUsHome={this.props.aboutUsHome}
         />
-        <OurServices refMostPicked={this.refMostPicked} {...this.props} />
-        <OurProjects refMostPicked={this.refMostPicked} {...this.props} />
-        <Testimonials refMostPicked={this.refMostPicked} {...this.props} />
-        <ContactUs refMostPicked={this.refMostPicked} {...this.props} />
-        <Footer />
+        <OurServices
+          refMostPicked={this.refMostPicked}
+          services={this.props.services}
+        />
+        <OurProjects
+          refMostPicked={this.refMostPicked}
+          projects={this.props.projects}
+        />
+        <Testimonials
+          refMostPicked={this.refMostPicked}
+          testimonies={this.props.testimonies}
+        />
+        <ContactUs
+          refMostPicked={this.refMostPicked}
+          contactUs={this.props.contactUs}
+        />
+        <Footer {...this.props} />
       </>
     );
   }

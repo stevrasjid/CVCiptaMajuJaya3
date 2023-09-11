@@ -3,7 +3,7 @@ import BrandIcon from "../BrandIcon/BrandIcon";
 import Button from "@/Elements/Button/Button";
 import "./Footer.scss";
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <footer>
       <div className="container">
@@ -12,34 +12,31 @@ const Footer = () => {
             <div className="brand-icon">
               <BrandIcon isBlack />
             </div>
-            <div className="address">
-              Jl. Kh Noer Ali, Komplek Grand Kota Bintang Blok B 12-15 Lt. 8,
-              Jatisampurna - Bekasi Kota (Ruko Zentrum KTV Lounge)
-            </div>
-            <div className="email">email@email.com</div>
+            <div className="address">{props.contactUs.Address}</div>
+            <div className="email">{props.contactUs.Email}</div>
             <div className="row" style={{ paddingTop: 10 }}>
               <div className="col pe-0">
                 <Button
-                  href="https://wa.me/6289601783007"
+                  href={`https://wa.me/${props.contactUs.PhoneNumber1}`}
                   type="link"
                   isExternal
                   isPrimary
                   className="button-wa"
                 >
                   <img src="/images/waFooter.png" alt="" />
-                  <span>Robert</span>
+                  <span>{props.contactUs.Admin1}</span>
                 </Button>
               </div>
               <div className="col ps-0">
                 <Button
-                  href="https://wa.me/6289601783007"
+                  href={`https://wa.me/${props.contactUs.PhoneNumber2}`}
                   type="link"
                   isExternal
                   isPrimary
                   className="button-wa"
                 >
                   <img src="/images/waFooter.png" alt="" />
-                  <span>Stevanus</span>
+                  <span>{props.contactUs.Admin2}</span>
                 </Button>
               </div>
             </div>

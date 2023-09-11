@@ -16,11 +16,11 @@ use Inertia\Inertia;
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/services', 'ServiceController@index')->name('services');
-Route::get('/projects', 'ProjectController@index')->name('projects');
+Route::get('/projects/{parameter?}', 'ProjectController@index')->name('projects');
 Route::get('/about-us', 'AboutUsController@index')->name('aboutUs');
 
 
-// Route::get('/dashboard', function () {
+// Route::get('/dashboard', function () {   
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -48,8 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/edit-dashboard-service','ServiceController@EditService')->name('editService');
     Route::delete('delete-dashboard-service/{id}', 'ServiceController@DeleteService')->name('deleteService');
     Route::get('/add-new-dashboard-service-form', function() {
-    return Inertia::render('Dashboard/DashboardServices', [
-        'pathName' => 'add-new-dashboard-service-form'
+    return Inertia::render('Dashboard/Dashboard', [
+        'pathName' => '/add-new-dashboard-service-form'
     ]);
     })->name('newServiceForm');
     //=========================

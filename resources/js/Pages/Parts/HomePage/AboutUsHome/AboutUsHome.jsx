@@ -2,39 +2,35 @@ import { Link, Head } from "@inertiajs/react";
 import Button from "@/Elements/Button/Button";
 import "./AboutUsHome.scss";
 
-export default function AboutUsHome(props) {
+export default function AboutUsHome({ aboutUsHome }) {
   return (
     <section className="container about-us-home-section">
       <div className="row align-items-center image-section col-12">
         <div className="col-7 text-center image-about-us">
-          <img src="/images/aboutUsHome.png" alt="Gambar About Us Home" />
+          <img src={aboutUsHome.ImgAboutUsHome} alt="Gambar About Us Home" />
         </div>
         <div className="col-5 p-0" style={{ height: "80%" }}>
           <div className="card">
             <div className="card-body ">
               <h4 className="card-title text-bold">Tentang Kami</h4>
-              <p className="card-text">
-                CV Cipta Maju Jaya bergerak dalam bidang pembuatan baru,
-                renovasi, dan jasa desain interior. Berdiri sejak 2009 dengan
-                komitmen :
-              </p>
+              <p className="card-text">{aboutUsHome.DescriptionAboutUsSmall}</p>
               <div className="row col-10">
                 <div className="image col-4">
                   <img
-                    src="/images/sesuaiTarget.png"
+                    src={aboutUsHome.imgAboutUsHomeSmall1}
                     alt="Gambar Sesuai Target"
                   />
                 </div>
                 <div className="image col-4">
                   <img
-                    src="/images/tepatWaktu.png"
+                    src={aboutUsHome.imgAboutUsHomeSmall2}
                     className="ps-2"
                     alt="Gambar Tepat Waktu"
                   />
                 </div>
                 <div className="image col-4">
                   <img
-                    src="/images/hargaTerjangkau.png"
+                    src={aboutUsHome.imgAboutUsHomeSmall3}
                     alt="Gambar Harga Terjangkau"
                   />
                 </div>

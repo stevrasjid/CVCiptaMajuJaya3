@@ -3,7 +3,7 @@ import Button from "@/Elements/Button/Button";
 import ButtonSlides from "@/Elements/ButtonSlides/ButtonSlides";
 import "./OurProjectsHome.scss";
 
-const OurProjectsHome = (props) => {
+const OurProjectsHome = ({ projects }) => {
   function getYear(date) {
     var convertDate = new Date(date);
     return convertDate.getFullYear();
@@ -14,19 +14,16 @@ const OurProjectsHome = (props) => {
       <div className="row">
         <h1 className="title">Proyek Kami</h1>
       </div>
-      {props.projects.map((data, i) => {
+      {projects.map((data, i) => {
         return (
           <div className="row projects col-12" key={i}>
             <div className="col-6">
               <div className="row justify-content-center">
                 <div className="d-flex img-project">
-                  {data.ImageProjects.map((image, j) => {
+                  {data.img_projects.map((image, j) => {
                     return (
                       <div className="flex-item" key={j}>
-                        <img
-                          src={`/images/imgProject/${image.ImgProject}`}
-                          alt=""
-                        />
+                        <img src={image.ImgProject} alt="" />
                       </div>
                     );
                   })}
@@ -67,6 +64,6 @@ const OurProjectsHome = (props) => {
       </div>
     </section>
   );
-}
+};
 
 export default OurProjectsHome;

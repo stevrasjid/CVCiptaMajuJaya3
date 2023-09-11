@@ -14,7 +14,7 @@ export default class OurProjectLayout extends Component {
     this.refMostPicked = React.createRef();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     window.title = "CV Cipta Maju jaya | Home ";
     window.scrollTo(0, 0);
   }
@@ -23,8 +23,15 @@ export default class OurProjectLayout extends Component {
     return (
       <>
         <Navbar {...this.props} />
-        <OurProjects refMostPicked={this.refMostPicked} {...this.props} />
-        <Footer />
+        <OurProjects
+          refMostPicked={this.refMostPicked}
+          ourProjects={this.props.projects}
+          categories={this.props.categories}
+          category={this.props.category}
+          totalCount={this.props.totalCount}
+          pageNumber={this.props.pageNumber}
+        />
+        <Footer {...this.props} />
       </>
     );
   }

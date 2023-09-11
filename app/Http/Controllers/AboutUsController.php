@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AboutUsModel;
+use App\Models\ContactUsModel;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Validator;
 
 class AboutUsController extends Controller
 {
     public function index(){
-        $aboutUs = AboutUsModel::get([
+        $aboutUs = AboutUsModel::first([
             'AboutUsId',
             'DescriptionAboutUsFull',
             'Commitment',
@@ -18,10 +19,14 @@ class AboutUsController extends Controller
             'Mission',
             'ImgAboutUs',
         ]);
+        
+        //untuk footer
+        $contactUs = ContactUsModel::first();
 
         return Inertia::render('PageLayout/AboutUs', [
             'pathName' => '/aboutUs',
-            'aboutUs' => $aboutUs
+            'aboutUs' => $aboutUs,
+            'contactUs' => $contactUs
         ]);
     }
 
@@ -29,7 +34,7 @@ class AboutUsController extends Controller
     {
         $aboutUs = AboutUsModel::first();
 
-        return Inertia::render('Dashboard/DashboardAboutUs', [
+        return Inertia::render('Dashboard/Dashboard', [
             'pathName' => '/dashboard-about-us',
             'aboutUs' => $aboutUs
         ]);
