@@ -1,5 +1,3 @@
-import { Link, Head } from "@inertiajs/react";
-import Button from "@/Elements/Button/Button";
 import ButtonSlides from "@/Elements/ButtonSlides/ButtonSlides";
 import "./Testimonial.scss";
 

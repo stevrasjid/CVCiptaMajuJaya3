@@ -56,6 +56,13 @@ const Sidebar = (props) => {
       </Button>
       <Button
         type="link"
+        href={route("dashboardTestimonyList")}
+        className={`nav-link${getNavLinkClass("/dashboard-testimony-list")}`}
+      >
+        <p>Testimoni</p>
+      </Button>
+      <Button
+        type="link"
         href={route("dashboardContactUs")}
         className={`nav-link${getNavLinkClass("/dashboard-contact-us")}`}
       >

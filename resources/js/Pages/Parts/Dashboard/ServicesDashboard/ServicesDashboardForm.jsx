@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react";
 import InputText from "@/Elements/InputText/InputText";
 import InputFile from "@/Elements/InputFile/InputFile";
 import Swal from "sweetalert2";
+import "./ServicesDasboard.scss";
 
 export default class ServicesDashboardForm extends Component {
   constructor(props) {

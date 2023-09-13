@@ -12,6 +12,8 @@ import ProjectsDashboardForm from "../Parts/Dashboard/ProjectsDashboard/Projects
 import ProjectsDashboardList from "../Parts/Dashboard/ProjectsDashboard/ProjectsDashboardList";
 import ServicesDashboardForm from "../Parts/Dashboard/ServicesDashboard/ServicesDashboardForm";
 import ServicesDashboardList from "../Parts/Dashboard/ServicesDashboard/ServicesDashboardList";
+import TestimonyDashboardList from "../Parts/Dashboard/TestimonyDashboard/TestimonyDashboardList";
+import TestimonyDashboardForm from "../Parts/Dashboard/TestimonyDashboard/TestimonyDashboardForm";
 
 export default class DashboardAboutUs extends Component {
   constructor(props) {
@@ -63,11 +65,23 @@ export default class DashboardAboutUs extends Component {
       case "/edit-dashboard-service":
       case "/add-new-dashboard-service-form":
         return <ServicesDashboardForm service={this.props.service} />;
+      case "/dashboard-testimony-list":
+        return (
+          <TestimonyDashboardList
+            testimonies={this.props.testimonies}
+            searchText={this.props.searchText}
+            pageNumber={this.props.pageNumber}
+            totalCount={this.props.totalCount}
+            pageSize={this.props.pageSize}
+          />
+        );
+      case "/edit-dashboard-testimony":
+      case "/add-new-dashboard-testimony-form":
+        return <TestimonyDashboardForm testimony={this.props.testimony} />;
     }
   }
 
   render() {
-    // console.log(this.props.aboutUs);
     return (
       <>
         <Sidebar {...this.props} />

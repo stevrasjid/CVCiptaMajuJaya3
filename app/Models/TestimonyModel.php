@@ -13,6 +13,7 @@ class TestimonyModel extends Model
 
     protected $fillable = [
        'TestimonyId',
+       'TestimonyCode',
        'ClientName',
        'Occupation',
        'TestimonialDescription',

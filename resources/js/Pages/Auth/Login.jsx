@@ -39,7 +39,7 @@ export default function Login({ status, canResetPassword }) {
 
           <div className="form-style">
             <form onSubmit={submit}>
-              <div class="mb-3">
+              <div className="mb-3">
                 <label htmlFor="Email" className="form-label">
                   Email
                 </label>
@@ -54,7 +54,7 @@ export default function Login({ status, canResetPassword }) {
                 />
                 <InputError message={errors.email} className="mt-2" />
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 <label htmlFor="Password" className="form-label">
                   Password
                 </label>
@@ -69,7 +69,7 @@ export default function Login({ status, canResetPassword }) {
 
                 <InputError message={errors.password} className="mt-2" />
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 <label className="d-flex items-center">
                   <input
                     className="form-check-input"
@@ -84,7 +84,7 @@ export default function Login({ status, canResetPassword }) {
               <div className="mb-3">
                 <button
                   type="submit"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   disabled={processing}
                 >
                   Submit

@@ -13,19 +13,24 @@ class TestimonySeeder extends Seeder
      */
     public function run(): void
     {
-        TestimonyModel::create(
-        [
+        $testimonies = [
+            [
+            'TestimonyCode' => 'Jason1',
             'ClientName' => 'Jason',
             'Occupation' => 'Pengusaha Karaoke',
             'TestimonialDescription' => 'Pekerjaannya rapi banget, gercep, dan tepat sesuai kontrak di awal. Maju terus dan sukses selalu CV. Cipta Maju Jaya',
             'ImgClient' => 'imgClient.png',
-        ],
-        [
-            'ClientName' => 'Jason',
-            'Occupation' => 'Pengusaha Karaoke',
-            'TestimonialDescription' => 'Pekerjaannya rapi banget, gercep, dan tepat sesuai kontrak di awal. Maju terus dan sukses selalu CV. Cipta Maju Jaya',
-            'ImgClient' => 'imgClient.png',
-        ],
-    );
+            ],
+            [
+                'TestimonyCode' => 'Jason2',
+                'ClientName' => 'Jason',
+                'Occupation' => 'Pengusaha Karaoke',
+                'TestimonialDescription' => 'Pekerjaannya rapi banget, gercep, dan tepat sesuai kontrak di awal. Maju terus dan sukses selalu CV. Cipta Maju Jaya',
+                'ImgClient' => 'imgClient.png',
+            ]
+            ];
+            foreach($testimonies as $testimony){
+                TestimonyModel::create($testimony);
+            }
     }
 }

@@ -62,6 +62,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete-dashboard-project/{id}', 'ProjectController@DeleteProject')->name('deleteProject');
     Route::get('/get-category-master','ProjectController@GetMasterCategory')->name('getCategoryMaster');
     Route::get('/add-new-dashboard-project-form', 'ProjectController@AddNewProjectForm')->name('newProjectForm');
+
+    Route::get('/dashboard-testimony-list/{parameter?}','TestimonyController@DashboardTestimony')->name('dashboardTestimonyList');
+    Route::get('/get-dashboard-testimony/{id}','TestimonyController@GetTestimony')->name('getDashboardTestimony');
+    Route::post('/add-new-dashboard-testimony','TestimonyController@AddNewTestimony')->name('addNewTestimony');
+    Route::post('/edit-new-dashboard-testimony','TestimonyController@EditTestimony')->name('editTestimony');
+    Route::delete('/delete-dashboard-testimony/{id}','TestimonyController@DeleteTestimony')->name('deleteTestimony');
+    Route::get('/add-new-dashboard-testimony-form', function() {
+        return Inertia::render('Dashboard/Dashboard', [
+            'pathName' => '/add-new-dashboard-testimony-form'
+        ]);
+    })->name('newTestimonyForm');
 });
 
 require __DIR__.'/auth.php';

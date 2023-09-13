@@ -43,8 +43,8 @@ class ServiceController extends Controller
 
         if(!empty($searchText)){
             $textToSearch = strtoupper($searchText);
-            $services = $services->where('ServiceCode', 'LIKE', '%'.$textToSearch.'%')
-            ->orWhere('ServiceTitle', 'LIKE', '%'.$textToSearch.'%');
+            $services = $services->where('ServiceCode', 'ILIKE', '%'.$textToSearch.'%')
+            ->orWhere('ServiceTitle', 'ILIKE', '%'.$textToSearch.'%');
         }
         $totalService = count($services->get());
         $servicesPagination = $services->skip(($pageNumber-1)*$pageSize)->take($pageSize)->get();
@@ -79,7 +79,6 @@ class ServiceController extends Controller
             ]);
         }
         
-
         $service = $this->PutDataOnModel($request);
 
         if($request->hasFile('ImgService')){
