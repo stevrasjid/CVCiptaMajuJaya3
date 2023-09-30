@@ -1,0 +1,41 @@
+@import "../../../assets/colorVariable";
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease; /* Use transform for the slide animation */
+}
+
+.carousel-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-slide {
+  background-color: $primary;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+}

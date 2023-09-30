@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ButtonSlides from "@/Elements/ButtonSlides/ButtonSlides";
+import SliderImage from "@/Elements/SliderImage/SliderImage";
 import { router } from "@inertiajs/react";
 import Pagination from "@/Elements/Pagination/Pagination";
 import "./OurProjects.scss";
@@ -85,21 +85,23 @@ export default function OurProjects({
           <div className="row projects col-12" key={i}>
             <div className="col-6">
               <div className="row justify-content-center">
-                <div className="d-flex img-project">
-                  {data.img_projects.map((image, j) => {
+                <SliderImage imagesCarousel={data.img_projects} />
+                {/* <div className="d-flex img-project">
+                 
+                  {/* {data.img_projects.map((image, j) => {
                     return (
                       <div className="flex-item" key={j}>
                         <img src={image.ImgProject} alt="" />
                       </div>
                     );
-                  })}
-                </div>
-                <div
+                  })} *
+                </div> */}
+                {/* <div
                   className="d-flex justify-content-center"
                   style={{ paddingTop: 15 }}
                 >
                   <ButtonSlides />
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-6 card-section">

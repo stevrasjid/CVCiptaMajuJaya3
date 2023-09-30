@@ -28,7 +28,7 @@ class HomeController extends Controller
         $contactUs = ContactUsModel::first();
         $home = HomeModel::first();
         
-        $projects = ProjectModel::with('ImgProjects')->orderby('ProjectDate')->take(2)->get();
+        $projects = ProjectModel::with('ImgProjects')->orderby('ProjectDate','DESC')->take(2)->get();
         return Inertia::render('PageLayout/Homepage', [
             'pathName' => '/',
             'services' => $services,
