@@ -11,20 +11,11 @@
     padding-left: 6%;
   }
   .projects {
-    padding-top: 3%;
-
-    .img-project {
-      overflow: hidden;
-      width: 80%;
-      img {
-        height: auto;
-        width: auto;
-        object-fit: cover;
-      }
+    height: 50vh;
+    .images-wrapper {
+      height: 100%;
     }
     .card-section {
-      padding-left: 5%;
-      padding-right: 5%;
       .card {
         border: none;
         height: 100%;

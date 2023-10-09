@@ -59,7 +59,7 @@ export default class ProjectsDashboardForm extends Component {
     if (this.props.project) {
       const project = this.props.project;
 
-      var listImg = this.state.project.ImgProjects;
+      var listImg = this.state.Project.ImgProjects;
       project.img_projects.forEach(function (img) {
         var image = listImg.filter((i) => i.Nomor == img.NumberSort);
         if (!(image === null || image === undefined)) {
@@ -111,7 +111,7 @@ export default class ProjectsDashboardForm extends Component {
     const target = e.target;
     const file = target.files[0];
 
-    var listImg = this.state.project.ImgProjects;
+    var listImg = this.state.Project.ImgProjects;
     var img = listImg.filter((img) => img.Nomor == nomor);
     img[0].ImgFile = file;
 
@@ -130,7 +130,7 @@ export default class ProjectsDashboardForm extends Component {
       ...this.state,
       isLoading: true,
     });
-    const data = this.state.project;
+    const data = this.state.Project;
     if (data.ProjectId) {
       router.post(route("editProject"), data, {
         forceFormData: true,

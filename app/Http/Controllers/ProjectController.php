@@ -110,7 +110,7 @@ class ProjectController extends Controller
         }])->find($id);
         $categories = CategoryForProjectModel::all();
         return Inertia::render('Dashboard/Dashboard', [
-            'pathName' => 'edit-dashboard-project-form',
+            'pathName' => '/edit-dashboard-project-form',
             'project' => $project,
             'categories' => $categories
         ]);

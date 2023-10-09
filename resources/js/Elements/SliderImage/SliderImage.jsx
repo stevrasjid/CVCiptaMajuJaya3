@@ -4,10 +4,11 @@ import "./SliderImage.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Carousel = ({ imagesCarousel }) => {
+const Carousel = (props) => {
+  const outerClassName = props.outerClassName;
   let images = []; // Add image paths
 
-  imagesCarousel.forEach((x) => {
+  props.imagesCarousel.forEach((x) => {
     images.push(x.ImgProject);
   });
   const [currentImage, setCurrentImage] = useState(0);
@@ -21,10 +22,10 @@ const Carousel = ({ imagesCarousel }) => {
   };
 
   return (
-    <>
+    <div className={outerClassName}>
       <div className="carousel-container">
         <div
-          className="carousel-track"
+          className="carousel-track text-center"
           style={{ transform: `translateX(-${currentImage * 100}%)` }}
         >
           {images.map((image, index) => (
@@ -34,7 +35,8 @@ const Carousel = ({ imagesCarousel }) => {
           ))}
         </div>
       </div>
-      <div className="d-flex justify-content-center" style={{ paddingTop: 15 }}>
+
+      <div className="col-lg-12 text-center pt-3">
         <Button
           type="button"
           className="button-slide"
@@ -53,7 +55,7 @@ const Carousel = ({ imagesCarousel }) => {
           <FontAwesomeIcon icon={["fas", "arrow-right"]} />
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

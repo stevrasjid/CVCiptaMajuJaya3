@@ -12,27 +12,17 @@ const OurProjectsHome = ({ projects }) => {
 
   return (
     <section className="container our-project-section">
-      <div className="row">
+      <div className="row pb-3">
         <h1 className="title">Proyek Kami</h1>
       </div>
       {projects.map((data, i) => {
         return (
-          <div className="row projects col-12" key={i}>
-            <div className="col-6">
-              <div className="row justify-content-center">
-                <SliderImage imagesCarousel={data.img_projects} />
-                {/* <div className="d-flex img-project">
-                  {/* {data.img_projects.map((image, j) => {
-                    return (
-                      <div className="flex-item" key={j}>
-                        <img src={image.ImgProject} alt="" />
-                      </div>
-                    );
-                  })} 
-                </div> */}
-              </div>
-            </div>
-            <div className="col-6 card-section">
+          <div className="row projects col-lg-12 col-md-12" key={i}>
+            <SliderImage
+              imagesCarousel={data.img_projects}
+              outerClassName="col-lg-6 col-md-6 images-wrapper"
+            />
+            <div className="col-lg-6 col-md-6 card-section">
               <div className="card">
                 <div className="card-body">
                   <h3 className="card-title">{data.ProjectName}</h3>
