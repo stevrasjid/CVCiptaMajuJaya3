@@ -77,29 +77,6 @@ export default function OurServicesHome({ services }) {
             ))}
           </ul>
         </div>
-        {/* <ul
-          className="d-flex flex-row services col-12"
-          style={{ height: "100%" }}
-        >
-          {services.map((data, i) => {
-            return (
-              <li
-                key={i}
-                className="flex-items p-0 col-3"
-                style={{
-                  backgroundImage: `url(${data.ImgService})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                  height: "100%",
-                }}
-              >
-                <div className="text-center title-section">
-                  <p className="name">{data.ServiceTitle}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ul> */}
       </section>
     </>
   );

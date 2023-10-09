@@ -13,20 +13,37 @@
   }
 
   .testimonials {
-    padding: 3% 8% 0 6%;
-    .testimonial-wrapper {
-      .testimonial {
-        background-color: $secondary;
-        border-radius: 10px;
-        padding: 5rem 2.5rem;
-        .description {
-          padding: 4%;
-          font-size: 1rem;
-        }
-        .client-section {
-          font-size: 1rem;
-          .client-name {
-            margin: 0;
+    padding-top: 3%;
+    position: relative;
+    height: 75%;
+    width: 90%;
+    overflow: hidden;
+    margin-left: 3%;
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.5s ease; /* Use transform for the slide animation */
+      height: 100%;
+
+      .testimonial-wrapper {
+        .testimonial {
+          background-color: $secondary;
+          border-radius: 10px;
+          padding: 5rem 0;
+          margin: 0 1.2rem;
+          .description {
+            padding: 4%;
+            font-size: 1rem;
+          }
+          .client-section {
+            font-size: 1rem;
+            img {
+              width: 60px;
+              height: 60px;
+              border-radius: 100px;
+            }
+            .client-name {
+              margin: 0;
+            }
           }
         }
       }

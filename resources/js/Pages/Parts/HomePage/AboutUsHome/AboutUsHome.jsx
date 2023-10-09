@@ -40,7 +40,7 @@ export default function AboutUsHome({ aboutUsHome }) {
               <Button
                 className="card-link learn-more-button"
                 type="link"
-                href="/"
+                href="/about-us"
                 isPrimary
               >
                 Pelajari

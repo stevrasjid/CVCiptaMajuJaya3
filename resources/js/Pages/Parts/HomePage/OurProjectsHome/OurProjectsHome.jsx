@@ -43,7 +43,7 @@ const OurProjectsHome = ({ projects }) => {
       })}
       <div className="row" style={{ paddingTop: 30 }}>
         <div className="d-flex justify-content-center">
-          <Button type="button" isPrimary className="lainnya">
+          <Button type="link" isPrimary className="lainnya" href="/projects">
             Lainnya
           </Button>
         </div>

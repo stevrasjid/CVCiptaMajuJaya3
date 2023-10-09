@@ -54,7 +54,7 @@ const Navbar = (props) => {
           <div className="collapse navbar-collapse justify-content-end">
             <ul className="navbar-nav">
               <li className={`nav-item${getNavLinkClass("/")}`}>
-                <Button className="nav-link" type="link" href="">
+                <Button className="nav-link" type="link" href="/">
                   Beranda
                 </Button>
               </li>
