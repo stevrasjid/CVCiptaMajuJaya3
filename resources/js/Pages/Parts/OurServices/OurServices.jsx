@@ -9,10 +9,10 @@ export default function OurServices({ services }) {
         if (i % 2 == 0) {
           return (
             <div className="row align-items-center image-section col-12 pt-5">
-              <div className="col-6 text-center image-about-us">
+              <div className="col-lg-6 col-md-12 col-xs-12 text-center image-about-us">
                 <img src={data.ImgService} alt="Gambar About Us Home" />
               </div>
-              <div className="col-6 justify-content-center">
+              <div className="col-lg-6 col-md-12 col-xs-12 justify-content-center">
                 <div className="card ps-5">
                   <div className="card-body">
                     <h4 className="card-title text-bold">

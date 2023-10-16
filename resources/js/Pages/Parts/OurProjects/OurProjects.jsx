@@ -83,25 +83,15 @@ export default function OurProjects({
       {ourProjects.map((data, i) => {
         return (
           <div className="row projects col-12" key={i}>
-            <div className="col-6">
-              <div className="row justify-content-center">
-                <SliderImage imagesCarousel={data.img_projects} />
-                {/* <div className="d-flex img-project">
-                 
-                  {/* {data.img_projects.map((image, j) => {
-                    return (
-                      <div className="flex-item" key={j}>
-                        <img src={image.ImgProject} alt="" />
-                      </div>
-                    );
-                  })} *
-                </div> */}
-                {/* <div
-                  className="d-flex justify-content-center"
-                  style={{ paddingTop: 15 }}
-                >
-                  <ButtonSlides />
-                </div> */}
+            <div className="col-6" style={{ height: "100%" }}>
+              <div
+                className="row justify-content-center"
+                style={{ height: "100%" }}
+              >
+                <SliderImage
+                  imagesCarousel={data.img_projects}
+                  outerClassName="col-lg-6 col-md-6 images-wrapper"
+                />
               </div>
             </div>
             <div className="col-6 card-section">

@@ -2,13 +2,16 @@
 
 .our-services-section {
   .image-section {
-    height: 100%;
+    height: 80vh;
     width: auto;
     .image-about-us {
       height: 80%;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
       img {
         height: 100%;
+
         object-fit: cover;
       }
     }
@@ -39,6 +42,9 @@
 
         a.button-wa {
           padding: 1rem 2rem 1rem 1rem;
+          @media screen and (max-width: 1024px) {
+            padding: 1rem 1rem 1rem 1rem;
+          }
           list-style: none;
           text-decoration: none;
           background-color: $primary;
