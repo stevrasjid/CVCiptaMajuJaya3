@@ -2,7 +2,6 @@ import { Link, Head } from "@inertiajs/react";
 import Button from "@/Elements/Button/Button";
 import "./BrandIcon.scss";
 
-
 export default function BrandIcon(props) {
   if (props.isBlack) {
     return (

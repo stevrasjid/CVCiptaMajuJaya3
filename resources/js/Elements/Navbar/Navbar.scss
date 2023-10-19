@@ -4,12 +4,20 @@ header {
   position: sticky;
   z-index: 999;
   top: 0;
-  background-color: transparent;
   .navbar {
-    height: 5rem;
     z-index: 1;
+    background-color: transparent;
+
+    @media screen and (max-width: 768px) {
+      .navbar-collapse {
+        margin-top: 10px;
+      }
+    }
     .navbar-nav {
       margin-left: 40px;
+      @media screen and (max-width: 768px) {
+        margin-left: 0;
+      }
       .nav-item {
         &.active {
           a.nav-link {
@@ -24,10 +32,27 @@ header {
         }
       }
     }
-  }
-  &.header-scroll {
-    background-color: $white;
-    .navbar {
+    &.background-white {
+      background-color: $white;
+      .navbar-nav {
+        .nav-item {
+          &.active {
+            a.nav-link {
+              color: $primary;
+              font-weight: bolder;
+              -webkit-text-stroke: 0.1px $orange;
+            }
+          }
+          a.nav-link {
+            color: $black;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    &.header-scroll {
+      background-color: $white;
+
       .navbar-nav {
         a.nav-link {
           color: $black;

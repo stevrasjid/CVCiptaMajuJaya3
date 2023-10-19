@@ -13,9 +13,9 @@ const Navbar = (props) => {
 
   const [header, setHeader] = useState(false);
   const [isBlackValue, setIsBlack] = useState(false);
-
+  const [isToggle, setToggle] = useState(false);
   const changeBackground = () => {
-    if (window.scrollY >= 100) {
+    if (window.scrollY >= 100 || isToggle) {
       setHeader(true);
       setIsBlack(true);
     } else {
@@ -42,16 +42,37 @@ const Navbar = (props) => {
     });
   };
 
+  const toggleMenu = (e) => {
+    var toggle = !isToggle;
+    setToggle(toggle);
+    if (toggle) {
+      setIsBlack(true);
+    } else {
+      setIsBlack(false);
+    }
+  };
+
   return (
-    <header
-      className={`spacing-sm${
-        header || props.pathName !== "/" ? " header-scroll" : ""
-      }`}
-    >
-      <div className="container">
-        <nav className={`navbar navbar-expand-lg navbar-light`}>
+    <header className="spacing-sm">
+      <nav
+        className={`navbar navbar-expand-lg ${
+          header || props.pathName !== "/" ? "header-scroll" : ""
+        } ${isToggle ? "background-white" : ""}`}
+      >
+        <div className="container">
           <BrandIcon isBlack={props.pathName === "/" ? isBlackValue : true} />
-          <div className="collapse navbar-collapse justify-content-end">
+          <button
+            className="navbar-toggler navbar-toggler-right"
+            type="button"
+            onClick={(e) => toggleMenu(e)}
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            className={`collapse navbar-collapse justify-content-end ${
+              isToggle ? "show" : ""
+            }`}
+          >
             <ul className="navbar-nav">
               <li className={`nav-item${getNavLinkClass("/")}`}>
                 <Button className="nav-link" type="link" href="/">
@@ -110,8 +131,8 @@ const Navbar = (props) => {
               </>
             )}
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
   );
 };

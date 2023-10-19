@@ -6,8 +6,10 @@ a.brand-text-icon {
     margin-left: 0.875rem;
     align-items: center;
     font-weight: 600;
-
-    .text-white{
+    @media screen and (max-width: 321px) {
+      display: none;
+    }
+    .text-white {
       color: $white;
     }
     .text-black {

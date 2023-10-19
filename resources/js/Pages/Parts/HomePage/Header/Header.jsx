@@ -12,10 +12,12 @@ export default function Header({ home }) {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           height: "100%",
+          width: "auto",
+          backgroundPosition: "center",
         }}
       >
-        <div className="col-6 row" style={{ height: "100%" }}>
-          <div className="d-flex align-items-center tagLine-wrapper justify-content-center">
+        <div className="col-lg-5 col-md-12 col-xs-12 tagline-container">
+          <div className="d-flex tagLine-wrapper">
             <div className="flex-column">
               <div className="tagLine pb-1">
                 <h1> {home.TagLine}</h1>
@@ -29,8 +31,11 @@ export default function Header({ home }) {
             </div>
           </div>
         </div>
-        <div className="col-6 row">
-          <div className="d-flex d-inline align-items-center">
+        <div className="col-lg-7 col-md-12 col-xs-12 description-container">
+          <div
+            className="d-flex align-items-center justify-content-center"
+            style={{ height: "100%", width: "100%" }}
+          >
             <div className="yearsOfExperiences d-flex flex-column">
               <div className="angka">
                 {home.YearsExperiences}
@@ -39,6 +44,27 @@ export default function Header({ home }) {
               <div className="description">Years of Experiences</div>
             </div>
             <div className="happyCustomers ms-5 d-flex flex-column">
+              <div className="angka">
+                {home.HappyCustomers}
+                <span className="plus ps-1">+</span>
+              </div>
+              <div className="description">Happy Customers</div>
+            </div>
+          </div>
+        </div>
+        <div className="col-12 description-container-xs">
+          <div
+            className="d-flex flex-column align-items-center justify-content-center"
+            style={{ height: "100%", width: "100%" }}
+          >
+            <div className="yearsOfExperiences d-flex flex-column">
+              <div className="angka">
+                {home.YearsExperiences}
+                <span className="plus ps-1">+</span>
+              </div>
+              <div className="description">Years of Experiences</div>
+            </div>
+            <div className="happyCustomers mt-3 d-flex flex-column">
               <div className="angka">
                 {home.HappyCustomers}
                 <span className="plus ps-1">+</span>
