@@ -6,15 +6,18 @@ export default function AboutUsHome({ aboutUsHome }) {
   return (
     <section className="container about-us-home-section">
       <div className="row align-items-center image-section col-12">
-        <div className="col-7 text-center image-about-us">
+        <div className="col-lg-7 col-md-6 col-xs-12  text-center image-about-us">
           <img src={aboutUsHome.ImgAboutUsHome} alt="Gambar About Us Home" />
         </div>
-        <div className="col-5 p-0" style={{ height: "80%" }}>
+        <div
+          className="col-lg-5 col-md-6 col-xs-12 description-wrapper"
+          style={{ height: "80%" }}
+        >
           <div className="card">
             <div className="card-body ">
               <h4 className="card-title text-bold">Tentang Kami</h4>
               <p className="card-text">{aboutUsHome.DescriptionAboutUsSmall}</p>
-              <div className="row col-10">
+              <div className="row col-12">
                 <div className="image col-4">
                   <img
                     src={aboutUsHome.imgAboutUsHomeSmall1}

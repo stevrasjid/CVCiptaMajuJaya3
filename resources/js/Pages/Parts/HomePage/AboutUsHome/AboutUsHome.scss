@@ -5,46 +5,66 @@
 
   .image-section {
     height: 60vh;
+    width: inherit;
+    @media screen and (max-width: 768px) {
+      height: 80vh;
+    }
     .image-about-us {
       height: 80%;
+      @media screen and (max-width: 321px) {
+        height: 100%;
+      }
       img {
         height: 100%;
+        width: auto;
         object-fit: cover;
       }
     }
-    .card {
-      border: none;
-      height: 98%;
-      .card-body {
-        padding: 0 !important;
-
-        h4 {
-          font-weight: bold;
-          padding-bottom: 2%;
-        }
-        .card-text {
-          font-size: 1.1rem;
-          width: 75%;
-        }
+    .description-wrapper {
+      padding: 0;
+      text-align: justify;
+      @media screen and (max-width: 768px) {
+        padding: 0 6%;
       }
-      .image {
-        padding-top: 3%;
-        img {
-          height: 80%;
-        }
+      @media screen and (max-width: 426px) {
+        margin-top: 5%;
+        display: flex;
+        align-items: center;
       }
-      .card-footer {
-        background-color: $white;
+      .card {
         border: none;
-        padding: 0;
-        .learn-more-button {
-          background-color: $primary;
-          padding: 2% 2rem;
-          border-radius: 5px;
+        height: 98%;
+        .card-body {
+          padding: 0 !important;
+
+          h4 {
+            font-weight: bold;
+            padding-bottom: 2%;
+          }
+          .card-text {
+            font-size: 1.1rem;
+            // width: 75%;
+          }
+        }
+        .image {
+          padding-top: 3%;
+          img {
+            height: 80%;
+          }
+        }
+        .card-footer {
+          background-color: $white;
           border: none;
-          font-weight: bold;
-          text-decoration: none;
-          color: $black;
+          padding: 0;
+          .learn-more-button {
+            background-color: $primary;
+            padding: 2% 2rem;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            text-decoration: none;
+            color: $black;
+          }
         }
       }
     }
