@@ -90,7 +90,7 @@ export default function Login({ status, canResetPassword }) {
                   Submit
                 </button>
               </div>
-
+              {/*
               <div className="d-flex mb-2">
                 {canResetPassword && (
                   <Link href={route("password.request")}>
@@ -100,7 +100,7 @@ export default function Login({ status, canResetPassword }) {
               </div>
               <div className="d-flex">
                 <Link href={route("register")}>Not Register?</Link>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>
