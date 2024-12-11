@@ -13,7 +13,7 @@ export default function AboutUs({ aboutUs }) {
           <div className="card ps-5">
             <div className="card-body">
               <h4 className="card-title text-bold">Tentang Kami</h4>
-              <p className="card-text"></p>
+              <p className="card-text">{aboutUs.DescriptionAboutUsFull}</p>
             </div>
             <div className="card-footer d-flex d-inline">
               <Button className="button-home" isPrimary type="button">

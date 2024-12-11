@@ -12,15 +12,15 @@ class ContactUsController extends Controller
     public function DashboardContactUs()
     {
          $contactUs = ContactUsModel::first();
- 
-         return Inertia::render('Dashboard/DashboardContactUs', [
+
+         return Inertia::render('Dashboard/Dashboard', [
              'pathName' => '/dashboard-contact-us',
              'contactUs' => $contactUs
-         ]); 
+         ]);
     }
-    
-    public function edit(Request $request) 
-    {    
+
+    public function edit(Request $request)
+    {
         $message = '';
         $validator = Validator::make($request->all(), [
             'address' => 'required',

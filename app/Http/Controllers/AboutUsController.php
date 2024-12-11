@@ -18,8 +18,9 @@ class AboutUsController extends Controller
             'Vision',
             'Mission',
             'ImgAboutUs',
+            'ImgCommitment'
         ]);
-        
+
         //untuk footer
         $contactUs = ContactUsModel::first();
 
@@ -150,7 +151,7 @@ class AboutUsController extends Controller
        return redirect()->back();
     }
 
-    private function updateImageAboutUs ($file, $numberImgName) 
+    private function updateImageAboutUs ($file, $numberImgName)
     {
         $getImage = AboutUsModel::First();
         switch($numberImgName){

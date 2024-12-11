@@ -26,6 +26,7 @@ export default class OurServicesLayout extends Component {
         <Services
           refMostPicked={this.refMostPicked}
           services={this.props.services}
+          contactUs={this.props.contactUs}
         />
         <Footer {...this.props} />
       </>

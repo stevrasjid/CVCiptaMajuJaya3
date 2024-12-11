@@ -20,20 +20,20 @@ export default function AboutUsHome({ aboutUsHome }) {
               <div className="row col-12">
                 <div className="image col-4">
                   <img
-                    src={aboutUsHome.imgAboutUsHomeSmall1}
+                    src={aboutUsHome.ImgAboutUsHomeSmall1}
                     alt="Gambar Sesuai Target"
                   />
                 </div>
                 <div className="image col-4">
                   <img
-                    src={aboutUsHome.imgAboutUsHomeSmall2}
+                    src={aboutUsHome.ImgAboutUsHomeSmall2}
                     className="ps-2"
                     alt="Gambar Tepat Waktu"
                   />
                 </div>
                 <div className="image col-4">
                   <img
-                    src={aboutUsHome.imgAboutUsHomeSmall3}
+                    src={aboutUsHome.ImgAboutUsHomeSmall3}
                     alt="Gambar Harga Terjangkau"
                   />
                 </div>

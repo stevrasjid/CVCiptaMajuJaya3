@@ -84,9 +84,11 @@ export default class DashboardAboutUs extends Component {
   render() {
     return (
       <>
-        <Sidebar {...this.props} />
-        <div className="container ps-5 pt-4">
-          {this.renderSwitch(this.props.pathName)}
+        <div className="d-flex" style={{ minHeight: "100vh" }}>
+          <Sidebar {...this.props} />
+          <div className="container px-5 pt-4 ms-4">
+            {this.renderSwitch(this.props.pathName)}
+          </div>
         </div>
       </>
     );
